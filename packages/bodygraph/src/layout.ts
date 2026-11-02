@@ -142,37 +142,41 @@ function shape(id: CenterId, kind: CenterShape['kind'], points: Point[], radius 
   return { id, kind, points, d: roundedPolygon(points, radius), center: centroid(points) };
 }
 
+// Milza e Plesso Solare: triangoli speculari con il vertice rivolto verso il centro del corpo.
+// Lato esterno verticale (x = 16 / 384), lato superiore lungo (porte verso Gola, G, Cuore, Sacrale)
+// e lato inferiore più corto e piatto (porte verso la Radice).
+const SPLEEN = {
+  outerTop: [16, 392],
+  outerBottom: [16, 528],
+  apex: [122, 498],
+} as const satisfies Record<string, Point>;
+const mirror = (p: Point): Point => [VIEWBOX.width - p[0], p[1]];
+const SOLAR = {
+  outerTop: mirror(SPLEEN.outerTop),
+  outerBottom: mirror(SPLEEN.outerBottom),
+  apex: mirror(SPLEEN.apex),
+};
+
 // prettier-ignore
 export const CENTER_SHAPES: Readonly<Record<CenterId, CenterShape>> = {
   head: shape('head', 'triangle', [[200, 12], [240, 76], [160, 76]]),
   ajna: shape('ajna', 'triangle', [[155, 120], [245, 120], [200, 186]]),
   throat: shape('throat', 'square', rect(152, 232, 96, 66)),
-  g: shape('g', 'diamond', [[200, 328], [248, 372], [200, 416], [152, 372]]),
-  heart: shape('heart', 'triangle', [[286, 362], [314, 416], [258, 416]], 5),
-  spleen: shape('spleen', 'triangle', [[16, 380], [16, 508], [122, 508]], 16),
-  solarPlexus: shape('solarPlexus', 'triangle', [[384, 380], [384, 508], [278, 508]], 16),
-  sacral: shape('sacral', 'square', rect(144, 452, 112, 62)),
-  root: shape('root', 'square', rect(86, 560, 228, 62)),
+  g: shape('g', 'diamond', [[200, 334], [248, 378], [200, 422], [152, 378]]),
+  heart: shape('heart', 'triangle', [[290, 362], [318, 416], [262, 416]], 5),
+  spleen: shape('spleen', 'triangle', [SPLEEN.outerTop, SPLEEN.outerBottom, SPLEEN.apex], 9),
+  solarPlexus: shape('solarPlexus', 'triangle', [SOLAR.outerTop, SOLAR.outerBottom, SOLAR.apex], 9),
+  sacral: shape('sacral', 'square', rect(144, 464, 112, 60)),
+  root: shape('root', 'square', rect(94, 568, 212, 52)),
 };
 
 // ───────────────────────────── Porte ─────────────────────────────
 
-const SPLEEN_HYP = (t: number): Point => lerp([16, 380], [122, 508], t);
-const SP_HYP = (t: number): Point => lerp([384, 380], [278, 508], t);
-
-// Le porte di Milza/Plesso Solare sono sulla ipotenusa (verso gola/G/cuore/sacrale) e sul lato inferiore (verso radice).
-const spleenTop = {
-  48: SPLEEN_HYP(0.1),
-  57: SPLEEN_HYP(0.3),
-  44: SPLEEN_HYP(0.56),
-  50: SPLEEN_HYP(0.84),
-};
-const spTop = {
-  36: SP_HYP(0.1),
-  22: SP_HYP(0.3),
-  37: SP_HYP(0.56),
-  6: SP_HYP(0.84),
-};
+// Lato superiore (outerTop → apex) e inferiore (outerBottom → apex) dei due triangoli laterali.
+const spleenTop = (t: number): Point => lerp(SPLEEN.outerTop, SPLEEN.apex, t);
+const spleenBottom = (t: number): Point => lerp(SPLEEN.outerBottom, SPLEEN.apex, t);
+const solarTop = (t: number): Point => lerp(SOLAR.outerTop, SOLAR.apex, t);
+const solarBottom = (t: number): Point => lerp(SOLAR.outerBottom, SOLAR.apex, t);
 
 /** Posizione (centro del cerchietto) delle 64 porte, sul bordo del proprio centro. */
 // prettier-ignore
@@ -184,62 +188,58 @@ export const GATE_POSITIONS: Readonly<Record<Gate, Point>> = {
   17: lerp([155, 120], [200, 186], 22 / 45), 43: [200, 186], 11: lerp([245, 120], [200, 186], 22 / 45),
   // Gola
   62: [177, 232], 23: [200, 232], 56: [223, 232],
-  35: [248, 244], 12: [248, 265], 45: [248, 286],
+  35: [248, 240], 12: [248, 262], 45: [248, 288],
   33: [223, 298], 8: [200, 298], 31: [177, 298],
-  16: [152, 250], 20: [152, 276],
+  16: [152, 240], 20: [152, 288],
   // Centro G
-  1: [200, 328],
-  7: lerp([200, 328], [152, 372], 23 / 48), 13: lerp([200, 328], [248, 372], 23 / 48),
-  10: [152, 372], 25: [248, 372],
-  15: lerp([200, 416], [152, 372], 23 / 48), 46: lerp([200, 416], [248, 372], 23 / 48),
-  2: [200, 416],
+  1: [200, 334],
+  7: lerp([200, 334], [152, 378], 23 / 48), 13: lerp([200, 334], [248, 378], 23 / 48),
+  10: [152, 378], 25: [248, 378],
+  15: lerp([200, 422], [152, 378], 23 / 48), 46: lerp([200, 422], [248, 378], 23 / 48),
+  2: [200, 422],
   // Cuore
-  21: [286, 362], 51: [272, 389], 40: [300, 389], 26: [286, 416],
+  21: [290, 362], 51: lerp([290, 362], [262, 416], 0.5), 40: lerp([290, 362], [318, 416], 0.7), 26: [290, 416],
   // Sacrale
-  34: [154, 452], 5: [177, 452], 14: [200, 452], 29: [223, 452],
-  27: [144, 483], 59: [256, 483],
-  42: [177, 514], 3: [200, 514], 9: [223, 514],
-  // Milza
-  ...spleenTop,
-  18: [46, 508], 28: [72, 508], 32: [98, 508],
-  // Plesso Solare
-  ...spTop,
-  49: [302, 508], 55: [328, 508], 30: [354, 508],
+  34: [152, 464], 5: [177, 464], 14: [200, 464], 29: [223, 464],
+  27: [144, 494], 59: [256, 494],
+  42: [177, 524], 3: [200, 524], 9: [223, 524],
+  // Milza: lato superiore 48 57 44 50 (dall'esterno verso il vertice), lato inferiore 18 28 32
+  48: spleenTop(0.09), 57: spleenTop(0.28), 44: spleenTop(0.481), 50: spleenTop(0.86),
+  18: spleenBottom(0.283), 28: spleenBottom(0.5), 32: spleenBottom(0.717),
+  // Plesso Solare (speculare): 36 22 37 6 in alto, 30 55 49 in basso
+  36: solarTop(0.09), 22: solarTop(0.24), 37: solarTop(0.38), 6: solarTop(0.86),
+  30: solarBottom(0.283), 55: solarBottom(0.5), 49: solarBottom(0.717),
   // Radice (alto, da sinistra: 58 38 54 | 53 60 52 | 19 39 41)
-  58: [108, 560], 38: [131, 560], 54: [154, 560],
-  53: [177, 560], 60: [200, 560], 52: [223, 560],
-  19: [246, 560], 39: [269, 560], 41: [292, 560],
+  58: [108, 568], 38: [131, 568], 54: [154, 568],
+  53: [177, 568], 60: [200, 568], 52: [223, 568],
+  19: [246, 568], 39: [269, 568], 41: [292, 568],
 };
 
 // ───────────────────────────── Canali ─────────────────────────────
 
 /** Punti intermedi (dalla porta minore alla maggiore) e raggio di curvatura per i canali non rettilinei. */
 const ROUTES: Partial<Record<ChannelId, { via: Point[]; radius?: number }>> = {
-  // Integrazione
+  // Integrazione. 10-20, 10-34, 10-57 e 20-57 sono rettilinei; 20-34 e 34-57 hanno un percorso proprio.
+  // 20-34: scende a sinistra del G (a 20 unità dal vertice 10) e rientra in 34 da sinistra.
   '20-34': {
     via: [
-      [140, 298],
-      [138, 330],
-      [138, 410],
-      [146, 436],
-    ],
-    radius: 26,
-  },
-  '34-57': {
-    via: [
-      [136, 444],
-      [124, 428],
-      [100, 420],
+      [132, 338],
+      [132, 440],
     ],
     radius: 18,
   },
-  // attraversa lo spazio tra centro G e sacrale
-  '26-44': {
+  // 34-57: esce da 34 verso sinistra, risale in verticale (taglia 26-44 ad angolo retto) e raggiunge 57.
+  '34-57': {
     via: [
-      [266, 434],
-      [98, 434],
+      [112, 464],
+      [112, 426],
     ],
-    radius: 20,
+    radius: 19,
+  },
+  // attraversa il corpo sotto il G (e sopra le porte 5, 14, 29 del Sacrale)
+  '26-44': {
+    via: [[290, 443]],
+    radius: 13,
   },
 };
 

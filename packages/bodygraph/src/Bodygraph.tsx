@@ -279,7 +279,7 @@ export function Bodygraph({
                     <path
                       d={stripPath(id, half, 0)}
                       stroke={INACTIVE}
-                      strokeWidth={CHANNEL_WIDTH - 1.5}
+                      strokeWidth={CHANNEL_WIDTH - 0.5}
                     />
                     {gateLayers.map((layer, i) => {
                       const delay = animate ? animIndex * 18 : 0;

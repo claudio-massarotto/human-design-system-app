@@ -5,6 +5,7 @@ import {
   CENTER_SHAPES,
   CHANNEL_GEOMETRY,
   GATE_POSITIONS,
+  CHANNEL_WIDTH,
   GATE_RADIUS,
   VIEWBOX,
   type Point,
@@ -19,10 +20,9 @@ const inside = (p: Point, margin = 0): boolean =>
 function distanceToSegment(p: Point, a: Point, b: Point): number {
   const dx = b[0] - a[0];
   const dy = b[1] - a[1];
-  const t = Math.max(
-    0,
-    Math.min(1, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / (dx * dx + dy * dy)),
-  );
+  const len2 = dx * dx + dy * dy;
+  const t =
+    len2 === 0 ? 0 : Math.max(0, Math.min(1, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / len2));
   return Math.hypot(p[0] - (a[0] + t * dx), p[1] - (a[1] + t * dy));
 }
 
@@ -163,5 +163,81 @@ describe('layout: canali', () => {
         expect(d, `${ids[i]} / ${ids[j]}`).toBeGreaterThan(10);
       }
     }
+  });
+
+  it('nessuna porta è coperta da un canale che non le appartiene', () => {
+    for (const channel of CHANNELS) {
+      const g = CHANNEL_GEOMETRY[channel.id]!;
+      for (const [gate, pos] of Object.entries(GATE_POSITIONS)) {
+        if (channel.gates.includes(Number(gate))) continue;
+        const d = Math.min(
+          ...g.points.slice(1).map((b, i) => distanceToSegment(pos, g.points[i]!, b)),
+        );
+        expect(d, `canale ${channel.id} su porta ${gate}`).toBeGreaterThan(
+          GATE_RADIUS + CHANNEL_WIDTH / 2,
+        );
+      }
+    }
+  });
+
+  it('i canali dell’Integrazione non hanno tratti coincidenti', () => {
+    const ids = ['10-20', '10-34', '10-57', '20-34', '20-57', '34-57'] as const;
+    const dense = (pts: readonly Point[]): Point[] => {
+      const out: Point[] = [];
+      for (let i = 1; i < pts.length; i++) {
+        const a = pts[i - 1]!;
+        const b = pts[i]!;
+        const n = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1])));
+        for (let k = 0; k < n; k++)
+          out.push([a[0] + ((b[0] - a[0]) * k) / n, a[1] + ((b[1] - a[1]) * k) / n]);
+      }
+      return out;
+    };
+    for (let i = 0; i < ids.length; i++) {
+      for (let j = i + 1; j < ids.length; j++) {
+        const a = CHANNEL_GEOMETRY[ids[i]!]!;
+        const b = CHANNEL_GEOMETRY[ids[j]!]!;
+        const shared = a.gates.filter((x) => b.gates.includes(x));
+        let close = 0;
+        for (const p of dense(a.points)) {
+          // vicino alla porta in comune i canali si aprono a ventaglio
+          if (
+            shared.some(
+              (x) => Math.hypot(p[0] - GATE_POSITIONS[x]![0], p[1] - GATE_POSITIONS[x]![1]) < 26,
+            )
+          )
+            continue;
+          const d = Math.min(
+            ...b.points.slice(1).map((q, k) => distanceToSegment(p, b.points[k]!, q)),
+          );
+          if (d < CHANNEL_WIDTH * 1.2) close++;
+        }
+        // al massimo un incrocio (a ≥ 40°), mai un tratto affiancato
+        expect(close, `${ids[i]} / ${ids[j]}`).toBeLessThanOrEqual(30);
+      }
+    }
+  });
+
+  it('Milza e Plesso Solare sono triangoli speculari con il vertice verso il centro', () => {
+    const { spleen, solarPlexus } = CENTER_SHAPES;
+    expect(spleen.points).toHaveLength(3);
+    expect(solarPlexus.points).toHaveLength(3);
+    const apexOf = (pts: readonly Point[], dir: 1 | -1) =>
+      pts.reduce((m, p) => (p[0] * dir > m[0] * dir ? p : m));
+    const sApex = apexOf(spleen.points, 1);
+    const pApex = apexOf(solarPlexus.points, -1);
+    expect(sApex[0] + pApex[0]).toBeCloseTo(VIEWBOX.width);
+    expect(sApex[1]).toBeCloseTo(pApex[1]);
+    // porte sul lato superiore (dall'esterno verso il vertice) e su quello inferiore
+    const ys = (gates: number[]) => gates.map((g) => GATE_POSITIONS[g]![1]);
+    for (const top of [
+      [48, 57, 44, 50],
+      [36, 22, 37, 6],
+    ]) {
+      expect(ys(top)).toEqual([...ys(top)].sort((x, y) => x - y));
+    }
+    const xs = (gates: number[]) => gates.map((g) => GATE_POSITIONS[g]![0]);
+    expect(xs([18, 28, 32])).toEqual([...xs([18, 28, 32])].sort((x, y) => x - y));
+    expect(xs([30, 55, 49])).toEqual([...xs([30, 55, 49])].sort((x, y) => y - x));
   });
 });

@@ -156,6 +156,7 @@ export function BirthForm({ initial, submitLabel, onSubmit, onCancel }: BirthFor
             touch('place');
           }}
           error={errorFor('place')}
+          date={values.date}
         />
 
         <Field label={t('form.notes')} hint={t('form.notesHint')} error={errorFor('notes')}>

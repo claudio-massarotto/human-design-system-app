@@ -25,3 +25,7 @@ __pycache__/
 .idea/
 .vscode/*
 !.vscode/extensions.json
+
+# gstack (report locali)
+.gstack/
+.claude/

@@ -22,13 +22,16 @@ export interface PlaceFieldProps {
   onChange(place: Place | null): void;
   /** Messaggio di errore già localizzato. */
   error?: string;
+  /** Data di nascita 'YYYY-MM-DD': l'offset mostrato è quello in vigore quel giorno. */
+  date?: string;
 }
 
-/** Fuso con offset corrente, es. "Europe/Rome (UTC+01:00)". */
-function tzLabel(tz: string): string {
+/** Fuso con l'offset in vigore alla data indicata (o oggi), es. "Europe/Rome · UTC+02:00". */
+function tzLabel(tz: string, date?: string): string {
+  const at = date && /^\d{4}-\d{2}-\d{2}$/.test(date) ? new Date(`${date}T12:00:00Z`) : new Date();
   try {
     const parts = new Intl.DateTimeFormat('en', { timeZone: tz, timeZoneName: 'longOffset' })
-      .formatToParts(new Date())
+      .formatToParts(Number.isNaN(at.getTime()) ? new Date() : at)
       .find((p) => p.type === 'timeZoneName')?.value;
     return parts ? `${tz} · ${parts.replace('GMT', 'UTC')}` : tz;
   } catch {
@@ -40,7 +43,7 @@ function tzLabel(tz: string): string {
  * Ricerca città (Open-Meteo) con risultati e fuso mostrato, oppure inserimento manuale
  * di coordinate e fuso IANA. Si invia solo il testo cercato, mai data/ora.
  */
-export function PlaceField({ value, onChange, error }: PlaceFieldProps) {
+export function PlaceField({ value, onChange, error, date }: PlaceFieldProps) {
   const { t } = useTranslation('people');
   const locale = useLocale();
   const [query, setQuery] = useState('');
@@ -95,7 +98,7 @@ export function PlaceField({ value, onChange, error }: PlaceFieldProps) {
               {formatPlace(value)}
             </p>
             <p className="break-anywhere text-[13px] text-muted">
-              {tzLabel(value.timezone)} · {value.latitude.toFixed(2)}°, {value.longitude.toFixed(2)}
+              {tzLabel(value.timezone, date)} · {value.latitude.toFixed(2)}°, {value.longitude.toFixed(2)}
               °
             </p>
           </div>
@@ -196,7 +199,7 @@ export function PlaceField({ value, onChange, error }: PlaceFieldProps) {
                     ` — ${[g.admin1, g.country].filter(Boolean).join(', ')}`}
                 </span>
               </span>
-              <span className="text-[13px] text-muted">{tzLabel(g.timezone)}</span>
+              <span className="text-[13px] text-muted">{tzLabel(g.timezone, date)}</span>
             </li>
           ))}
           {search.status === 'success' && search.results.length === 0 && (

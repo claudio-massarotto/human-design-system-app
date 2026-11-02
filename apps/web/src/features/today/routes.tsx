@@ -1,4 +1,4 @@
-// STUB della funzionalità "Oggi + Connessione" — vedi src/features/README.md.
+// Oggi (transiti) e Connessione (tra due persone). Vedi src/features/README.md.
 import type { RouteObject } from 'react-router';
 
 export const routes: RouteObject[] = [
@@ -8,6 +8,6 @@ export const routes: RouteObject[] = [
   },
   {
     path: 'connessione',
-    lazy: async () => ({ Component: (await import('./TodayPage')).ConnectionPage }),
+    lazy: async () => ({ Component: (await import('./ConnectionPage')).ConnectionPage }),
   },
 ];

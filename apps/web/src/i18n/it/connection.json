@@ -1,0 +1,80 @@
+{
+  "title": "Connessione",
+  "subtitle": "Come si combinano i chart di due persone: un modo per osservare le dinamiche, non per giudicarle.",
+  "footnote": "Questa lettura descrive come le energie di due chart si incontrano secondo il sistema Human Design. Non misura la compatibilità né il valore di una relazione: un legame è molto più di un chart, ed è fatto di scelte, ascolto e tempo.",
+  "empty": {
+    "title": "Servono due persone per una connessione",
+    "none": "Aggiungi due chart per vedere come si incontrano le loro energie.",
+    "one": "Hai un solo chart salvato. Aggiungi un partner, un familiare o un amico per vedere la connessione.",
+    "action": "Aggiungi una persona"
+  },
+  "picker": {
+    "a": "Persona A",
+    "b": "Persona B",
+    "swap": "Inverti A e B"
+  },
+  "bodygraph": {
+    "title": "Bodygraph di connessione tra {{a}} e {{b}}"
+  },
+  "legend": {
+    "label": "Legenda dei colori",
+    "together": "Centro definito solo insieme"
+  },
+  "theme": {
+    "title": "Tema di connessione",
+    "aria": "Centri definiti: {{defined}}, centri aperti: {{open}}",
+    "counts": "centri definiti: {{defined}} · centri aperti: {{open}}",
+    "bucket": {
+      "veryDefined": "Insieme avete quasi tutti i centri definiti: la coppia ha molta energia propria e un'identità forte come unità. È una grande risorsa; vale la pena lasciare spazio a ciò che arriva da fuori.",
+      "defined": "La maggior parte dei centri è definita: c'è una base solida e riconoscibile, con alcuni punti aperti in cui restate ricettivi a ciò che vi circonda.",
+      "balanced": "Definizione e apertura si bilanciano: in alcune aree siete stabili, in altre più sensibili all'ambiente e ai cambiamenti.",
+      "open": "Molti centri restano aperti: insieme siete molto sensibili all'ambiente e alle persone intorno, con una grande capacità di adattarvi. Scegliere con cura i contesti può aiutare."
+    },
+    "note": "Il tema è una lettura indicativa del sistema, non una misura della qualità del legame."
+  },
+  "definition": {
+    "title": "Il composito",
+    "hint": "Mettendo insieme tutte le porte di entrambi, si forma un chart «a due».",
+    "label": "Definizione del composito"
+  },
+  "centers": {
+    "title": "Centri definiti insieme",
+    "none": "Nessun centro risulta definito nel composito.",
+    "together": "solo insieme",
+    "note": "I pallini mostrano chi definisce già il centro (viola A, arancio B). «Solo insieme» segna i centri che nessuno dei due ha definiti da solo."
+  },
+  "dynamics": {
+    "title": "I canali tra voi",
+    "hint": "Ogni canale del composito rientra in una di quattro dinamiche, a seconda di chi porta quali porte. Sono tendenze da osservare, non verdetti.",
+    "overview": "Numero di canali per dinamica",
+    "none": "Nel composito non si forma nessun canale: le vostre porte si incontrano senza completarsi."
+  },
+  "groups": {
+    "electromagnetic": {
+      "title": "Elettromagnetica",
+      "short": "Due metà che si cercano",
+      "body": "Ognuno porta una sola delle due porte del canale: da soli il canale non esiste, insieme si completa. Molti la descrivono come attrazione o scintilla, la sensazione che l'altro porti qualcosa che manca. Può essere vivace e intensa: conoscerla aiuta a darle spazio senza farne una dipendenza."
+    },
+    "compromise": {
+      "title": "Compromesso",
+      "short": "Uno ha il canale, l'altro ne porta una parte",
+      "body": "Una persona ha il canale intero e stabile, l'altra ne porta soltanto una porta. Può nascere un po' di attrito: chi ha il canale intero tende ad agire in modo costante, chi ne ha una parte può sentirsi tirato in quella direzione. Parlarne apertamente e riconoscere i ritmi di ciascuno aiuta a trovare un equilibrio."
+    },
+    "dominance": {
+      "title": "Dominanza",
+      "short": "Un tema che appartiene a uno solo",
+      "body": "Solo una persona ha questo canale; l'altra non ne porta nessuna porta. Chi non lo ha può percepirlo come molto presente e a volte esserne influenzato; chi lo ha vive semplicemente ciò che gli è naturale. Non è una gerarchia: è un invito a chiedersi che cosa è mio e che cosa sto assorbendo dall'altro."
+    },
+    "companionship": {
+      "title": "Compagnia",
+      "short": "Lo stesso canale in entrambi",
+      "body": "Entrambi avete il canale intero. Su quel tema vi capite con facilità, parlate la stessa lingua e vi sentite a casa. Proprio per questo può mancare la scintilla della differenza: è una base solida su cui costruire, più che una tensione che mette in movimento."
+    }
+  },
+  "carrier": {
+    "electromagnetic": "{{a}} porta la porta {{gateA}}, {{b}} porta la porta {{gateB}}.",
+    "compromise": "{{owner}} ha il canale intero; {{other}} porta solo la porta {{gate}}.",
+    "dominance": "Solo {{owner}} ha il canale; {{other}} non ne porta nessuna porta.",
+    "companionship": "Il canale è intero sia in {{a}} sia in {{b}}."
+  }
+}

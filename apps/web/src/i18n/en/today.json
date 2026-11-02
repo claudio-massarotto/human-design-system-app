@@ -1,0 +1,98 @@
+{
+  "title": "Today",
+  "subtitle": "The sky at this moment, read on {{name}}'s chart.",
+  "subtitleWeather": "The sky at this moment: the transit \"weather\", the same for everyone.",
+  "footnote": "Transits describe the climate of the moment according to the Human Design system: they are food for thought, not a forecast.",
+  "controls": {
+    "chart": "Chart",
+    "moment": "Moment",
+    "prev": "Previous day",
+    "next": "Next day",
+    "now": "Now",
+    "datetime": "Date and time",
+    "loading": "Loading…",
+    "noChart": "No saved chart"
+  },
+  "noChart": {
+    "title": "Add your chart to read the transit on you",
+    "description": "You can already see the sky of the moment here. With your birth data you also discover which channels, centers and gates light up in you.",
+    "action": "Add your chart"
+  },
+  "bodygraph": {
+    "title": "Bodygraph with transit",
+    "titleToday": "Your bodygraph with the current transit",
+    "gate": "Gate {{n}}",
+    "channel": "Channel {{id}}",
+    "defined": "defined",
+    "conditioned": "defined by the transit",
+    "open": "open",
+    "none": "none",
+    "summary": "Defined centers: {{centers}}. Channels: {{channels}}.",
+    "layers": {
+      "personality": "Personality",
+      "design": "Design",
+      "transit": "Transit",
+      "personA": "Person A",
+      "personB": "Person B"
+    }
+  },
+  "legend": {
+    "label": "Color legend",
+    "personality": "Personality",
+    "design": "Design",
+    "transit": "Transit",
+    "conditioned": "Center defined by the transit"
+  },
+  "highlight": {
+    "title": "Highlights",
+    "lead": "The Sun lights up \"{{sun}}\" and the Moon brings \"{{moon}}\" forward.",
+    "theme": "Theme of the day",
+    "moonEyebrow": "The Moon's rhythm",
+    "openGate": "Open details for gate {{n}}, {{name}}",
+    "openLine": "Open details for line {{gate}}.{{line}}",
+    "unknownGate": "Gate {{n}}",
+    "line": "Line {{n}}",
+    "until": "The Sun stays in this gate until {{when}}."
+  },
+  "forYou": {
+    "title": "What it activates in you",
+    "intro": "The transit adds to your chart for a limited time: here is where it meets what you already carry.",
+    "channels": {
+      "title": "Channels taking shape",
+      "empty": "Right now the transit does not form any new channel with your chart.",
+      "fromYou": "yours",
+      "fromSky": "from the sky"
+    },
+    "centers": {
+      "title": "Centers the transit defines",
+      "empty": "No open center is defined by the transit right now.",
+      "note": "For the length of the transit these centers may behave as defined: a chance to observe, without making it an identity."
+    },
+    "gates": {
+      "title": "Gates that are new to you",
+      "empty": "Every gate of the transit is already part of your chart."
+    },
+    "anchor": {
+      "title": "Your steady point",
+      "intro": "Whatever the climate of the day, your way of deciding stays the same.",
+      "strategy": "Strategy",
+      "authority": "Authority"
+    }
+  },
+  "table": {
+    "title": "The 13 activations",
+    "hint": "Where the Sun, Earth, Moon, Nodes and planets sit today on the wheel of 64 gates.",
+    "caption": "Transit activations: celestial body, gate and line, gate name, retrograde",
+    "planet": "Body",
+    "gate": "Gate",
+    "name": "Name",
+    "retro": "retrograde",
+    "retroLabel": "retrograde",
+    "openGate": "Open gate {{gate}}, line {{line}}"
+  },
+  "calendar": {
+    "title": "Sun calendar",
+    "hint": "The next times the Sun enters a new gate (each stay lasts about six days).",
+    "empty": "The next ingresses could not be calculated."
+  }
+}

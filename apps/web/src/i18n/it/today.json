@@ -1,0 +1,98 @@
+{
+  "title": "Oggi",
+  "subtitle": "Il cielo di questo momento, letto sul chart di {{name}}.",
+  "subtitleWeather": "Il cielo di questo momento: il «meteo» del transito, uguale per tutti.",
+  "footnote": "I transiti descrivono un clima del momento secondo il sistema Human Design: sono uno spunto di riflessione, non una previsione.",
+  "controls": {
+    "chart": "Chart",
+    "moment": "Istante",
+    "prev": "Giorno precedente",
+    "next": "Giorno successivo",
+    "now": "Adesso",
+    "datetime": "Data e ora",
+    "loading": "Caricamento…",
+    "noChart": "Nessun chart salvato"
+  },
+  "noChart": {
+    "title": "Aggiungi il tuo chart per leggere il transito su di te",
+    "description": "Qui vedi già il cielo del momento. Con i tuoi dati di nascita scopri anche quali canali, centri e porte si attivano in te.",
+    "action": "Aggiungi il tuo chart"
+  },
+  "bodygraph": {
+    "title": "Bodygraph con il transito",
+    "titleToday": "Il tuo bodygraph con il transito del momento",
+    "gate": "Porta {{n}}",
+    "channel": "Canale {{id}}",
+    "defined": "definito",
+    "conditioned": "definito dal transito",
+    "open": "aperto",
+    "none": "nessuno",
+    "summary": "Centri definiti: {{centers}}. Canali: {{channels}}.",
+    "layers": {
+      "personality": "Personalità",
+      "design": "Design",
+      "transit": "Transito",
+      "personA": "Persona A",
+      "personB": "Persona B"
+    }
+  },
+  "legend": {
+    "label": "Legenda dei colori",
+    "personality": "Personalità",
+    "design": "Design",
+    "transit": "Transito",
+    "conditioned": "Centro definito dal transito"
+  },
+  "highlight": {
+    "title": "In evidenza",
+    "lead": "Il Sole illumina «{{sun}}» e la Luna porta in primo piano «{{moon}}».",
+    "theme": "Tema del giorno",
+    "moonEyebrow": "Il ritmo della Luna",
+    "openGate": "Apri i dettagli della porta {{n}}, {{name}}",
+    "openLine": "Apri i dettagli della linea {{gate}}.{{line}}",
+    "unknownGate": "Porta {{n}}",
+    "line": "Linea {{n}}",
+    "until": "Il Sole resta in questa porta fino a {{when}}."
+  },
+  "forYou": {
+    "title": "Cosa attiva in te",
+    "intro": "Il transito si somma al tuo chart per un tempo limitato: ecco dove si incontra con ciò che già porti.",
+    "channels": {
+      "title": "Canali che si formano",
+      "empty": "In questo momento il transito non forma canali nuovi con il tuo chart.",
+      "fromYou": "tua",
+      "fromSky": "dal cielo"
+    },
+    "centers": {
+      "title": "Centri che il transito definisce",
+      "empty": "Nessun centro aperto viene definito dal transito in questo momento.",
+      "note": "Per la durata del transito questi centri possono comportarsi come definiti: un'occasione per osservare, senza farne un'identità."
+    },
+    "gates": {
+      "title": "Porte nuove per te",
+      "empty": "Tutte le porte del transito fanno già parte del tuo chart."
+    },
+    "anchor": {
+      "title": "Il tuo punto fermo",
+      "intro": "Qualunque sia il clima del giorno, il tuo modo di decidere resta lo stesso.",
+      "strategy": "Strategia",
+      "authority": "Autorità"
+    }
+  },
+  "table": {
+    "title": "Le 13 attivazioni",
+    "hint": "Dove si trovano oggi Sole, Terra, Luna, Nodi e pianeti sulla ruota delle 64 porte.",
+    "caption": "Attivazioni del transito: corpo celeste, porta e linea, nome della porta, retrogradazione",
+    "planet": "Corpo",
+    "gate": "Porta",
+    "name": "Nome",
+    "retro": "retrogrado",
+    "retroLabel": "retrogrado",
+    "openGate": "Apri la porta {{gate}}, linea {{line}}"
+  },
+  "calendar": {
+    "title": "Calendario del Sole",
+    "hint": "Le prossime volte in cui il Sole entra in una nuova porta (ogni ingresso dura circa sei giorni).",
+    "empty": "Impossibile calcolare i prossimi ingressi."
+  }
+}

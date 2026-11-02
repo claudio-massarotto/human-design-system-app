@@ -1,0 +1,80 @@
+{
+  "title": "Connection",
+  "subtitle": "How two people's charts combine: a way to observe dynamics, not to judge them.",
+  "footnote": "This reading describes how the energies of two charts meet according to the Human Design system. It does not measure compatibility or the worth of a relationship: a bond is far more than a chart, and is made of choices, listening and time.",
+  "empty": {
+    "title": "You need two people for a connection",
+    "none": "Add two charts to see how their energies meet.",
+    "one": "You have only one saved chart. Add a partner, a relative or a friend to see the connection.",
+    "action": "Add a person"
+  },
+  "picker": {
+    "a": "Person A",
+    "b": "Person B",
+    "swap": "Swap A and B"
+  },
+  "bodygraph": {
+    "title": "Connection bodygraph for {{a}} and {{b}}"
+  },
+  "legend": {
+    "label": "Color legend",
+    "together": "Center defined only together"
+  },
+  "theme": {
+    "title": "Connection theme",
+    "aria": "Defined centers: {{defined}}, open centers: {{open}}",
+    "counts": "defined centers: {{defined}} · open centers: {{open}}",
+    "bucket": {
+      "veryDefined": "Together you have almost every center defined: the pair has plenty of its own energy and a strong identity as a unit. That is a great resource; it is worth leaving room for what comes from outside.",
+      "defined": "Most centers are defined: there is a solid, recognizable base, with a few open spots where you both stay receptive to what surrounds you.",
+      "balanced": "Definition and openness balance each other: in some areas you are steady, in others more sensitive to the environment and to change.",
+      "open": "Many centers stay open: together you are very sensitive to your surroundings and the people around you, with a great capacity to adapt. Choosing your settings with care can help."
+    },
+    "note": "The theme is an indicative reading of the system, not a measure of the quality of the bond."
+  },
+  "definition": {
+    "title": "The composite",
+    "hint": "Putting together every gate of both people forms a chart \"for two\".",
+    "label": "Composite definition"
+  },
+  "centers": {
+    "title": "Centers defined together",
+    "none": "No center is defined in the composite.",
+    "together": "only together",
+    "note": "The dots show who already defines the center (violet A, orange B). \"Only together\" marks centers that neither of you has defined alone."
+  },
+  "dynamics": {
+    "title": "The channels between you",
+    "hint": "Every channel of the composite falls into one of four dynamics, depending on who carries which gates. They are tendencies to observe, not verdicts.",
+    "overview": "Number of channels per dynamic",
+    "none": "No channel forms in the composite: your gates meet without completing each other."
+  },
+  "groups": {
+    "electromagnetic": {
+      "title": "Electromagnetic",
+      "short": "Two halves looking for each other",
+      "body": "Each of you carries just one of the channel's two gates: alone the channel does not exist, together it is complete. Many describe it as attraction or spark, the feeling that the other brings something that was missing. It can be lively and intense: knowing about it helps you give it room without turning it into dependence."
+    },
+    "compromise": {
+      "title": "Compromise",
+      "short": "One has the channel, the other carries a part",
+      "body": "One person has the whole, steady channel; the other carries only one of its gates. A little friction can arise: the one with the whole channel tends to act consistently, the one with a part may feel pulled in that direction. Talking about it openly and recognizing each other's rhythms helps find a balance."
+    },
+    "dominance": {
+      "title": "Dominance",
+      "short": "A theme that belongs to one of you",
+      "body": "Only one person has this channel; the other carries neither of its gates. Whoever lacks it may feel it as very present and sometimes be influenced by it; whoever has it simply lives what comes naturally. It is not a hierarchy: it is an invitation to ask what is mine and what I am absorbing from the other."
+    },
+    "companionship": {
+      "title": "Companionship",
+      "short": "The same channel in both",
+      "body": "You both have the whole channel. On that theme you understand each other easily, speak the same language and feel at home. For that very reason the spark of difference may be missing: it is a solid base to build on, more than a tension that sets things in motion."
+    }
+  },
+  "carrier": {
+    "electromagnetic": "{{a}} carries gate {{gateA}}, {{b}} carries gate {{gateB}}.",
+    "compromise": "{{owner}} has the whole channel; {{other}} carries only gate {{gate}}.",
+    "dominance": "Only {{owner}} has the channel; {{other}} carries neither of its gates.",
+    "companionship": "The channel is whole in both {{a}} and {{b}}."
+  }
+}

@@ -1,0 +1,221 @@
+{
+  "title": "Enciclopedia",
+  "eyebrow": "Esplora il sistema",
+  "subtitle": "Porte, canali, centri, tipi, croci e molto altro: ogni voce è collegata alle altre. Cerca per nome, numero o parola chiave.",
+  "explore": "Esplora",
+  "crumbs": "Percorso",
+  "keywords": "Parole chiave",
+  "prevNext": "Voci vicine",
+  "prev": "Precedente",
+  "next": "Successiva",
+  "search": {
+    "label": "Cerca nell'enciclopedia",
+    "placeholder": "Cerca: nome, numero o parola chiave…",
+    "clear": "Cancella la ricerca",
+    "resultsLabel": "Risultati della ricerca",
+    "count_one": "{{count}} risultato",
+    "count_other": "{{count}} risultati",
+    "empty": "Nessun risultato per «{{q}}». Prova con un numero o una parola più breve.",
+    "more_one": "Mostra altro ({{count}})",
+    "more_other": "Mostra altri {{count}}",
+    "less": "Mostra meno"
+  },
+  "sections": {
+    "types": {
+      "title": "Tipi",
+      "blurb": "I cinque modi di stare nel mondo, ciascuno con la propria strategia."
+    },
+    "authorities": {
+      "title": "Autorità",
+      "blurb": "Da dove arrivano le decisioni più affidabili per ciascuno."
+    },
+    "profiles": {
+      "title": "Profili",
+      "blurb": "I dodici ruoli che combinano due linee: come ti muovi e come vieni visto."
+    },
+    "lines": {
+      "title": "Linee",
+      "blurb": "I sei archetipi che colorano ogni porta e ogni profilo."
+    },
+    "definitions": {
+      "title": "Definizioni",
+      "blurb": "Come i centri definiti si collegano fra loro."
+    },
+    "centers": {
+      "title": "Centri",
+      "blurb": "I nove centri del bodygraph: che cosa governano e come vivono l'apertura."
+    },
+    "channels": {
+      "title": "Canali",
+      "blurb": "I 36 collegamenti fra due porte, che danno energia e talenti stabili."
+    },
+    "circuits": {
+      "title": "Circuiti",
+      "blurb": "Le famiglie di canali: individuale, collettivo, tribale e integrazione."
+    },
+    "gates": {
+      "title": "Porte",
+      "blurb": "Le 64 porte della ruota, ciascuna con sei linee e un esagramma."
+    },
+    "crosses": {
+      "title": "Croci",
+      "blurb": "Le 112 croci di incarnazione: lo scopo di vita secondo Sole e Terra."
+    },
+    "variables": {
+      "title": "Variabili",
+      "blurb": "Le quattro frecce: digestione, ambiente, motivazione e prospettiva."
+    },
+    "quarters": {
+      "title": "Quarti",
+      "blurb": "I quattro quarti della ruota e il tema di ciascuno."
+    },
+    "planets": {
+      "title": "Pianeti",
+      "blurb": "Le tredici attivazioni e il ruolo di ciascuna nel chart."
+    },
+    "glossary": {
+      "title": "Glossario",
+      "blurb": "I termini del sistema in ordine alfabetico."
+    }
+  },
+  "one": {
+    "types": "Tipo",
+    "authorities": "Autorità",
+    "profiles": "Profilo {{id}}",
+    "lines": "Linea {{id}}",
+    "definitions": "Definizione",
+    "centers": "Centro",
+    "circuits": "Circuito",
+    "quarters": "Quarto",
+    "planets": "Attivazione"
+  },
+  "mine": {
+    "inChart": "Nel tuo chart",
+    "lines_one": "linea {{lines}}",
+    "lines_other": "linee {{lines}}",
+    "state": {
+      "defined": "definito",
+      "undefined": "non definito",
+      "open": "aperto"
+    }
+  },
+  "level": {
+    "label": "Livello di lettura",
+    "simple": "Semplice",
+    "deep": "Approfondito"
+  },
+  "missing": {
+    "title": "Voce non trovata",
+    "description": "Non esiste una voce con questo indirizzo nell'enciclopedia.",
+    "back": "Torna all'elenco"
+  },
+  "related": {
+    "gates": "Porte",
+    "channels": "Canali",
+    "lines": "Linee",
+    "profiles": "Profili"
+  },
+  "zodiac": {
+    "0": "Ariete",
+    "1": "Toro",
+    "2": "Gemelli",
+    "3": "Cancro",
+    "4": "Leone",
+    "5": "Vergine",
+    "6": "Bilancia",
+    "7": "Scorpione",
+    "8": "Sagittario",
+    "9": "Capricorno",
+    "10": "Acquario",
+    "11": "Pesci"
+  },
+  "gates": {
+    "searchLabel": "Cerca fra le porte",
+    "searchPlaceholder": "Numero, nome o parola chiave…",
+    "centerFilter": "Centro",
+    "allCenters": "Tutti i centri",
+    "count_one": "{{count}} porta",
+    "count_other": "{{count}} porte",
+    "emptyTitle": "Nessuna porta trovata",
+    "emptyDescription": "Prova a cambiare la ricerca o il centro."
+  },
+  "gate": {
+    "eyebrow": "Porta {{n}}",
+    "high": "Espressione allineata",
+    "low": "Espressione non allineata",
+    "geneKeys": "Gene Keys",
+    "shadow": "Ombra",
+    "gift": "Dono",
+    "siddhi": "Siddhi",
+    "lines": "Le sei linee",
+    "bodygraphTitle": "Bodygraph con la porta {{n}} evidenziata",
+    "legendThis": "Questa porta",
+    "legendHarmonic": "Porte armoniche",
+    "center": "Centro",
+    "quarter": "Quarto",
+    "wheel": "Posizione sulla ruota",
+    "wheelTo": "fino a {{end}}",
+    "channels": "Canali",
+    "harmonics": "Porte armoniche",
+    "noChannels": "Nessuna."
+  },
+  "channels": {
+    "searchLabel": "Cerca fra i canali",
+    "searchPlaceholder": "Numero, nome o parola chiave…",
+    "circuitFilter": "Circuito",
+    "allCircuits": "Tutti i circuiti",
+    "count_one": "{{count}} canale",
+    "count_other": "{{count}} canali",
+    "emptyTitle": "Nessun canale trovato",
+    "emptyDescription": "Prova a cambiare la ricerca o il circuito."
+  },
+  "channel": {
+    "eyebrow": "Canale {{id}}",
+    "gates": "Porte",
+    "centers": "Centri collegati",
+    "circuit": "Circuito",
+    "bodygraphTitle": "Bodygraph con il canale {{id}} evidenziato"
+  },
+  "crosses": {
+    "searchLabel": "Cerca fra le croci",
+    "searchPlaceholder": "Nome o numero di una porta…",
+    "count_one": "{{count}} croce",
+    "count_other": "{{count}} croci",
+    "emptyTitle": "Nessuna croce trovata",
+    "emptyDescription": "Prova con un altro nome o con il numero di una porta.",
+    "angle": {
+      "rax": "Angolo destro",
+      "jxt": "Giustapposizione",
+      "lax": "Angolo sinistro"
+    },
+    "angleBlurb": {
+      "rax": "Scopo personale: la strada passa dalla propria vita e dalle proprie scelte.",
+      "jxt": "Scopo fisso: un destino compatto, vissuto con grande coerenza.",
+      "lax": "Scopo transpersonale: il senso si compie attraverso gli altri."
+    },
+    "gatesShort": "Porte",
+    "variants": "Varianti e porte",
+    "variantsHint": "Le varianti si distinguono per la porta del Sole di Personalità; la Terra è la porta opposta sulla ruota.",
+    "sun": "Sole",
+    "earth": "Terra",
+    "allGates": "Porte coinvolte"
+  },
+  "glossary": {
+    "searchLabel": "Cerca nel glossario",
+    "searchPlaceholder": "Cerca un termine…",
+    "az": "Indice alfabetico",
+    "count_one": "{{count}} termine",
+    "count_other": "{{count}} termini",
+    "emptyTitle": "Nessun termine trovato",
+    "emptyDescription": "Prova con una parola diversa."
+  },
+  "variables": {
+    "tabs": "Le quattro variabili",
+    "color": "colore {{n}}",
+    "arrow": {
+      "left": "Sinistra",
+      "right": "Destra"
+    },
+    "tones": "I sei toni"
+  }
+}

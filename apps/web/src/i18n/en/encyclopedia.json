@@ -1,0 +1,221 @@
+{
+  "title": "Encyclopedia",
+  "eyebrow": "Explore the system",
+  "subtitle": "Gates, channels, centers, types, crosses and more: every entry links to the others. Search by name, number or keyword.",
+  "explore": "Explore",
+  "crumbs": "Breadcrumb",
+  "keywords": "Keywords",
+  "prevNext": "Nearby entries",
+  "prev": "Previous",
+  "next": "Next",
+  "search": {
+    "label": "Search the encyclopedia",
+    "placeholder": "Search: name, number or keyword…",
+    "clear": "Clear search",
+    "resultsLabel": "Search results",
+    "count_one": "{{count}} result",
+    "count_other": "{{count}} results",
+    "empty": "No results for “{{q}}”. Try a number or a shorter word.",
+    "more_one": "Show more ({{count}})",
+    "more_other": "Show {{count}} more",
+    "less": "Show less"
+  },
+  "sections": {
+    "types": {
+      "title": "Types",
+      "blurb": "The five ways of being in the world, each with its own strategy."
+    },
+    "authorities": {
+      "title": "Authorities",
+      "blurb": "Where each person's most reliable decisions come from."
+    },
+    "profiles": {
+      "title": "Profiles",
+      "blurb": "Twelve roles combining two lines: how you move and how you are seen."
+    },
+    "lines": {
+      "title": "Lines",
+      "blurb": "The six archetypes that color every gate and every profile."
+    },
+    "definitions": {
+      "title": "Definitions",
+      "blurb": "How the defined centers connect to one another."
+    },
+    "centers": {
+      "title": "Centers",
+      "blurb": "The nine centers of the bodygraph: what they govern and how openness feels."
+    },
+    "channels": {
+      "title": "Channels",
+      "blurb": "The 36 links between two gates, giving steady energy and talents."
+    },
+    "circuits": {
+      "title": "Circuits",
+      "blurb": "The families of channels: individual, collective, tribal and integration."
+    },
+    "gates": {
+      "title": "Gates",
+      "blurb": "The 64 gates of the wheel, each with six lines and a hexagram."
+    },
+    "crosses": {
+      "title": "Crosses",
+      "blurb": "The 112 incarnation crosses: life purpose through Sun and Earth."
+    },
+    "variables": {
+      "title": "Variables",
+      "blurb": "The four arrows: digestion, environment, motivation and perspective."
+    },
+    "quarters": {
+      "title": "Quarters",
+      "blurb": "The four quarters of the wheel and the theme of each."
+    },
+    "planets": {
+      "title": "Planets",
+      "blurb": "The thirteen activations and the role each plays in the chart."
+    },
+    "glossary": {
+      "title": "Glossary",
+      "blurb": "The terms of the system in alphabetical order."
+    }
+  },
+  "one": {
+    "types": "Type",
+    "authorities": "Authority",
+    "profiles": "Profile {{id}}",
+    "lines": "Line {{id}}",
+    "definitions": "Definition",
+    "centers": "Center",
+    "circuits": "Circuit",
+    "quarters": "Quarter",
+    "planets": "Activation"
+  },
+  "mine": {
+    "inChart": "In your chart",
+    "lines_one": "line {{lines}}",
+    "lines_other": "lines {{lines}}",
+    "state": {
+      "defined": "defined",
+      "undefined": "undefined",
+      "open": "open"
+    }
+  },
+  "level": {
+    "label": "Reading level",
+    "simple": "Simple",
+    "deep": "In depth"
+  },
+  "missing": {
+    "title": "Entry not found",
+    "description": "There is no entry at this address in the encyclopedia.",
+    "back": "Back to the list"
+  },
+  "related": {
+    "gates": "Gates",
+    "channels": "Channels",
+    "lines": "Lines",
+    "profiles": "Profiles"
+  },
+  "zodiac": {
+    "0": "Aries",
+    "1": "Taurus",
+    "2": "Gemini",
+    "3": "Cancer",
+    "4": "Leo",
+    "5": "Virgo",
+    "6": "Libra",
+    "7": "Scorpio",
+    "8": "Sagittarius",
+    "9": "Capricorn",
+    "10": "Aquarius",
+    "11": "Pisces"
+  },
+  "gates": {
+    "searchLabel": "Search the gates",
+    "searchPlaceholder": "Number, name or keyword…",
+    "centerFilter": "Center",
+    "allCenters": "All centers",
+    "count_one": "{{count}} gate",
+    "count_other": "{{count}} gates",
+    "emptyTitle": "No gate found",
+    "emptyDescription": "Try changing the search or the center."
+  },
+  "gate": {
+    "eyebrow": "Gate {{n}}",
+    "high": "Aligned expression",
+    "low": "Unaligned expression",
+    "geneKeys": "Gene Keys",
+    "shadow": "Shadow",
+    "gift": "Gift",
+    "siddhi": "Siddhi",
+    "lines": "The six lines",
+    "bodygraphTitle": "Bodygraph with gate {{n}} highlighted",
+    "legendThis": "This gate",
+    "legendHarmonic": "Harmonic gates",
+    "center": "Center",
+    "quarter": "Quarter",
+    "wheel": "Position on the wheel",
+    "wheelTo": "up to {{end}}",
+    "channels": "Channels",
+    "harmonics": "Harmonic gates",
+    "noChannels": "None."
+  },
+  "channels": {
+    "searchLabel": "Search the channels",
+    "searchPlaceholder": "Number, name or keyword…",
+    "circuitFilter": "Circuit",
+    "allCircuits": "All circuits",
+    "count_one": "{{count}} channel",
+    "count_other": "{{count}} channels",
+    "emptyTitle": "No channel found",
+    "emptyDescription": "Try changing the search or the circuit."
+  },
+  "channel": {
+    "eyebrow": "Channel {{id}}",
+    "gates": "Gates",
+    "centers": "Connected centers",
+    "circuit": "Circuit",
+    "bodygraphTitle": "Bodygraph with channel {{id}} highlighted"
+  },
+  "crosses": {
+    "searchLabel": "Search the crosses",
+    "searchPlaceholder": "Name or a gate number…",
+    "count_one": "{{count}} cross",
+    "count_other": "{{count}} crosses",
+    "emptyTitle": "No cross found",
+    "emptyDescription": "Try another name or a gate number.",
+    "angle": {
+      "rax": "Right angle",
+      "jxt": "Juxtaposition",
+      "lax": "Left angle"
+    },
+    "angleBlurb": {
+      "rax": "Personal purpose: the path runs through your own life and choices.",
+      "jxt": "Fixed purpose: a compact destiny, lived with great consistency.",
+      "lax": "Transpersonal purpose: meaning is fulfilled through other people."
+    },
+    "gatesShort": "Gates",
+    "variants": "Variants and gates",
+    "variantsHint": "Variants differ by the Personality Sun gate; the Earth is the opposite gate on the wheel.",
+    "sun": "Sun",
+    "earth": "Earth",
+    "allGates": "Gates involved"
+  },
+  "glossary": {
+    "searchLabel": "Search the glossary",
+    "searchPlaceholder": "Search a term…",
+    "az": "Alphabetical index",
+    "count_one": "{{count}} term",
+    "count_other": "{{count}} terms",
+    "emptyTitle": "No term found",
+    "emptyDescription": "Try a different word."
+  },
+  "variables": {
+    "tabs": "The four variables",
+    "color": "color {{n}}",
+    "arrow": {
+      "left": "Left",
+      "right": "Right"
+    },
+    "tones": "The six tones"
+  }
+}

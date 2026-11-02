@@ -70,7 +70,10 @@ def connected(a, b, adj):
 
 
 def chart(y, mo, d, h, mi, node=swe.TRUE_NODE):
-    jd = swe.julday(y, mo, d, h + mi / 60.0)
+    return chart_jd(swe.julday(y, mo, d, h + mi / 60.0), node)
+
+
+def chart_jd(jd, node=swe.TRUE_NODE):
     jdd = design_jd(jd)
     P, D = positions(jd, node), positions(jdd, node)
     gates = {a['gate'] for a in list(P.values()) + list(D.values())}

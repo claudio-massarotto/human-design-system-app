@@ -77,7 +77,7 @@ Marte, Giove, Saturno, Urano, Nettuno, Plutone.
 
 - **Personalità** (conscia, nero): posizioni al momento della nascita (UTC).
 - **Design** (inconscia, rosso): posizioni nel momento in cui il Sole si trovava **esattamente 88°
-  di longitudine eclittica prima** della sua posizione alla nascita (≈ 88–92 giorni prima; NON 88 giorni fissi).
+  di longitudine eclittica prima** della sua posizione alla nascita (≈ 86,6–92,0 giorni prima a seconda della velocità del Sole; NON 88 giorni fissi).
 
 ## 3. I 9 centri e le loro porte
 

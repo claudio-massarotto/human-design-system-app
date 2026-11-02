@@ -12,11 +12,15 @@ export default defineConfig({
     baseURL: 'http://localhost:4173',
     locale: 'it-IT',
     timezoneId: 'Europe/Rome',
+    serviceWorkers: 'block',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
   },
   projects: [
-    { name: 'desktop', use: { ...devices['Desktop Chrome'], viewport: { width: 1280, height: 860 } } },
+    {
+      name: 'desktop',
+      use: { ...devices['Desktop Chrome'], viewport: { width: 1280, height: 860 } },
+    },
     { name: 'mobile', use: { ...devices['Pixel 7'] } },
   ],
   webServer: {

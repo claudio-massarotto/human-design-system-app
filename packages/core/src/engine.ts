@@ -32,7 +32,7 @@ export async function createEngine(provider?: EphemerisProvider): Promise<Engine
     computeTransit: (at, options) => computeTransit(p, at, resolveOptions(options)),
     overlay,
     composite,
-    timeSensitivity: (input, rangeMinutes) =>
-      timeSensitivity(p, input, rangeMinutes, resolveOptions()),
+    timeSensitivity: (input, rangeMinutes, options) =>
+      timeSensitivity(p, input, rangeMinutes, resolveOptions(options)),
   };
 }

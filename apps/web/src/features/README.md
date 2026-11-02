@@ -3,11 +3,11 @@
 La shell (`src/app`, `src/components`, `src/data`, `src/lib`, `src/i18n`, `src/pages`) è **fatta e condivisa**.
 Ogni funzionalità lavora **solo** nella propria cartella e nel proprio file i18n:
 
-| Funzionalità       | Cartella                     | Namespace i18n        | URL                                                                                                            |
-| ------------------ | ---------------------------- | --------------------- | -------------------------------------------------------------------------------------------------------------- |
-| Chart              | `src/features/chart/`        | `chart`               | `/chart/:id`, `/chart/:id/stampa`                                                                              |
-| Oggi + Connessione | `src/features/today/`        | `today`, `connection` | `/oggi`, `/connessione`                                                                                        |
-| Enciclopedia       | `src/features/encyclopedia/` | `encyclopedia`        | `/enciclopedia`, `/enciclopedia/porte/:n`, `/canali/:id`, `/centri/:id`, `/tipi/:id`, `/profili/:id`, `/croci` |
+| Funzionalità       | Cartella                     | Namespace i18n        | URL                                                          |
+| ------------------ | ---------------------------- | --------------------- | ------------------------------------------------------------ |
+| Chart              | `src/features/chart/`        | `chart`               | `/chart/:id`, `/chart/:id/stampa`                            |
+| Oggi + Connessione | `src/features/today/`        | `today`, `connection` | `/oggi`, `/connessione`                                      |
+| Enciclopedia       | `src/features/encyclopedia/` | `encyclopedia`        | `/enciclopedia`, sezioni, schede, `/glossario`, `/variabili` |
 
 **Regole**
 
@@ -40,8 +40,8 @@ export const routes: RouteObject[] = [
 ];
 ```
 
-I tre `routes.tsx` attuali sono **stub** ("In arrivo"): sostituiscili (e cancella le pagine segnaposto). Il router
-(`src/app/router.tsx`) li importa già; non va toccato. Gli errori delle pagine sono gestiti dalla shell (`RouteError`).
+I tre moduli sono implementati nelle rispettive cartelle; il router (`src/app/router.tsx`) li importa già e non va
+modificato per aggiungere una nuova pagina del modulo. Gli errori delle pagine sono gestiti dalla shell (`RouteError`).
 
 ## Che cosa offre la shell
 
@@ -127,4 +127,5 @@ export function TodayPage() {
 
 ## Verifica
 
-Dalla radice: `pnpm --filter @hd/web typecheck`, `pnpm --filter @hd/web test`, `pnpm --filter @hd/web build`.
+Dalla radice: `pnpm --filter @hd/web typecheck`, `pnpm --filter @hd/web test`, `pnpm --filter @hd/web build`,
+`pnpm e2e`.

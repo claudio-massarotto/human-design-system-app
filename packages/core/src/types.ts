@@ -348,5 +348,9 @@ export interface Engine {
   computeTransit(at: Date, options?: Partial<ChartOptions>): Transit;
   overlay(chart: Chart, transit: Transit): Overlay;
   composite(a: Chart, b: Chart): Composite;
-  timeSensitivity(input: BirthInput, rangeMinutes: number): Sensitivity;
+  timeSensitivity(
+    input: BirthInput,
+    rangeMinutes: number,
+    options?: Partial<ChartOptions>,
+  ): Sensitivity;
 }

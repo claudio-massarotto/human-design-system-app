@@ -1,0 +1,229 @@
+{
+  "title": "Chart",
+  "tabs": {
+    "label": "Chart details",
+    "activations": "Activations",
+    "centers": "Centers",
+    "channels": "Channels",
+    "variables": "Variables",
+    "cross": "Cross"
+  },
+  "side": {
+    "personality": "Personality",
+    "design": "Design"
+  },
+  "state": {
+    "defined": "Defined",
+    "undefined": "Undefined",
+    "open": "Open"
+  },
+  "notFound": {
+    "title": "Chart not found",
+    "description": "This chart does not exist on this device: it may have been deleted.",
+    "action": "Go to people"
+  },
+  "loadError": {
+    "title": "Could not calculate the chart",
+    "description": "The birth data did not produce a valid chart. Check the date, time and place."
+  },
+  "header": {
+    "mine": "My chart",
+    "born": "Birth",
+    "place": "Place",
+    "timeUnknown": "time unknown",
+    "approximate": "approximate time"
+  },
+  "actions": {
+    "edit": "Edit",
+    "setPrimary": "Set as my chart",
+    "exportPng": "Export PNG",
+    "print": "Print / PDF"
+  },
+  "toast": {
+    "exported": "Image saved: {{file}}",
+    "exportError": "The image could not be created.",
+    "primary": "{{name}} is now your chart.",
+    "primaryError": "The choice could not be saved."
+  },
+  "hero": {
+    "legend": "Bodygraph legend",
+    "both": "Both",
+    "undefinedOpen": "Undefined or open",
+    "hint": "Tap a gate, channel or center to read what it means."
+  },
+  "bodygraph": {
+    "title": "Bodygraph of {{name}}",
+    "gate": "Gate {{n}} {{name}}",
+    "channel": "Channel {{id}} {{name}}",
+    "transit": "Transit",
+    "personA": "Person A",
+    "personB": "Person B",
+    "conditioned": "defined by transit or connection",
+    "none": "none",
+    "summary": "Defined centers: {{centers}}. Channels: {{channels}}."
+  },
+  "summary": {
+    "title": "Chart summary",
+    "type": "Type",
+    "strategy": "Strategy",
+    "authority": "Authority",
+    "profile": "Profile",
+    "definition": "Definition",
+    "cross": "Incarnation Cross",
+    "signature": "Signature",
+    "notSelf": "Not-self",
+    "population": "{{value}} of the population",
+    "crossGates": "Gates {{a}}/{{b}} · {{c}}/{{d}}",
+    "open": "Tap to learn more."
+  },
+  "accuracy": {
+    "title": "Time reliability",
+    "exact": "Exact time",
+    "approximate": "Approximate time",
+    "unknown": "Unknown time",
+    "approximateNote": "The time is approximate: below you can see what would change by moving it half an hour either way.",
+    "unknownNote": "Without a time the chart is calculated at 12:00: below you can see what may change over the whole day.",
+    "verify": "Check ±{{range}}",
+    "warnings": "Time warnings"
+  },
+  "timeWarning": {
+    "nonexistentLocalTime": "This local time does not exist (daylight saving jump): it was moved forward.",
+    "ambiguousLocalTime": "This local time is ambiguous (clocks going back): the first occurrence was used.",
+    "timeUnknown": "Birth time unknown: the chart is calculated at 12:00 local time.",
+    "timeApproximate": "Approximate birth time: the result may change slightly.",
+    "historicalTimezone": "Date before 1970: historical time zone data is less reliable."
+  },
+  "sensitivity": {
+    "running": "Analyzing ±{{range}}…",
+    "error": "The analysis could not be completed.",
+    "stableTitle": "Stable chart",
+    "stableBody": "Within ±{{range}} type, authority, profile, cross and channels stay the same: a small inaccuracy does not change the summary.",
+    "unstableTitle": "May change within ±{{range}}",
+    "unstableBody": "If the real time differs from the one entered, these elements could be different. Check the time on an official document.",
+    "affected": "Elements that may change",
+    "timeline": "Moments when the summary changes",
+    "fromDeclared": "from the entered time",
+    "dayBefore": "day before",
+    "dayAfter": "day after",
+    "min": "min",
+    "hour": "h",
+    "showAll": "Show all ({{count}})",
+    "showLess": "Show less",
+    "quiet_one": "Another {{count}} line shift does not change the summary.",
+    "quiet_other": "Another {{count}} line shifts do not change the summary.",
+    "rangeMinutes_one": "{{count}} minute",
+    "rangeMinutes_other": "{{count}} minutes",
+    "rangeHours_one": "{{count}} hour",
+    "rangeHours_other": "{{count}} hours",
+    "field": {
+      "type": "Type",
+      "authority": "Authority",
+      "profile": "Profile",
+      "definition": "Definition",
+      "cross": "Cross",
+      "channels": "Channels"
+    }
+  },
+  "detail": {
+    "activatedLines": "Lines activated in your chart"
+  },
+  "activations": {
+    "intro": "Design on the left (red), Personality on the right. Tap a cell for details.",
+    "caption": "The 13 activations: Design and Personality",
+    "body": "Body",
+    "color": "Color",
+    "tone": "Tone",
+    "base": "Base",
+    "toneName": "Cognitive tone",
+    "position": "Position",
+    "longitude": "Longitude",
+    "motion": "Motion",
+    "retrograde": "Retrograde",
+    "retrogradeLegend": "℞ = retrograde",
+    "whatItIs": "What {{body}} represents",
+    "openGate": "Open gate {{gate}}"
+  },
+  "zodiac": {
+    "aries": "Aries",
+    "taurus": "Taurus",
+    "gemini": "Gemini",
+    "cancer": "Cancer",
+    "leo": "Leo",
+    "virgo": "Virgo",
+    "libra": "Libra",
+    "scorpio": "Scorpio",
+    "sagittarius": "Sagittarius",
+    "capricorn": "Capricorn",
+    "aquarius": "Aquarius",
+    "pisces": "Pisces"
+  },
+  "centers": {
+    "summary": "{{defined}} of {{total}} centers defined.",
+    "activeGates": "Active gates",
+    "noGates": "No active gates.",
+    "hint": {
+      "defined": "Connected to a channel: steady, consistent energy.",
+      "undefined": "Has active gates but no complete channel: sensitive to the environment.",
+      "open": "No active gates: absorbs and amplifies what is around."
+    }
+  },
+  "channels": {
+    "defined": "Defined channels",
+    "definedIntro": "Two connected gates form a channel: a stable quality of the chart.",
+    "none": "No defined channels: every active gate is hanging.",
+    "hanging": "Hanging gates",
+    "hangingIntro": "Active gates whose channel is incomplete: their energy lights up when you meet someone with the complementary gate.",
+    "hangingShort": "hanging",
+    "noHanging": "No hanging gates.",
+    "group": {
+      "individual": "Individual circuit",
+      "collective": "Collective circuit",
+      "tribal": "Tribal circuit",
+      "integration": "Integration"
+    }
+  },
+  "variables": {
+    "notation": "Notation",
+    "notationHelp": "P = Personality (Motivation, Perspective), D = Design (Determination, Environment). L = left arrow, R = right arrow.",
+    "arrow": {
+      "left": "Left arrow",
+      "right": "Right arrow"
+    },
+    "source": {
+      "sun": "Sun",
+      "northNode": "North Node"
+    },
+    "color": "Color",
+    "tone": "Tone",
+    "base": "Base",
+    "caveat": "Variables need a very precise birth time and are an advanced layer: read them as prompts for observation, not verdicts."
+  },
+  "cross": {
+    "angle": {
+      "right": "Right angle",
+      "juxtaposition": "Juxtaposition",
+      "left": "Left angle"
+    },
+    "quarter": "Quarter",
+    "fourGates": "The four gates",
+    "sun": "Sun",
+    "earth": "Earth",
+    "personalitySun": "Personality Sun",
+    "personalityEarth": "Personality Earth",
+    "designSun": "Design Sun",
+    "designEarth": "Design Earth",
+    "note": "The cross is made of the Sun and Earth gates, at birth (Personality) and at the Design moment."
+  },
+  "print": {
+    "title": "Print",
+    "eyebrow": "Human Design chart",
+    "back": "Back to chart",
+    "action": "Print / Save PDF",
+    "hint": "The sheet is A4 and prints with the light theme colors. In the print dialog choose \"Save as PDF\" to get a file.",
+    "inShort": "In brief",
+    "structure": "Structure",
+    "definedCenters": "Defined centers",
+    "openCenters": "Undefined or open centers",
+    "footer": "Calculated on your device with Swiss Ephemeris: your birth data never leaves the device."
+  }
+}

@@ -1,0 +1,229 @@
+{
+  "title": "Chart",
+  "tabs": {
+    "label": "Dettagli del chart",
+    "activations": "Attivazioni",
+    "centers": "Centri",
+    "channels": "Canali",
+    "variables": "Variabili",
+    "cross": "Croce"
+  },
+  "side": {
+    "personality": "Personalità",
+    "design": "Design"
+  },
+  "state": {
+    "defined": "Definito",
+    "undefined": "Non definito",
+    "open": "Aperto"
+  },
+  "notFound": {
+    "title": "Chart non trovato",
+    "description": "Questo chart non esiste su questo dispositivo: potrebbe essere stato eliminato.",
+    "action": "Vai alle persone"
+  },
+  "loadError": {
+    "title": "Impossibile calcolare il chart",
+    "description": "I dati di nascita non hanno prodotto un chart valido. Controlla data, ora e luogo."
+  },
+  "header": {
+    "mine": "Il mio chart",
+    "born": "Nascita",
+    "place": "Luogo",
+    "timeUnknown": "ora sconosciuta",
+    "approximate": "ora approssimata"
+  },
+  "actions": {
+    "edit": "Modifica",
+    "setPrimary": "Imposta come il mio chart",
+    "exportPng": "Esporta PNG",
+    "print": "Stampa / PDF"
+  },
+  "toast": {
+    "exported": "Immagine salvata: {{file}}",
+    "exportError": "Non è stato possibile creare l'immagine.",
+    "primary": "{{name}} è ora il tuo chart.",
+    "primaryError": "Non è stato possibile salvare la scelta."
+  },
+  "hero": {
+    "legend": "Legenda del bodygraph",
+    "both": "Entrambe",
+    "undefinedOpen": "Non definito o aperto",
+    "hint": "Tocca una porta, un canale o un centro per leggerne il significato."
+  },
+  "bodygraph": {
+    "title": "Bodygraph di {{name}}",
+    "gate": "Porta {{n}} {{name}}",
+    "channel": "Canale {{id}} {{name}}",
+    "transit": "Transito",
+    "personA": "Persona A",
+    "personB": "Persona B",
+    "conditioned": "definito da transito o connessione",
+    "none": "nessuno",
+    "summary": "Centri definiti: {{centers}}. Canali: {{channels}}."
+  },
+  "summary": {
+    "title": "Sintesi del chart",
+    "type": "Tipo",
+    "strategy": "Strategia",
+    "authority": "Autorità",
+    "profile": "Profilo",
+    "definition": "Definizione",
+    "cross": "Croce di incarnazione",
+    "signature": "Firma",
+    "notSelf": "Not-self",
+    "population": "{{value}} della popolazione",
+    "crossGates": "Porte {{a}}/{{b}} · {{c}}/{{d}}",
+    "open": "Tocca per approfondire."
+  },
+  "accuracy": {
+    "title": "Affidabilità dell'ora",
+    "exact": "Ora esatta",
+    "approximate": "Ora approssimata",
+    "unknown": "Ora sconosciuta",
+    "approximateNote": "L'ora è approssimata: qui sotto vedi che cosa cambierebbe spostandola di mezz'ora in più o in meno.",
+    "unknownNote": "Senza l'ora il chart è calcolato alle 12:00: qui sotto vedi che cosa può cambiare nell'arco di tutta la giornata.",
+    "verify": "Verifica ±{{range}}",
+    "warnings": "Avvisi sull'ora"
+  },
+  "timeWarning": {
+    "nonexistentLocalTime": "Quest'ora locale non esiste (salto dell'ora legale): è stata spostata in avanti.",
+    "ambiguousLocalTime": "Quest'ora locale è ambigua (ritorno all'ora solare): è stata usata la prima occorrenza.",
+    "timeUnknown": "Ora di nascita sconosciuta: il chart è calcolato alle 12:00 locali.",
+    "timeApproximate": "Ora di nascita approssimata: il risultato può cambiare di poco.",
+    "historicalTimezone": "Data anteriore al 1970: i dati storici del fuso orario sono meno affidabili."
+  },
+  "sensitivity": {
+    "running": "Analisi di ±{{range}} in corso…",
+    "error": "Non è stato possibile completare l'analisi.",
+    "stableTitle": "Chart stabile",
+    "stableBody": "Entro ±{{range}} tipo, autorità, profilo, croce e canali restano gli stessi: una piccola imprecisione non cambia la sintesi.",
+    "unstableTitle": "Può cambiare entro ±{{range}}",
+    "unstableBody": "Se l'ora reale è diversa da quella indicata, questi elementi potrebbero essere diversi. Verifica l'ora su un documento ufficiale.",
+    "affected": "Elementi che possono cambiare",
+    "timeline": "Momenti in cui la sintesi cambia",
+    "fromDeclared": "dall'ora indicata",
+    "dayBefore": "giorno prima",
+    "dayAfter": "giorno dopo",
+    "min": "min",
+    "hour": "h",
+    "showAll": "Mostra tutti ({{count}})",
+    "showLess": "Mostra meno",
+    "quiet_one": "Altro {{count}} spostamento di linea non modifica la sintesi.",
+    "quiet_other": "Altri {{count}} spostamenti di linea non modificano la sintesi.",
+    "rangeMinutes_one": "{{count}} minuto",
+    "rangeMinutes_other": "{{count}} minuti",
+    "rangeHours_one": "{{count}} ora",
+    "rangeHours_other": "{{count}} ore",
+    "field": {
+      "type": "Tipo",
+      "authority": "Autorità",
+      "profile": "Profilo",
+      "definition": "Definizione",
+      "cross": "Croce",
+      "channels": "Canali"
+    }
+  },
+  "detail": {
+    "activatedLines": "Linee attivate nel tuo chart"
+  },
+  "activations": {
+    "intro": "Design a sinistra (rosso), Personalità a destra. Tocca una cella per il dettaglio.",
+    "caption": "Le 13 attivazioni: Design e Personalità",
+    "body": "Corpo",
+    "color": "Colore",
+    "tone": "Tono",
+    "base": "Base",
+    "toneName": "Tono cognitivo",
+    "position": "Posizione",
+    "longitude": "Longitudine",
+    "motion": "Moto",
+    "retrograde": "Retrogrado",
+    "retrogradeLegend": "℞ = retrogrado",
+    "whatItIs": "Che cosa rappresenta {{body}}",
+    "openGate": "Apri la porta {{gate}}"
+  },
+  "zodiac": {
+    "aries": "Ariete",
+    "taurus": "Toro",
+    "gemini": "Gemelli",
+    "cancer": "Cancro",
+    "leo": "Leone",
+    "virgo": "Vergine",
+    "libra": "Bilancia",
+    "scorpio": "Scorpione",
+    "sagittarius": "Sagittario",
+    "capricorn": "Capricorno",
+    "aquarius": "Acquario",
+    "pisces": "Pesci"
+  },
+  "centers": {
+    "summary": "{{defined}} centri definiti su {{total}}.",
+    "activeGates": "Porte attive",
+    "noGates": "Nessuna porta attiva.",
+    "hint": {
+      "defined": "Collegato a un canale: energia stabile e costante.",
+      "undefined": "Ha porte attive ma nessun canale completo: è sensibile all'ambiente.",
+      "open": "Nessuna porta attiva: assorbe e amplifica ciò che ha intorno."
+    }
+  },
+  "channels": {
+    "defined": "Canali definiti",
+    "definedIntro": "Due porte collegate formano un canale: è una qualità stabile del chart.",
+    "none": "Nessun canale definito: tutte le porte attive sono sospese.",
+    "hanging": "Porte sospese",
+    "hangingIntro": "Porte attive il cui canale non è completo: la loro energia si accende quando incontri chi porta la porta complementare.",
+    "hangingShort": "sospesa",
+    "noHanging": "Nessuna porta sospesa.",
+    "group": {
+      "individual": "Circuito individuale",
+      "collective": "Circuito collettivo",
+      "tribal": "Circuito tribale",
+      "integration": "Integrazione"
+    }
+  },
+  "variables": {
+    "notation": "Notazione",
+    "notationHelp": "P = Personalità (Motivazione, Prospettiva), D = Design (Determinazione, Ambiente). L = freccia a sinistra, R = a destra.",
+    "arrow": {
+      "left": "Freccia a sinistra",
+      "right": "Freccia a destra"
+    },
+    "source": {
+      "sun": "Sole",
+      "northNode": "Nodo Nord"
+    },
+    "color": "Colore",
+    "tone": "Tono",
+    "base": "Base",
+    "caveat": "Le Variabili richiedono un'ora di nascita molto precisa e sono un livello avanzato: leggile come spunti di osservazione, non come verdetti."
+  },
+  "cross": {
+    "angle": {
+      "right": "Angolo destro",
+      "juxtaposition": "Giustapposizione",
+      "left": "Angolo sinistro"
+    },
+    "quarter": "Quarto",
+    "fourGates": "Le quattro porte",
+    "sun": "Sole",
+    "earth": "Terra",
+    "personalitySun": "Sole Personalità",
+    "personalityEarth": "Terra Personalità",
+    "designSun": "Sole Design",
+    "designEarth": "Terra Design",
+    "note": "La croce è formata dalle porte di Sole e Terra, alla nascita (Personalità) e nel momento Design."
+  },
+  "print": {
+    "title": "Stampa",
+    "eyebrow": "Chart Human Design",
+    "back": "Torna al chart",
+    "action": "Stampa / Salva PDF",
+    "hint": "Il foglio è in formato A4 e viene stampato con i colori del tema chiaro. Nella finestra di stampa scegli \"Salva come PDF\" per ottenere un file.",
+    "inShort": "In breve",
+    "structure": "Struttura",
+    "definedCenters": "Centri definiti",
+    "openCenters": "Centri non definiti o aperti",
+    "footer": "Calcolato sul tuo dispositivo con Swiss Ephemeris: i dati di nascita non lasciano mai il dispositivo."
+  }
+}

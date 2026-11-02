@@ -1,0 +1,27 @@
+# deps
+node_modules/
+.pnpm-store/
+
+# build
+dist/
+build/
+.turbo/
+coverage/
+*.tsbuildinfo
+
+# test artifacts
+playwright-report/
+test-results/
+.venv/
+__pycache__/
+
+# env
+.env
+.env.*
+!.env.example
+
+# os/editor
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json

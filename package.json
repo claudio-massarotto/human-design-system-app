@@ -1,0 +1,25 @@
+{
+  "name": "human-design-system-app",
+  "private": true,
+  "type": "module",
+  "license": "AGPL-3.0-or-later",
+  "packageManager": "pnpm@11.17.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @hd/web dev",
+    "build": "pnpm -r --if-present build",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "test": "pnpm -r --if-present test",
+    "e2e": "pnpm --filter @hd/web e2e",
+    "fixtures": "python3 -I tools/reference/generate_fixtures.py",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "prettier": "3.9.10",
+    "typescript": "7.0.2",
+    "vitest": "5.0.5"
+  }
+}

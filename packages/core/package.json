@@ -1,0 +1,23 @@
+{
+  "name": "@hd/core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "AGPL-3.0-or-later",
+  "description": "Motore di calcolo del bodygraph (Swiss Ephemeris WASM). Puro, isomorfo browser/Node.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./data": "./src/data/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@swisseph/browser": "1.4.0",
+    "luxon": "3.7.2"
+  },
+  "devDependencies": {
+    "@types/luxon": "3.7.6"
+  }
+}

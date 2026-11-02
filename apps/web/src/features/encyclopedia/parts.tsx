@@ -125,7 +125,7 @@ export function MineBadge({ refTarget, className }: { refTarget: MineRef; classN
     <Badge tone="violet" className={cn('!px-3 !py-1', className)} data-testid="mine-badge">
       <span aria-hidden className="size-1.5 rounded-full bg-accent-2" />
       {t('mine.inChart')}
-      {detail && <span className="opacity-80">· {detail}</span>}
+      {detail && <span>· {detail}</span>}
     </Badge>
   );
 }

@@ -367,7 +367,10 @@ export function Bodygraph({
           const gate = Number(key);
           const layers = activeGate(gate);
           const active = layers.length > 0;
-          const label = active ? `${labels.gate(gate)} (${layerNames(layers)})` : labels.gate(gate);
+          // Label in Name (WCAG 2.5.3): se il numero è visibile, il nome accessibile inizia con esso.
+          const gateName = labels.gate(gate);
+          const base = showGateNumbers ? `${gate} · ${gateName}` : gateName;
+          const label = active ? `${base} (${layerNames(layers)})` : base;
           const props = interact({ kind: 'gate', gate }, label, active);
           return (
             <g

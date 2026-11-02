@@ -51,7 +51,7 @@ function useCardSpecs(chart: Chart): CardSpec[] {
       Icon: StrategyIcon,
       label: t('summary.strategy'),
       value: facts.strategy,
-      accent: 'text-accent-2 bg-accent-2/15',
+      accent: 'text-(--color-accent-2-text) bg-accent-2/15',
       target: { kind: 'type', id: chart.type },
     },
     {
@@ -68,7 +68,7 @@ function useCardSpecs(chart: Chart): CardSpec[] {
       label: t('summary.profile'),
       value: facts.profile,
       sub: facts.profileName,
-      accent: 'text-transit bg-transit/15',
+      accent: 'text-(--color-transit-text) bg-transit/15',
       target: { kind: 'profile', id: chart.profile.id },
     },
     {
@@ -76,7 +76,7 @@ function useCardSpecs(chart: Chart): CardSpec[] {
       Icon: DefinitionIcon,
       label: t('summary.definition'),
       value: facts.definition,
-      accent: 'text-success bg-success/15',
+      accent: 'text-(--color-success-text) bg-success/15',
       target: { kind: 'definition', id: chart.definition },
     },
     {
@@ -106,7 +106,7 @@ function useCardSpecs(chart: Chart): CardSpec[] {
         c: chart.cross.gates.designSun,
         d: chart.cross.gates.designEarth,
       }),
-      accent: 'text-accent-2 bg-accent-2/15',
+      accent: 'text-(--color-accent-2-text) bg-accent-2/15',
       target: { kind: 'cross', slug: chart.cross.slug, number: chart.cross.number },
       wide: true,
     },
@@ -142,7 +142,7 @@ export function SummaryCards({
               type="button"
               data-card={s.key}
               onClick={() => onOpen(s.target)}
-              aria-label={`${s.label}: ${s.value}. ${t('summary.open')}`}
+              aria-label={`${s.label}: ${s.value}${s.sub ? ` ${s.sub}` : ''}. ${t('summary.open')}`}
               className={cn(
                 'group relative flex h-full w-full cursor-pointer flex-col gap-2.5 overflow-hidden text-left',
                 'rounded-card border border-border bg-surface p-4 shadow-card',
@@ -163,7 +163,7 @@ export function SummaryCards({
                 <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">
                   {s.label}
                 </span>
-              </span>
+              </span>{' '}
               <span
                 className={cn(
                   'break-anywhere font-display font-semibold leading-tight',
@@ -171,7 +171,7 @@ export function SummaryCards({
                 )}
               >
                 {s.value}
-              </span>
+              </span>{' '}
               {s.sub && (
                 <span className="break-anywhere text-[13px] leading-snug text-muted">{s.sub}</span>
               )}

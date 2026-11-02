@@ -88,7 +88,7 @@
     "name": "Nome",
     "retro": "retrogrado",
     "retroLabel": "retrogrado",
-    "openGate": "Apri la porta {{gate}}, linea {{line}}"
+    "openGate": "{{gate}}.{{line}} · Apri la porta {{gate}}, linea {{line}}"
   },
   "calendar": {
     "title": "Calendario del Sole",

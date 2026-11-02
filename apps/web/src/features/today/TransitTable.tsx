@@ -62,7 +62,7 @@ export function TransitTable({
                     <button
                       type="button"
                       onClick={open}
-                      className="min-h-11 cursor-pointer rounded-lg px-1.5 font-semibold tabular-nums text-transit transition-colors hover:bg-transit/10"
+                      className="min-h-11 cursor-pointer rounded-lg px-1.5 font-semibold tabular-nums text-(--color-transit-text) transition-colors hover:bg-transit/10"
                       aria-label={t('table.openGate', { gate: a.gate, line: a.line })}
                     >
                       {a.gate}.{a.line}

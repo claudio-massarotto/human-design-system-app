@@ -111,7 +111,7 @@ describe('ChartPage', () => {
 
     const chart = engine.computeChart(birth());
     const sun = chart.personality.sun;
-    await user.click(screen.getByRole('button', { name: new RegExp(`^Porta ${sun.gate} `) }));
+    await user.click(screen.getByRole('button', { name: new RegExp(`Porta ${sun.gate} `) }));
     dialog = await screen.findByRole('dialog');
     expect(within(dialog).getByTestId(`activated-line-${sun.gate}.${sun.line}`)).toBeInTheDocument();
     expect(within(dialog).getByText(`Linea ${sun.gate}.${sun.line}`)).toBeInTheDocument();

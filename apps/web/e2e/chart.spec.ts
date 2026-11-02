@@ -13,7 +13,7 @@ test.describe('pagina chart', () => {
   test('il tocco su una porta apre il dettaglio e si chiude', async ({ page }) => {
     // Porta 51 è attiva nella croce di Ra (51/57 | 61/62).
     await bodygraph(page)
-      .getByRole('button', { name: /^Porta 51 / })
+      .getByRole('button', { name: /Porta 51 / })
       .click();
     const dialog = page.getByRole('dialog');
     await expect(dialog).toBeVisible();

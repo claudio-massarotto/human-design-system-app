@@ -267,14 +267,14 @@ export function ConnectionPage() {
                 {t('theme.title')}
               </h2>
               <div className="mt-2 flex items-center gap-4">
-                <p
-                  className="font-display text-[56px] font-semibold leading-none tracking-tight"
-                  aria-label={t('theme.aria', { defined: definedCount, open: openCount })}
-                >
+                <p className="font-display text-[56px] font-semibold leading-none tracking-tight">
                   <span aria-hidden>
                     {definedCount}
                     <span className="mx-1.5 text-muted">·</span>
                     {openCount}
+                  </span>
+                  <span className="sr-only">
+                    {t('theme.aria', { defined: definedCount, open: openCount })}
                   </span>
                 </p>
                 <p className="text-[14px] leading-snug text-muted">

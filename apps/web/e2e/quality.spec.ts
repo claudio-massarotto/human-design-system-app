@@ -119,65 +119,6 @@ test.describe('qualità trasversale: nessuno scroll orizzontale a 360 px', () =>
   });
 });
 
-/**
- * Violazioni axe (serious/critical) trovate sull'app e NON corrette (l'app non si modifica in
- * questa suite). Ogni voce ha un test `fixme` che dimostra il problema: quando l'app viene
- * corretta basta togliere `fixme` e la voce da questa mappa.
- */
-interface KnownIssue {
-  rule: string;
-  path: string;
-  ready: Ready;
-  why: string;
-}
-const KNOWN_AXE_ISSUES: KnownIssue[] = [
-  {
-    rule: 'color-contrast',
-    path: '/chart/{id}',
-    ready: { name: 'Ra Uru Hu', level: 1 },
-    why: 'Badge "Ora esatta" (text-success su bg-success/15): contrasto 4.32:1 invece di 4.5:1.',
-  },
-  {
-    rule: 'label-content-name-mismatch',
-    path: '/chart/{id}',
-    ready: { name: 'Ra Uru Hu', level: 1 },
-    why: 'Le card di sintesi e i canali/porte del bodygraph hanno aria-label che non contiene il testo visibile (WCAG 2.5.3 Label in Name).',
-  },
-  {
-    rule: 'color-contrast',
-    path: '/oggi',
-    ready: { name: 'Le 13 attivazioni' },
-    why: 'Chip delle porte di transito (bg-transit/15 con testo transit): contrasto 3.18:1 (26 nodi).',
-  },
-  {
-    rule: 'label-content-name-mismatch',
-    path: '/oggi',
-    ready: { name: 'Le 13 attivazioni' },
-    why: 'Pulsanti "Apri la porta …" con aria-label diverso dal testo visibile (17 nodi).',
-  },
-  {
-    rule: 'aria-prohibited-attr',
-    path: '/connessione',
-    ready: { name: 'Tema di connessione' },
-    why: 'Il <p aria-label="Centri definiti: …"> del tema di connessione non ha ruolo: aria-label vietato su un paragrafo.',
-  },
-  {
-    rule: 'color-contrast',
-    path: '/enciclopedia/porte/1',
-    ready: { name: 'Espressione di sé', level: 1 },
-    why: 'Testo "· linea N" (opacity-80 su sfondo viola chiaro, 3.41:1) e badge accent-2/15 (4.28:1).',
-  },
-  {
-    rule: 'aria-valid-attr-value',
-    path: '/enciclopedia/variabili',
-    ready: { name: 'Variabili', level: 1 },
-    why: 'I trigger Radix delle schede hanno aria-controls verso pannelli non presenti nel DOM (id inesistente).',
-  },
-];
-
-const knownRules = (path: string) =>
-  KNOWN_AXE_ISSUES.filter((k) => k.path === path).map((k) => k.rule);
-
 test.describe('qualità trasversale: accessibilità (axe)', () => {
   const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'];
 
@@ -219,7 +160,7 @@ test.describe('qualità trasversale: accessibilità (axe)', () => {
         const path = p.path.replace('{id}', id);
         await page.goto(path);
         await waitReady(page, p.ready);
-        const v = await scan(page, { disable: knownRules(p.path) });
+        const v = await scan(page, {});
         if (v.length) report[path] = v;
       }
       expect(report).toEqual({});
@@ -248,18 +189,14 @@ test.describe('qualità trasversale: accessibilità (axe)', () => {
     await waitReady(page, { name: 'Ra Uru Hu', level: 1 });
     await page
       .getByRole('region', { name: 'Bodygraph di Ra Uru Hu' })
-      .getByRole('button', { name: /^Porta 51 / })
+      .getByRole('button', { name: /Porta 51 / })
       .click();
     await expect(page.getByRole('dialog')).toBeVisible();
     await page.waitForTimeout(900);
-    expect(
-      await scan(page, { include: '[role="dialog"]', disable: ['scrollable-region-focusable'] }),
-    ).toEqual([]);
+    expect(await scan(page, { include: '[role="dialog"]' })).toEqual([]);
   });
 
-  // BUG (accessibilità): il pannello di dettaglio (Sheet) ha un contenitore con overflow-y-auto
-  // non focusabile da tastiera (axe: scrollable-region-focusable, serious).
-  test.fixme('dialog di dettaglio: area scorrevole raggiungibile da tastiera', async ({ page }) => {
+  test('dialog di dettaglio: area scorrevole raggiungibile da tastiera', async ({ page }) => {
     const id = await seed(page);
     await page.goto(`/chart/${id}`);
     await waitReady(page, { name: 'Ra Uru Hu', level: 1 });
@@ -271,9 +208,34 @@ test.describe('qualità trasversale: accessibilità (axe)', () => {
     ).toEqual([]);
   });
 
-  // BUG (accessibilità): vedi KNOWN_AXE_ISSUES. Questi test falliscono finché l'app non è corretta.
-  for (const issue of KNOWN_AXE_ISSUES) {
-    test.fixme(`${issue.path}: ${issue.rule} — ${issue.why}`, async ({ page }) => {
+  // Regole che in passato fallivano: scansione mirata, senza esclusioni.
+  const FORMER_ISSUES: { rule: string; path: string; ready: Ready }[] = [
+    { rule: 'color-contrast', path: '/chart/{id}', ready: { name: 'Ra Uru Hu', level: 1 } },
+    {
+      rule: 'label-content-name-mismatch',
+      path: '/chart/{id}',
+      ready: { name: 'Ra Uru Hu', level: 1 },
+    },
+    { rule: 'color-contrast', path: '/oggi', ready: { name: 'Le 13 attivazioni' } },
+    {
+      rule: 'label-content-name-mismatch',
+      path: '/oggi',
+      ready: { name: 'Le 13 attivazioni' },
+    },
+    { rule: 'aria-prohibited-attr', path: '/connessione', ready: { name: 'Tema di connessione' } },
+    {
+      rule: 'color-contrast',
+      path: '/enciclopedia/porte/1',
+      ready: { name: 'Espressione di sé', level: 1 },
+    },
+    {
+      rule: 'aria-valid-attr-value',
+      path: '/enciclopedia/variabili',
+      ready: { name: 'Variabili', level: 1 },
+    },
+  ];
+  for (const issue of FORMER_ISSUES) {
+    test(`${issue.path}: ${issue.rule}`, async ({ page }) => {
       const id = await seed(page);
       await page.goto(issue.path.replace('{id}', id));
       await waitReady(page, issue.ready);

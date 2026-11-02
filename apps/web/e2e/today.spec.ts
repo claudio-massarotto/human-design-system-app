@@ -112,7 +112,7 @@ test.describe('Oggi', () => {
     });
     await page
       .getByRole('table', { name: /Attivazioni del transito/ })
-      .getByRole('button', { name: /^Apri la porta/ })
+      .getByRole('button', { name: /Apri la porta/ })
       .first()
       .click();
     await expect(page.getByRole('dialog')).toBeVisible();

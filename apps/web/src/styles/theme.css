@@ -88,6 +88,13 @@
   --glow: radial-gradient(60% 50% at 50% 40%, rgb(139 124 246 / 0.18), transparent 70%);
 }
 
+/* Varianti "-text": colori d'accento leggibili (AA) come testo piccolo su sfondo tinto, in entrambi i temi. */
+:root {
+  --color-success-text: color-mix(in oklab, var(--color-success) 70%, var(--color-text));
+  --color-transit-text: color-mix(in oklab, var(--color-transit) 62%, var(--color-text));
+  --color-accent-2-text: color-mix(in oklab, var(--color-accent-2) 72%, var(--color-text));
+}
+
 /* Token esposti come utility Tailwind: bg-bg, bg-surface, text-muted, border-border, … */
 @theme inline {
   --color-bg: var(--color-bg);

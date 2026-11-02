@@ -75,9 +75,9 @@ test.describe('chart di riferimento mostrati correttamente', () => {
       await createFromOnboarding(page, c.person);
 
       const card = (key: string) => page.locator(`[data-card="${key}"]`);
-      await expect(card('type')).toHaveAccessibleName(new RegExp(`^Tipo: ${c.type}\\.`));
+      await expect(card('type')).toHaveAccessibleName(new RegExp(`^Tipo: ${c.type}`));
       await expect(card('strategy')).toHaveAccessibleName(new RegExp(`^Strategia: ${c.strategy}`));
-      await expect(card('profile')).toHaveAccessibleName(new RegExp(`^Profilo: ${c.profile}\\.`));
+      await expect(card('profile')).toHaveAccessibleName(new RegExp(`^Profilo: ${c.profile}`));
       await expect(card('authority')).toHaveAccessibleName(
         new RegExp(`^Autorità: ${c.authority}\\.`),
       );

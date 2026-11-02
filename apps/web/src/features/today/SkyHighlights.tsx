@@ -64,7 +64,6 @@ function Highlight({
 
       <RowButton
         onClick={() => onOpen({ kind: 'gate', gate: a.gate })}
-        aria-label={t('highlight.openGate', { n: a.gate, name: gate?.name ?? '' })}
         className="bg-transparent"
       >
         <span className="block font-display text-[24px] font-semibold leading-tight">
@@ -87,7 +86,6 @@ function Highlight({
       {line && (
         <RowButton
           onClick={() => onOpen({ kind: 'line', gate: a.gate, line: a.line })}
-          aria-label={t('highlight.openLine', { gate: a.gate, line: a.line })}
           className="bg-transparent"
         >
           <span className="block text-xs font-semibold uppercase tracking-[0.12em] text-muted">

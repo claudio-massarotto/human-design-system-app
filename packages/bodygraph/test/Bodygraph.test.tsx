@@ -227,12 +227,12 @@ describe('Bodygraph: accessibilità', () => {
     const active = screen.getByRole('button', { name: /Gate 13 \(Personality \+ Design\)/ });
     expect(active.getAttribute('tabindex')).toBe('0');
     expect(active.getAttribute('aria-pressed')).toBe('true');
-    expect(screen.getByRole('button', { name: 'Gate 2' }).getAttribute('tabindex')).toBe('-1');
+    expect(screen.getByRole('button', { name: '2 · Gate 2' }).getAttribute('tabindex')).toBe('-1');
     expect(screen.getByRole('button', { name: /Channel 1-8/ }).getAttribute('tabindex')).toBe('0');
   });
 
   it('le etichette sono personalizzabili', () => {
     render(<Bodygraph model={model} onSelect={() => {}} labels={{ gate: (n) => `Porta ${n}` }} />);
-    expect(screen.getByRole('button', { name: 'Porta 2' })).toBeTruthy();
+    expect(screen.getByRole('button', { name: '2 · Porta 2' })).toBeTruthy();
   });
 });

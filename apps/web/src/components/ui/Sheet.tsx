@@ -48,7 +48,12 @@ export function Sheet({ open, onOpenChange, title, description, children, classN
           ) : (
             <RadixDialog.Description className="sr-only">{title}</RadixDialog.Description>
           )}
-          <div className="safe-bottom flex-1 overflow-y-auto overscroll-contain px-5 pb-6 pt-4">
+          <div
+            role="region"
+            tabIndex={0}
+            aria-label={title}
+            className="safe-bottom flex-1 overflow-y-auto overscroll-contain px-5 pb-6 pt-4 outline-offset-[-2px]"
+          >
             {children}
           </div>
         </RadixDialog.Content>

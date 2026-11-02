@@ -88,7 +88,7 @@
     "name": "Name",
     "retro": "retrograde",
     "retroLabel": "retrograde",
-    "openGate": "Open gate {{gate}}, line {{line}}"
+    "openGate": "{{gate}}.{{line}} · Open gate {{gate}}, line {{line}}"
   },
   "calendar": {
     "title": "Sun calendar",

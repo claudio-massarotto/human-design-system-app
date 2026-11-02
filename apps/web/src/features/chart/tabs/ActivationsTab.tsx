@@ -24,9 +24,9 @@ function ActivationCell({ a, side, body, onOpen }: CellProps) {
       type="button"
       data-activation={`${side}-${body}`}
       onClick={() => onOpen({ kind: 'activation', side, body })}
-      aria-label={`${planet}, ${t(`side.${side}`)}: ${a.gate}.${a.line}${
+      aria-label={`${a.gate}.${a.line} ${gateName}. ${planet}, ${t(`side.${side}`)}${
         a.retrograde ? `, ${t('activations.retrograde')}` : ''
-      }. ${gateName}`}
+      }`}
       className={cn(
         'flex min-h-14 w-full cursor-pointer flex-col justify-center rounded-lg px-2 py-1.5 transition-colors',
         'hover:bg-surface-2 active:bg-surface-2',
@@ -41,7 +41,7 @@ function ActivationCell({ a, side, body, onOpen }: CellProps) {
       >
         {a.gate}.{a.line}
         {a.retrograde && <Retro label={t('activations.retrograde')} />}
-      </span>
+      </span>{' '}
       <span className="mt-1 line-clamp-1 w-full text-[11.5px] leading-tight text-muted sm:text-xs">
         {gateName}
       </span>

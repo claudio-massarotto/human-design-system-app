@@ -44,7 +44,12 @@ export function VariablesPage() {
         {KEYS.map((k) => {
           const mine = chart?.variables[k];
           return (
-            <TabsContent key={k} value={k} id={k} className="mt-6 flex flex-col gap-6">
+            <TabsContent
+              key={k}
+              value={k}
+              forceMount
+              className="mt-6 flex flex-col gap-6 data-[state=inactive]:hidden"
+            >
               <div className="max-w-3xl">
                 <h2 className="font-display text-2xl font-semibold">{v[k].title}</h2>
                 <p className="mt-1 text-[15px] leading-relaxed text-muted">{v[k].summary}</p>

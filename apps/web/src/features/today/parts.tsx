@@ -71,7 +71,7 @@ export function GateChip({
       className={cn(
         'inline-flex min-w-9 shrink-0 items-center justify-center rounded-lg px-2 py-1 text-xs font-semibold tabular-nums',
         tone === 'neutral' && 'bg-surface-2 text-text',
-        tone === 'transit' && 'bg-transit/15 text-transit',
+        tone === 'transit' && 'bg-transit/15 text-(--color-transit-text)',
         tone === 'a' && 'bg-person-a/15 text-person-a',
         tone === 'b' && 'bg-person-b/15 text-person-b',
         className,

@@ -1,0 +1,88 @@
+{
+  "loading": "Caricamento…",
+  "close": "Chiudi",
+  "cancel": "Annulla",
+  "notifications": "Notifiche",
+  "nav": {
+    "main": "Navigazione principale",
+    "skip": "Vai al contenuto",
+    "chart": "Il mio chart",
+    "today": "Oggi",
+    "people": "Persone",
+    "encyclopedia": "Enciclopedia",
+    "settings": "Impostazioni",
+    "privacy": "I tuoi dati restano su questo dispositivo."
+  },
+  "engine": {
+    "error": "Non è stato possibile avviare il motore di calcolo. Controlla la connessione e riprova.",
+    "retry": "Riprova"
+  },
+  "error": {
+    "title": "Qualcosa è andato storto",
+    "description": "Si è verificato un errore imprevisto. I tuoi dati sono al sicuro sul dispositivo.",
+    "reload": "Ricarica la pagina",
+    "home": "Torna all'inizio"
+  },
+  "notFound": {
+    "title": "Pagina non trovata",
+    "description": "L'indirizzo che cerchi non esiste o è stato spostato.",
+    "home": "Torna all'inizio"
+  },
+  "comingSoon": {
+    "title": "In arrivo",
+    "description": "Stiamo rifinendo questa sezione. Tornerà presto, con la stessa cura del resto."
+  },
+  "stubs": {
+    "connection": "Connessione"
+  },
+  "chartStub": {
+    "notFound": "Chart non trovato",
+    "toPeople": "Vai alle persone"
+  },
+  "facts": {
+    "type": "Tipo",
+    "profile": "Profilo",
+    "authority": "Autorità"
+  },
+  "chartPicker": {
+    "placeholder": "Scegli una persona",
+    "mine": "il mio chart"
+  },
+  "detail": {
+    "notFound": "Contenuto non disponibile.",
+    "keywords": "Parole chiave",
+    "kind": {
+      "gate": "Porta {{n}}",
+      "line": "Linea {{gate}}.{{line}}",
+      "channel": "Canale {{id}}",
+      "center": "Centro",
+      "type": "Tipo",
+      "authority": "Autorità",
+      "profile": "Profilo {{id}}",
+      "definition": "Definizione",
+      "cross": "Croce di incarnazione",
+      "circuit": "Circuito",
+      "planet": "Attivazione"
+    },
+    "aligned": "Espressione allineata",
+    "notSelf": "Espressione non allineata",
+    "lines": "Le sei linee",
+    "lineArchetype": "Archetipo della linea",
+    "gates": "Porte",
+    "centers": "Centri e circuito",
+    "biology": "Biologia",
+    "defined": "Se è definito",
+    "undefinedState": "Se è non definito",
+    "open": "Se è aperto",
+    "notSelfQuestion": "Domanda del non-sé",
+    "wisdom": "Saggezza",
+    "strategy": "Strategia",
+    "signature": "Firma",
+    "notSelfTheme": "Tema del non-sé",
+    "aura": "Aura",
+    "tips": "Consigli pratici",
+    "howTo": "Come usarla",
+    "strengths": "Punti di forza",
+    "challenges": "Sfide"
+  }
+}

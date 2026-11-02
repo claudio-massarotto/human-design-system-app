@@ -1,0 +1,53 @@
+{
+  "title": "Impostazioni",
+  "subtitle": "Personalizza l'app. Le scelte sono salvate sul tuo dispositivo.",
+  "appearance": { "title": "Aspetto" },
+  "language": {
+    "label": "Lingua",
+    "description": "Lingua dell'interfaccia e dei testi interpretativi."
+  },
+  "theme": {
+    "label": "Tema",
+    "description": "Segui il sistema oppure scegli il tema chiaro (Giorno) o scuro (Notte).",
+    "system": "Sistema",
+    "light": "Chiaro",
+    "dark": "Scuro"
+  },
+  "calculation": { "title": "Calcolo e testi" },
+  "node": {
+    "label": "Nodo lunare",
+    "description": "Il nodo vero segue la posizione reale dei nodi, il nodo medio ne è la media regolare: differiscono di pochi gradi e possono cambiare una linea. Tutti i chart si ricalcolano subito.",
+    "true": "Nodo vero",
+    "mean": "Nodo medio"
+  },
+  "level": {
+    "label": "Livello dei testi",
+    "simple": "Semplice",
+    "deep": "Approfondito",
+    "hint": {
+      "simple": "Spiegazioni brevi, in linguaggio quotidiano.",
+      "deep": "Descrizioni complete con la terminologia del sistema."
+    }
+  },
+  "data": {
+    "title": "I tuoi dati",
+    "label": "Cancella tutti i dati",
+    "description": "Elimina dal dispositivo tutti i chart salvati e le impostazioni. Prima di procedere puoi esportare un backup dalla pagina Persone.",
+    "delete": "Cancella tutto",
+    "confirmTitle": "Cancellare tutti i dati?",
+    "confirmDescription": "Verranno eliminati definitivamente tutti i chart salvati e le impostazioni. L'operazione non si può annullare.",
+    "confirm": "Sì, cancella tutto",
+    "wiped": "Tutti i dati sono stati cancellati.",
+    "wipeError": "Non è stato possibile cancellare i dati."
+  },
+  "about": {
+    "title": "Informazioni",
+    "version": "Versione",
+    "license": "Licenza",
+    "openSource": "Human Design System è software libero e open source: puoi leggere, usare e migliorare il codice secondo i termini della licenza.",
+    "source": "Codice sorgente su GitHub",
+    "opensInNewTab": "(si apre in una nuova scheda)",
+    "disclaimer": "Avvertenza",
+    "privacy": "Privacy: data, ora e chart non lasciano mai il dispositivo. Per cercare una città viene inviato soltanto il nome della città al servizio Open-Meteo, mai la data o l'ora di nascita."
+  }
+}

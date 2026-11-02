@@ -1,0 +1,24 @@
+{
+  "title": "Benvenuto",
+  "eyebrow": "Human Design System",
+  "headline": "Scopri il tuo bodygraph, calcolato con precisione.",
+  "lead": "Inserisci data, ora e luogo di nascita: in pochi secondi ottieni tipo, strategia, autorità, profilo e tutte le 26 attivazioni, con effemeridi Swiss Ephemeris e fusi orari storici.",
+  "cta": "Calcola il mio chart",
+  "import": "Importa un backup",
+  "language": "Lingua",
+  "features": {
+    "precise": {
+      "title": "Precisione astronomica",
+      "text": "Lo stesso motore dei software di riferimento, verificato su centinaia di nascite."
+    },
+    "private": {
+      "title": "Privato per natura",
+      "text": "Calcoli e dati restano sul tuo dispositivo. Nessun account, nessun tracciamento."
+    },
+    "bilingual": {
+      "title": "Italiano e inglese",
+      "text": "Testi originali su due livelli: semplice per iniziare, approfondito per studiare."
+    }
+  },
+  "footnote": "Il Human Design è uno strumento di riflessione, non una scienza né un consiglio professionale."
+}

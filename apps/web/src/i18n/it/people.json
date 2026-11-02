@@ -1,0 +1,158 @@
+{
+  "title": "Persone",
+  "subtitle": "I chart salvati su questo dispositivo: il tuo, quelli di chi ami, di chi lavora con te.",
+  "actions": {
+    "add": "Aggiungi persona",
+    "import": "Importa",
+    "export": "Esporta"
+  },
+  "empty": {
+    "title": "Nessun chart salvato",
+    "description": "Aggiungi la prima persona: bastano nome, data, ora e luogo di nascita."
+  },
+  "card": {
+    "mine": "Il mio chart",
+    "setPrimary": "Imposta come il mio",
+    "timeUnknown": "ora sconosciuta",
+    "edit": "Modifica {{name}}",
+    "editShort": "Modifica",
+    "delete": "Elimina {{name}}",
+    "deleteShort": "Elimina"
+  },
+  "delete": {
+    "title": "Eliminare {{name}}?",
+    "description": "Il chart verrà rimosso da questo dispositivo. Puoi sempre ricrearlo inserendo di nuovo i dati di nascita.",
+    "confirm": "Elimina"
+  },
+  "toast": {
+    "saved": "{{name}} è stato salvato.",
+    "updated": "Modifiche a {{name}} salvate.",
+    "saveError": "Non è stato possibile salvare. Riprova.",
+    "deleted": "{{name}} è stato eliminato.",
+    "deleteError": "Non è stato possibile eliminare.",
+    "primary": "{{name}} è ora il tuo chart."
+  },
+  "export": {
+    "done_one": "Esportato {{count}} chart.",
+    "done_other": "Esportati {{count}} chart."
+  },
+  "import": {
+    "tooLarge": "Il file è troppo grande (massimo 5 MB).",
+    "done": "Importazione completata: {{added}} nuovi, {{updated}} aggiornati, {{skipped}} già presenti.",
+    "writeError": "Non è stato possibile salvare i dati importati.",
+    "error": {
+      "notJson": "Il file non è un JSON valido.",
+      "wrongFormat": "Il file non è un backup di Human Design System.",
+      "unsupportedVersion": "Questa versione del backup non è supportata.",
+      "invalidChart": "Il chart numero {{n}} nel file non è valido: nessun dato è stato importato."
+    }
+  },
+  "relation": {
+    "me": "Io",
+    "partner": "Partner",
+    "family": "Famiglia",
+    "friend": "Amico/a",
+    "colleague": "Collega",
+    "other": "Altro"
+  },
+  "new": {
+    "title": "Aggiungi una persona",
+    "titleFirst": "Il tuo chart",
+    "subtitle": "Inserisci i dati di nascita: il chart si calcola sul tuo dispositivo mentre scrivi.",
+    "submit": "Calcola e salva"
+  },
+  "edit": {
+    "title": "Modifica persona",
+    "titleFor": "Modifica {{name}}",
+    "subtitle": "Il chart viene ricalcolato dai nuovi dati.",
+    "submit": "Salva modifiche",
+    "notFound": "Persona non trovata",
+    "backToPeople": "Vai alle persone"
+  },
+  "form": {
+    "name": "Nome",
+    "relation": "Relazione",
+    "date": "Data di nascita",
+    "time": "Ora di nascita",
+    "timeUnknownHint": "Calcoleremo il chart alle 12:00 locali.",
+    "accuracy": "Quanto è precisa l'ora?",
+    "notes": "Note (facoltative)",
+    "notesHint": "Restano solo sul tuo dispositivo.",
+    "cancel": "Annulla"
+  },
+  "accuracy": {
+    "exact": "Esatta",
+    "approximate": "Approssimata",
+    "unknown": "Sconosciuta"
+  },
+  "accuracyHint": {
+    "exact": "Ora presa da un documento o da una fonte affidabile.",
+    "approximate": "Ti avviseremo se il chart cambia entro pochi minuti dall'ora indicata.",
+    "unknown": "Senza l'ora alcuni elementi (profilo, autorità, a volte il tipo) possono essere imprecisi."
+  },
+  "place": {
+    "label": "Luogo di nascita",
+    "hint": "Scrivi la città: verrà inviato solo il nome, mai data o ora.",
+    "placeholder": "Es. Roma, Milano, New York…",
+    "change": "Cambia",
+    "keep": "Mantieni {{name}}",
+    "results": "Risultati della ricerca",
+    "resultsCount_one": "{{count}} risultato trovato",
+    "resultsCount_other": "{{count}} risultati trovati",
+    "noResults": "Nessun risultato per «{{query}}». Prova un altro nome o inserisci le coordinate a mano.",
+    "manualLink": "Non trovi la città? Inserisci le coordinate",
+    "error": {
+      "offline": "Sei offline: la ricerca delle città richiede la rete. Puoi inserire le coordinate a mano.",
+      "network": "Ricerca non riuscita. Controlla la connessione o inserisci le coordinate a mano.",
+      "http": "Il servizio di ricerca non risponde. Riprova tra poco o inserisci le coordinate a mano.",
+      "invalid": "Risposta inattesa dal servizio di ricerca. Riprova o inserisci le coordinate a mano."
+    },
+    "manual": {
+      "title": "Inserimento manuale",
+      "hint": "Il fuso orario serve a convertire l'ora locale in ora universale: scegli quello in vigore nel luogo di nascita.",
+      "name": "Nome del luogo",
+      "latitude": "Latitudine",
+      "longitude": "Longitudine",
+      "timezone": "Fuso orario",
+      "use": "Usa questo luogo",
+      "back": "Torna alla ricerca",
+      "error": {
+        "nameRequired": "Inserisci il nome del luogo.",
+        "latitudeInvalid": "Latitudine non valida: un numero tra −90 e 90.",
+        "longitudeInvalid": "Longitudine non valida: un numero tra −180 e 180.",
+        "timezoneInvalid": "Scegli un fuso orario valido."
+      }
+    }
+  },
+  "errors": {
+    "summary": "Controlla i campi evidenziati.",
+    "nameRequired": "Inserisci un nome.",
+    "nameTooLong": "Il nome è troppo lungo (massimo 60 caratteri).",
+    "dateRequired": "Inserisci la data di nascita.",
+    "dateInvalid": "La data non è valida.",
+    "dateTooEarly": "La data deve essere dal 1800 in poi.",
+    "dateFuture": "La data non può essere nel futuro.",
+    "timeRequired": "Inserisci l'ora, oppure scegli «Non conosco l'ora».",
+    "timeInvalid": "L'ora non è valida: usa il formato 24 ore, per esempio 14:30.",
+    "placeRequired": "Scegli il luogo di nascita.",
+    "notesTooLong": "Le note sono troppo lunghe (massimo 2000 caratteri)."
+  },
+  "preview": {
+    "title": "Anteprima",
+    "empty": "Inserisci data, ora e luogo: qui vedrai tipo, profilo e autorità.",
+    "error": "Non è stato possibile calcolare il chart con questi dati.",
+    "profile": "Profilo",
+    "authority": "Autorità",
+    "definition": "Definizione",
+    "cross": "Croce",
+    "utc": "Momento di nascita in ora universale: {{when}}",
+    "warnings": "Avvisi sull'ora"
+  },
+  "warnings": {
+    "nonexistentLocalTime": "Quest'ora locale non è mai esistita (salto dell'ora legale): l'abbiamo spostata in avanti di un'ora.",
+    "ambiguousLocalTime": "Quest'ora locale si è ripetuta (ritorno all'ora solare): abbiamo usato la prima occorrenza.",
+    "timeUnknown": "Ora sconosciuta: il chart è calcolato alle 12:00 locali, quindi alcuni elementi possono essere imprecisi.",
+    "timeApproximate": "Ora approssimata: se il chart cambia entro pochi minuti, verifica l'ora su un documento ufficiale.",
+    "historicalTimezone": "Data anteriore al 1970: i dati storici del fuso orario sono meno affidabili."
+  }
+}

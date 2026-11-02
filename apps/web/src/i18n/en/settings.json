@@ -1,0 +1,53 @@
+{
+  "title": "Settings",
+  "subtitle": "Customize the app. Your choices are saved on your device.",
+  "appearance": { "title": "Appearance" },
+  "language": {
+    "label": "Language",
+    "description": "Language of the interface and of the interpretive texts."
+  },
+  "theme": {
+    "label": "Theme",
+    "description": "Follow the system or pick the light (Day) or dark (Night) theme.",
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "calculation": { "title": "Calculation and texts" },
+  "node": {
+    "label": "Lunar node",
+    "description": "The true node follows the actual position of the nodes, the mean node is their smoothed average: they differ by a few degrees and can change a line. All charts are recalculated instantly.",
+    "true": "True node",
+    "mean": "Mean node"
+  },
+  "level": {
+    "label": "Text level",
+    "simple": "Simple",
+    "deep": "In-depth",
+    "hint": {
+      "simple": "Short explanations in everyday language.",
+      "deep": "Full descriptions with the system's terminology."
+    }
+  },
+  "data": {
+    "title": "Your data",
+    "label": "Delete all data",
+    "description": "Removes all saved charts and settings from this device. Before you proceed you can export a backup from the People page.",
+    "delete": "Delete everything",
+    "confirmTitle": "Delete all data?",
+    "confirmDescription": "All saved charts and settings will be permanently removed. This cannot be undone.",
+    "confirm": "Yes, delete everything",
+    "wiped": "All data has been deleted.",
+    "wipeError": "The data could not be deleted."
+  },
+  "about": {
+    "title": "About",
+    "version": "Version",
+    "license": "License",
+    "openSource": "Human Design System is free, open source software: you can read, use and improve the code under the terms of the license.",
+    "source": "Source code on GitHub",
+    "opensInNewTab": "(opens in a new tab)",
+    "disclaimer": "Disclaimer",
+    "privacy": "Privacy: date, time and charts never leave your device. To search for a city only the city name is sent to the Open-Meteo service, never your birth date or time."
+  }
+}

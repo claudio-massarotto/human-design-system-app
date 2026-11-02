@@ -1,0 +1,158 @@
+{
+  "title": "People",
+  "subtitle": "Charts saved on this device: yours, the people you love, the people you work with.",
+  "actions": {
+    "add": "Add person",
+    "import": "Import",
+    "export": "Export"
+  },
+  "empty": {
+    "title": "No saved charts",
+    "description": "Add the first person: name, birth date, time and place are all you need."
+  },
+  "card": {
+    "mine": "My chart",
+    "setPrimary": "Set as mine",
+    "timeUnknown": "time unknown",
+    "edit": "Edit {{name}}",
+    "editShort": "Edit",
+    "delete": "Delete {{name}}",
+    "deleteShort": "Delete"
+  },
+  "delete": {
+    "title": "Delete {{name}}?",
+    "description": "The chart will be removed from this device. You can always recreate it by entering the birth data again.",
+    "confirm": "Delete"
+  },
+  "toast": {
+    "saved": "{{name}} has been saved.",
+    "updated": "Changes to {{name}} saved.",
+    "saveError": "Could not save. Please try again.",
+    "deleted": "{{name}} has been deleted.",
+    "deleteError": "Could not delete.",
+    "primary": "{{name}} is now your chart."
+  },
+  "export": {
+    "done_one": "Exported {{count}} chart.",
+    "done_other": "Exported {{count}} charts."
+  },
+  "import": {
+    "tooLarge": "The file is too large (5 MB maximum).",
+    "done": "Import complete: {{added}} new, {{updated}} updated, {{skipped}} already present.",
+    "writeError": "Could not save the imported data.",
+    "error": {
+      "notJson": "The file is not valid JSON.",
+      "wrongFormat": "The file is not a Human Design System backup.",
+      "unsupportedVersion": "This backup version is not supported.",
+      "invalidChart": "Chart number {{n}} in the file is not valid: nothing was imported."
+    }
+  },
+  "relation": {
+    "me": "Me",
+    "partner": "Partner",
+    "family": "Family",
+    "friend": "Friend",
+    "colleague": "Colleague",
+    "other": "Other"
+  },
+  "new": {
+    "title": "Add a person",
+    "titleFirst": "Your chart",
+    "subtitle": "Enter the birth data: the chart is calculated on your device as you type.",
+    "submit": "Calculate and save"
+  },
+  "edit": {
+    "title": "Edit person",
+    "titleFor": "Edit {{name}}",
+    "subtitle": "The chart is recalculated from the new data.",
+    "submit": "Save changes",
+    "notFound": "Person not found",
+    "backToPeople": "Go to people"
+  },
+  "form": {
+    "name": "Name",
+    "relation": "Relationship",
+    "date": "Birth date",
+    "time": "Birth time",
+    "timeUnknownHint": "We will calculate the chart at 12:00 local time.",
+    "accuracy": "How accurate is the time?",
+    "notes": "Notes (optional)",
+    "notesHint": "They stay on your device only.",
+    "cancel": "Cancel"
+  },
+  "accuracy": {
+    "exact": "Exact",
+    "approximate": "Approximate",
+    "unknown": "Unknown"
+  },
+  "accuracyHint": {
+    "exact": "Time taken from a document or a reliable source.",
+    "approximate": "We will warn you if the chart changes within a few minutes of the given time.",
+    "unknown": "Without the time some elements (profile, authority, sometimes the type) may be inaccurate."
+  },
+  "place": {
+    "label": "Birth place",
+    "hint": "Type the city: only its name is sent, never the date or time.",
+    "placeholder": "E.g. Rome, Milan, New York…",
+    "change": "Change",
+    "keep": "Keep {{name}}",
+    "results": "Search results",
+    "resultsCount_one": "{{count}} result found",
+    "resultsCount_other": "{{count}} results found",
+    "noResults": "No results for “{{query}}”. Try another name or enter the coordinates by hand.",
+    "manualLink": "Can't find the city? Enter coordinates",
+    "error": {
+      "offline": "You are offline: city search needs the network. You can enter the coordinates by hand.",
+      "network": "Search failed. Check your connection or enter the coordinates by hand.",
+      "http": "The search service is not responding. Try again shortly or enter the coordinates by hand.",
+      "invalid": "Unexpected response from the search service. Try again or enter the coordinates by hand."
+    },
+    "manual": {
+      "title": "Manual entry",
+      "hint": "The time zone converts local time to universal time: choose the one in force at the birth place.",
+      "name": "Place name",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "timezone": "Time zone",
+      "use": "Use this place",
+      "back": "Back to search",
+      "error": {
+        "nameRequired": "Enter the place name.",
+        "latitudeInvalid": "Invalid latitude: a number between −90 and 90.",
+        "longitudeInvalid": "Invalid longitude: a number between −180 and 180.",
+        "timezoneInvalid": "Choose a valid time zone."
+      }
+    }
+  },
+  "errors": {
+    "summary": "Please check the highlighted fields.",
+    "nameRequired": "Enter a name.",
+    "nameTooLong": "The name is too long (60 characters maximum).",
+    "dateRequired": "Enter the birth date.",
+    "dateInvalid": "The date is not valid.",
+    "dateTooEarly": "The date must be 1800 or later.",
+    "dateFuture": "The date cannot be in the future.",
+    "timeRequired": "Enter the time, or choose “I don't know the time”.",
+    "timeInvalid": "The time is not valid: use the 24-hour format, for example 14:30.",
+    "placeRequired": "Choose the birth place.",
+    "notesTooLong": "The notes are too long (2000 characters maximum)."
+  },
+  "preview": {
+    "title": "Preview",
+    "empty": "Enter date, time and place: you will see type, profile and authority here.",
+    "error": "The chart could not be calculated from this data.",
+    "profile": "Profile",
+    "authority": "Authority",
+    "definition": "Definition",
+    "cross": "Cross",
+    "utc": "Birth moment in universal time: {{when}}",
+    "warnings": "Time warnings"
+  },
+  "warnings": {
+    "nonexistentLocalTime": "This local time never existed (daylight saving jump): we moved it forward by one hour.",
+    "ambiguousLocalTime": "This local time occurred twice (clocks went back): we used the first occurrence.",
+    "timeUnknown": "Unknown time: the chart is calculated at 12:00 local time, so some elements may be inaccurate.",
+    "timeApproximate": "Approximate time: if the chart changes within a few minutes, check the time on an official document.",
+    "historicalTimezone": "Date before 1970: historical time zone data is less reliable."
+  }
+}

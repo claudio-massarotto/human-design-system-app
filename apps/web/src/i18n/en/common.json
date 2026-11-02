@@ -1,0 +1,88 @@
+{
+  "loading": "Loading…",
+  "close": "Close",
+  "cancel": "Cancel",
+  "notifications": "Notifications",
+  "nav": {
+    "main": "Main navigation",
+    "skip": "Skip to content",
+    "chart": "My chart",
+    "today": "Today",
+    "people": "People",
+    "encyclopedia": "Encyclopedia",
+    "settings": "Settings",
+    "privacy": "Your data stays on this device."
+  },
+  "engine": {
+    "error": "The calculation engine could not start. Check your connection and try again.",
+    "retry": "Try again"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "description": "An unexpected error occurred. Your data is safe on your device.",
+    "reload": "Reload the page",
+    "home": "Back to start"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The address you are looking for does not exist or has moved.",
+    "home": "Back to start"
+  },
+  "comingSoon": {
+    "title": "Coming soon",
+    "description": "We are polishing this section. It will be back shortly, with the same care as the rest."
+  },
+  "stubs": {
+    "connection": "Connection"
+  },
+  "chartStub": {
+    "notFound": "Chart not found",
+    "toPeople": "Go to people"
+  },
+  "facts": {
+    "type": "Type",
+    "profile": "Profile",
+    "authority": "Authority"
+  },
+  "chartPicker": {
+    "placeholder": "Choose a person",
+    "mine": "my chart"
+  },
+  "detail": {
+    "notFound": "Content not available.",
+    "keywords": "Keywords",
+    "kind": {
+      "gate": "Gate {{n}}",
+      "line": "Line {{gate}}.{{line}}",
+      "channel": "Channel {{id}}",
+      "center": "Center",
+      "type": "Type",
+      "authority": "Authority",
+      "profile": "Profile {{id}}",
+      "definition": "Definition",
+      "cross": "Incarnation cross",
+      "circuit": "Circuit",
+      "planet": "Activation"
+    },
+    "aligned": "Aligned expression",
+    "notSelf": "Unaligned expression",
+    "lines": "The six lines",
+    "lineArchetype": "Line archetype",
+    "gates": "Gates",
+    "centers": "Centers and circuit",
+    "biology": "Biology",
+    "defined": "When defined",
+    "undefinedState": "When undefined",
+    "open": "When open",
+    "notSelfQuestion": "Not-self question",
+    "wisdom": "Wisdom",
+    "strategy": "Strategy",
+    "signature": "Signature",
+    "notSelfTheme": "Not-self theme",
+    "aura": "Aura",
+    "tips": "Practical tips",
+    "howTo": "How to use it",
+    "strengths": "Strengths",
+    "challenges": "Challenges"
+  }
+}

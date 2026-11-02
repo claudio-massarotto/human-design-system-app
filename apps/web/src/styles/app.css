@@ -1,0 +1,282 @@
+/* Stili dell'app oltre ai token di theme.css: animazioni, bagliori, pannelli Radix.
+   Niente direttive Tailwind qui: solo CSS semplice. */
+
+:root {
+  /* Oro leggibile come testo piccolo (AA) in entrambi i temi. */
+  --color-accent-text: color-mix(in oklab, var(--color-accent) 72%, var(--color-text));
+  --nav-height: 64px;
+  --sidebar-width: 248px;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scrollbar-gutter: stable;
+}
+
+body {
+  min-height: 100dvh;
+  overflow-x: hidden;
+  line-height: 1.55;
+}
+
+/* Bagliore ambientale fisso dietro tutta l'app. */
+.app-ambient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    var(--glow),
+    radial-gradient(
+      40% 35% at 90% 100%,
+      color-mix(in oklab, var(--color-accent-2) 8%, transparent),
+      transparent 70%
+    );
+  background-repeat: no-repeat;
+}
+
+/* Bagliore radiale dietro agli elementi hero. */
+.hero-glow {
+  position: relative;
+  isolation: isolate;
+}
+.hero-glow::before {
+  content: '';
+  position: absolute;
+  inset: -20% -10%;
+  z-index: -1;
+  background: var(--glow);
+  pointer-events: none;
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 12px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: var(--color-accent);
+  color: #14121c;
+  font-weight: 600;
+}
+.skip-link:focus {
+  left: 12px;
+  position: fixed;
+}
+
+/* ───── Dialog / Sheet (Radix) ───── */
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes overlay-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+@keyframes dialog-out {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.97);
+  }
+}
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes sheet-down {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+@keyframes sheet-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes sheet-out-right {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.dialog-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgb(14 11 24 / 0.5);
+  backdrop-filter: blur(3px);
+}
+.dialog-overlay[data-state='open'] {
+  animation: overlay-in 0.18s ease-out;
+}
+.dialog-overlay[data-state='closed'] {
+  animation: overlay-out 0.15s ease-in forwards;
+}
+
+.dialog-content {
+  position: fixed;
+  z-index: 61;
+  left: 50%;
+  top: 50%;
+  width: min(92vw, 460px);
+  max-height: 88dvh;
+  transform: translate(-50%, -50%);
+}
+.dialog-content[data-state='open'] {
+  animation: dialog-in 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.dialog-content[data-state='closed'] {
+  animation: dialog-out 0.15s ease-in forwards;
+}
+
+.sheet-content {
+  position: fixed;
+  z-index: 61;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: 90dvh;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+.sheet-content[data-state='open'] {
+  animation: sheet-up 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.sheet-content[data-state='closed'] {
+  animation: sheet-down 0.2s ease-in forwards;
+}
+
+@media (min-width: 768px) {
+  .sheet-content {
+    left: auto;
+    top: 0;
+    width: min(460px, 100vw);
+    max-height: none;
+    border-radius: 0;
+  }
+  .sheet-content[data-state='open'] {
+    animation: sheet-in-right 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .sheet-content[data-state='closed'] {
+    animation: sheet-out-right 0.2s ease-in forwards;
+  }
+}
+
+/* ───── Toast ───── */
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.toast {
+  animation: toast-in 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ───── Spinner e decorazioni ───── */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin {
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes rotate-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.mandala-spin {
+  animation: rotate-slow 180s linear infinite;
+  transform-origin: 50% 50%;
+}
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+.pulse-soft {
+  animation: pulse-soft 3.2s ease-in-out infinite;
+}
+
+/* Testo lungo/utente: mai overflow orizzontale. */
+.break-anywhere {
+  overflow-wrap: anywhere;
+}
+
+/* Selettori nativi coerenti col tema. */
+input[type='date']::-webkit-calendar-picker-indicator,
+input[type='time']::-webkit-calendar-picker-indicator {
+  opacity: 0.7;
+  cursor: pointer;
+}
+:root[data-theme='dark'] input[type='date']::-webkit-calendar-picker-indicator,
+:root[data-theme='dark'] input[type='time']::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) input[type='date']::-webkit-calendar-picker-indicator,
+  :root:not([data-theme='light']) input[type='time']::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mandala-spin,
+  .pulse-soft,
+  .spin {
+    animation: none !important;
+  }
+}

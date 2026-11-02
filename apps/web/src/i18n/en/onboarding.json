@@ -1,0 +1,24 @@
+{
+  "title": "Welcome",
+  "eyebrow": "Human Design System",
+  "headline": "Discover your bodygraph, calculated with precision.",
+  "lead": "Enter your birth date, time and place: in seconds you get type, strategy, authority, profile and all 26 activations, using Swiss Ephemeris and historical time zones.",
+  "cta": "Calculate my chart",
+  "import": "Import a backup",
+  "language": "Language",
+  "features": {
+    "precise": {
+      "title": "Astronomical precision",
+      "text": "The same engine as the reference software, verified against hundreds of births."
+    },
+    "private": {
+      "title": "Private by design",
+      "text": "Calculations and data stay on your device. No account, no tracking."
+    },
+    "bilingual": {
+      "title": "Italian and English",
+      "text": "Original texts on two levels: simple to get started, in-depth to study."
+    }
+  },
+  "footnote": "Human Design is a tool for reflection, not a science and not professional advice."
+}

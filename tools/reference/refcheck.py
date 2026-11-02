@@ -1,7 +1,7 @@
 import sys
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
-sys.path.insert(0, '.')
+sys.path.insert(0, __import__('os').path.dirname(__import__('os').path.abspath(__file__)))
 import hd_ref
 cases = [
  ('Ra Uru Hu','1948-04-09 00:05','America/Toronto'),

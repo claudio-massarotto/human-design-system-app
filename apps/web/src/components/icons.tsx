@@ -46,6 +46,19 @@ export const PeopleIcon = make(
     <path d="M16 5.6a3.2 3.2 0 0 1 0 5.8M17.5 14.8c2.2.6 3.5 2.3 3.5 5.2" />
   </>,
 );
+export const ConnectionIcon = make(
+  <>
+    <circle cx="9" cy="12" r="5.5" />
+    <circle cx="15" cy="12" r="5.5" />
+  </>,
+);
+export const MoreIcon = make(
+  <>
+    <circle cx="5.5" cy="12" r="1.4" fill="currentColor" />
+    <circle cx="12" cy="12" r="1.4" fill="currentColor" />
+    <circle cx="18.5" cy="12" r="1.4" fill="currentColor" />
+  </>,
+);
 export const BookIcon = make(
   <>
     <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z" />

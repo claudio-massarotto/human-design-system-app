@@ -29,7 +29,7 @@ test.describe('impostazioni', () => {
     ).toHaveAttribute('aria-checked', 'true');
   });
 
-  test('la lingua EN traduce navigazione e pagina, e persiste', async ({ page }) => {
+  test('la lingua EN traduce navigazione e pagina, e persiste', async ({ page }, info) => {
     await page.goto('/impostazioni');
     await expect(nav(page).getByRole('link', { name: 'Persone' })).toBeVisible();
 
@@ -39,8 +39,23 @@ test.describe('impostazioni', () => {
       .click();
 
     const mainNav = page.getByRole('navigation', { name: 'Main navigation' });
-    for (const label of ['My chart', 'Today', 'People', 'Encyclopedia', 'Settings']) {
+    for (const label of ['My chart', 'Today', 'People']) {
       await expect(mainNav.getByRole('link', { name: label })).toBeVisible();
+    }
+    // Su desktop le altre sezioni sono nella barra; su mobile nel pannello "More".
+    const rest = ['Connection', 'Encyclopedia', 'Settings'];
+    if (info.project.name === 'mobile') {
+      await mainNav.getByRole('button', { name: 'More' }).click();
+      const sheet = page.getByRole('dialog', { name: 'More sections' });
+      for (const label of rest) {
+        await expect(sheet.getByRole('link', { name: new RegExp(`^${label}`) })).toBeVisible();
+      }
+      await page.keyboard.press('Escape');
+      await expect(sheet).toBeHidden();
+    } else {
+      for (const label of rest) {
+        await expect(mainNav.getByRole('link', { name: label })).toBeVisible();
+      }
     }
     await expect(page.getByRole('heading', { level: 1, name: 'Settings' })).toBeVisible();
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');

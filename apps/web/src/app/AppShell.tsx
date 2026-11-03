@@ -1,4 +1,4 @@
-import { useMemo, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, Outlet, useLocation, useMatches, useNavigation } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'motion/react';
@@ -6,12 +6,16 @@ import { BrandMark } from '../components/BrandMark';
 import {
   BookIcon,
   ChartIcon,
+  ChevronRightIcon,
+  ConnectionIcon,
   LockIcon,
+  MoreIcon,
   PeopleIcon,
   SettingsIcon,
   TodayIcon,
   type IconProps,
 } from '../components/icons';
+import { Sheet } from '../components/ui/Sheet';
 import { useSettings } from '../data/hooks';
 import { cn } from '../lib/cn';
 
@@ -22,11 +26,14 @@ export interface RouteHandle {
 }
 
 interface NavItem {
-  key: 'chart' | 'today' | 'people' | 'encyclopedia' | 'settings';
+  key: 'chart' | 'today' | 'people' | 'connection' | 'encyclopedia' | 'settings';
   to: string;
   match(pathname: string): boolean;
   Icon(props: IconProps): ReactNode;
 }
+
+/** Su mobile queste voci stanno nel pannello "Altro"; su desktop sono tutte nella barra laterale. */
+const MORE_KEYS: readonly NavItem['key'][] = ['connection', 'encyclopedia', 'settings'];
 
 function useNavItems(): NavItem[] {
   const { settings } = useSettings();
@@ -42,7 +49,7 @@ function useNavItems(): NavItem[] {
       {
         key: 'today',
         to: '/oggi',
-        match: (p) => p.startsWith('/oggi') || p.startsWith('/connessione'),
+        match: (p) => p.startsWith('/oggi'),
         Icon: TodayIcon,
       },
       {
@@ -50,6 +57,12 @@ function useNavItems(): NavItem[] {
         to: '/persone',
         match: (p) => p.startsWith('/persone') || p === '/nuovo',
         Icon: PeopleIcon,
+      },
+      {
+        key: 'connection',
+        to: '/connessione',
+        match: (p) => p.startsWith('/connessione'),
+        Icon: ConnectionIcon,
       },
       {
         key: 'encyclopedia',
@@ -164,39 +177,115 @@ export function AppShell() {
         {page}
       </main>
 
-      {/* Barra inferiore (mobile) */}
-      <nav
-        aria-label={t('nav.main')}
-        className="safe-bottom fixed inset-x-0 bottom-0 z-30 border-t border-border bg-surface/90 backdrop-blur md:hidden"
-      >
-        <ul className="mx-auto grid h-(--nav-height) max-w-xl grid-cols-5">
-          {items.map((item) => {
-            const active = item.match(location.pathname);
+      <MobileNav items={items} pathname={location.pathname} />
+    </div>
+  );
+}
+
+const TAB_CLASS =
+  'relative flex h-full w-full flex-col items-center justify-center gap-1 px-0.5 text-[11px] font-medium tracking-tight transition-colors';
+
+function TabPill() {
+  return (
+    <motion.span
+      layoutId="nav-pill"
+      aria-hidden
+      className="absolute inset-x-3 top-0 h-0.5 rounded-full bg-accent"
+    />
+  );
+}
+
+/** Barra inferiore (mobile): tre sezioni fisse più "Altro", che apre le restanti in un pannello. */
+function MobileNav({ items, pathname }: { items: NavItem[]; pathname: string }) {
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const main = items.filter((i) => !MORE_KEYS.includes(i.key));
+  const more = items.filter((i) => MORE_KEYS.includes(i.key));
+  const moreActive = more.some((i) => i.match(pathname));
+
+  // Il pannello si chiude quando si cambia pagina (anche con il tasto indietro).
+  useEffect(() => setOpen(false), [pathname]);
+
+  return (
+    <nav
+      aria-label={t('nav.main')}
+      className="safe-bottom fixed inset-x-0 bottom-0 z-30 border-t border-border bg-surface/90 backdrop-blur md:hidden"
+    >
+      <ul className="mx-auto grid h-(--nav-height) max-w-xl grid-cols-4">
+        {main.map((item) => {
+          const active = item.match(pathname);
+          return (
+            <li key={item.key} className="min-w-0">
+              <Link
+                to={item.to}
+                aria-current={active ? 'page' : undefined}
+                className={cn(TAB_CLASS, active ? 'text-(--color-accent-text)' : 'text-muted')}
+              >
+                {active && <TabPill />}
+                <item.Icon size={22} />
+                <span className="max-w-full truncate">{t(`nav.${item.key}`)}</span>
+              </Link>
+            </li>
+          );
+        })}
+        <li className="min-w-0">
+          <button
+            type="button"
+            aria-haspopup="dialog"
+            aria-expanded={open}
+            onClick={() => setOpen(true)}
+            className={cn(
+              TAB_CLASS,
+              'cursor-pointer',
+              moreActive ? 'text-(--color-accent-text)' : 'text-muted',
+            )}
+          >
+            {moreActive && <TabPill />}
+            <MoreIcon size={22} />
+            <span className="max-w-full truncate">{t('nav.more')}</span>
+          </button>
+        </li>
+      </ul>
+
+      <Sheet open={open} onOpenChange={setOpen} title={t('nav.moreTitle')}>
+        <ul className="flex flex-col gap-2">
+          {more.map((item) => {
+            const active = item.match(pathname);
             return (
-              <li key={item.key} className="min-w-0">
+              <li key={item.key}>
                 <Link
                   to={item.to}
                   aria-current={active ? 'page' : undefined}
+                  onClick={() => setOpen(false)}
                   className={cn(
-                    'relative flex h-full flex-col items-center justify-center gap-1 px-0.5 text-[11px] font-medium tracking-tight transition-colors',
-                    active ? 'text-(--color-accent-text)' : 'text-muted',
+                    'flex min-h-14 items-center gap-3 rounded-xl border px-3.5 py-2.5 transition-colors',
+                    active
+                      ? 'border-accent/50 bg-accent/10'
+                      : 'border-border bg-surface-2/50 hover:bg-surface-2',
                   )}
                 >
-                  {active && (
-                    <motion.span
-                      layoutId="nav-pill"
-                      aria-hidden
-                      className="absolute inset-x-3 top-0 h-0.5 rounded-full bg-accent"
-                    />
-                  )}
-                  <item.Icon size={22} />
-                  <span className="max-w-full truncate">{t(`nav.${item.key}`)}</span>
+                  <span
+                    aria-hidden
+                    className={cn(
+                      'flex size-10 shrink-0 items-center justify-center rounded-xl',
+                      active ? 'bg-accent/15 text-(--color-accent-text)' : 'bg-surface text-text',
+                    )}
+                  >
+                    <item.Icon size={22} />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-[15px] font-semibold">{t(`nav.${item.key}`)}</span>
+                    <span className="block text-[13px] leading-snug text-muted">
+                      {t(`nav.hint.${item.key}`)}
+                    </span>
+                  </span>
+                  <ChevronRightIcon size={16} className="shrink-0 text-muted" />
                 </Link>
               </li>
             );
           })}
         </ul>
-      </nav>
-    </div>
+      </Sheet>
+    </nav>
   );
 }

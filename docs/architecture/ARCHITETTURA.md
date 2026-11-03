@@ -137,7 +137,11 @@ BirthInput ─► toUtc (Luxon) ─► JD(UT)
   - Centri definiti colorati, indefiniti bianchi/trasparenti; centri definiti solo dal transito evidenziati.
   - Interazione: hover/focus/tap su porta, canale, centro → `onSelect`; tastiera accessibile; `aria-label`.
   - Animazione di ingresso dei canali (rispetta `prefers-reduced-motion`).
-- `<Wheel>` (fase successiva dell'MVP): ruota delle 64 porte con le posizioni planetarie.
+- `<Wheel>`: ruota delle 64 porte (ordine `WHEEL`, Porta 41 a 302°) con zodiaco, quarti e le attivazioni
+  per strato su orbite concentriche (Transito all'esterno, poi Personalità e Design), distanziate per non
+  sovrapporsi. Orientamento delle carte astrologiche: 0° Ariete a ore 9, longitudine in senso antiorario.
+  Dati da `wheelFromChart` / `wheelFromTransit` / `wheelFromOverlay`; selezione delle porte come il bodygraph.
+  Nell'app si sceglie Bodygraph / Ruota in Chart e Oggi (scelta ricordata sul dispositivo).
 - Funzione `exportSvg(element)` / `exportPng(element, scale)`.
 
 ## 8. `apps/web` — schermate e URL

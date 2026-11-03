@@ -1,23 +1,8 @@
+import { PLANET_GLYPHS } from '@hd/bodygraph';
 import type { Body } from '@hd/core';
 import { cn } from '../lib/cn';
 
-// U+FE0E forza la resa testuale (non emoji) dei simboli ♀ ♂ ☿ ☽ sui sistemi mobili.
-const T = '︎';
-export const PLANET_GLYPHS: Readonly<Record<Body, string>> = {
-  sun: '☉',
-  earth: '⊕',
-  moon: `☽${T}`,
-  northNode: '☊',
-  southNode: '☋',
-  mercury: `☿${T}`,
-  venus: `♀${T}`,
-  mars: `♂${T}`,
-  jupiter: '♃',
-  saturn: '♄',
-  uranus: '♅',
-  neptune: '♆',
-  pluto: '♇',
-};
+export { PLANET_GLYPHS };
 
 /**
  * Glifo astrologico di un'attivazione. Decorativo per default (aria-hidden);

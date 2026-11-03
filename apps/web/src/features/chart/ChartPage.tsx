@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { motion } from 'motion/react';
 import { exportPng, type Selection } from '@hd/bodygraph';
 import type { Chart } from '@hd/core';
+import { useChartView } from '../../components/ChartViewToggle';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Tabs';
 import { EmptyState } from '../../components/ui/EmptyState';
 import { LinkButton } from '../../components/ui/Button';
@@ -58,6 +59,7 @@ function ChartView({ saved, chart }: { saved: SavedChart; chart: Chart }) {
   const [detail, setDetail] = useState<DetailTarget | null>(null);
   const [tab, setTab] = useState<TabKey>('activations');
   const [exporting, setExporting] = useState(false);
+  const [view, setView] = useChartView();
   const selected = useMemo(() => selectionOf(detail), [detail]);
 
   async function onExport() {
@@ -66,7 +68,7 @@ function ChartView({ saved, chart }: { saved: SavedChart; chart: Chart }) {
     setExporting(true);
     try {
       const blob = await exportPng(svg as SVGSVGElement, 2);
-      const file = `${safeFileName(saved.name)}-bodygraph.png`;
+      const file = `${safeFileName(saved.name)}-${view}.png`;
       downloadBlob(blob, file);
       toast(t('toast.exported', { file }));
     } catch {
@@ -100,6 +102,8 @@ function ChartView({ saved, chart }: { saved: SavedChart; chart: Chart }) {
         <BodygraphHero
           chart={chart}
           name={saved.name}
+          view={view}
+          onViewChange={setView}
           selected={selected}
           onSelect={(sel) => setDetail(sel)}
           svgBoxRef={boxRef}

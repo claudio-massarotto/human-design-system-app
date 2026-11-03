@@ -126,6 +126,20 @@ export function nav(page: Page) {
 }
 
 /**
+ * Apre una sezione dalla navigazione principale. Su mobile Connessione, Enciclopedia e Impostazioni
+ * stanno nel pannello "Altro": se il link non è nella barra, passa da lì.
+ */
+export async function openSection(page: Page, name: string) {
+  const link = nav(page).getByRole('link', { name, exact: true });
+  if (await link.isVisible()) return link.click();
+  await nav(page).getByRole('button', { name: 'Altro' }).click();
+  await page
+    .getByRole('dialog', { name: 'Altre sezioni' })
+    .getByRole('link', { name: new RegExp(`^${name}`) })
+    .click();
+}
+
+/**
  * `test` con controllo trasversale: ogni test fallisce se la pagina emette `pageerror`
  * o `console.error`. Le eccezioni attese (es. rete negata nei test di errore) si dichiarano
  * con `allowConsoleErrors`.

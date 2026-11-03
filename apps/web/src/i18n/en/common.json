@@ -9,8 +9,16 @@
     "chart": "My chart",
     "today": "Today",
     "people": "People",
+    "connection": "Connection",
     "encyclopedia": "Encyclopedia",
     "settings": "Settings",
+    "more": "More",
+    "moreTitle": "More sections",
+    "hint": {
+      "connection": "How two charts meet",
+      "encyclopedia": "Gates, channels, centers and the rest of the system",
+      "settings": "Language, theme, calculation and data"
+    },
     "privacy": "Your data stays on this device."
   },
   "engine": {

@@ -9,8 +9,16 @@
     "chart": "Il mio chart",
     "today": "Oggi",
     "people": "Persone",
+    "connection": "Connessione",
     "encyclopedia": "Enciclopedia",
     "settings": "Impostazioni",
+    "more": "Altro",
+    "moreTitle": "Altre sezioni",
+    "hint": {
+      "connection": "Come si incontrano due chart",
+      "encyclopedia": "Porte, canali, centri e il resto del sistema",
+      "settings": "Lingua, tema, calcolo e dati"
+    },
     "privacy": "I tuoi dati restano su questo dispositivo."
   },
   "engine": {

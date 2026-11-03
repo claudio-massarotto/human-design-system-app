@@ -161,7 +161,9 @@ BirthInput ─► toUtc (Luxon) ─► JD(UT)
 Gli URL sono relativi al `base` di Vite (`BASE_PATH`): `/` in locale, `/human-design-system-app/` su GitHub Pages,
 dove l'app è pubblicata dalla CI (job `deploy`). Con `apps/server` (fase 2) servirà un hosting con runtime server.
 
-Navigazione: barra inferiore su mobile, laterale su desktop (Chart, Oggi, Persone, Enciclopedia, Altro).
+Navigazione: laterale su desktop con tutte le sezioni (Il mio chart, Oggi, Persone, Connessione,
+Enciclopedia, Impostazioni); barra inferiore su mobile con Il mio chart, Oggi, Persone e Altro, che apre un
+pannello con Connessione, Enciclopedia e Impostazioni.
 
 ## 9. Design system
 

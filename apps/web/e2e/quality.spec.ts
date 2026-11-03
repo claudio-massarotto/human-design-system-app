@@ -1,6 +1,15 @@
 import AxeBuilder from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
-import { test, expect, resetApp, createFromOnboarding, addPerson, RA, OBAMA } from './helpers';
+import {
+  test,
+  expect,
+  resetApp,
+  createFromOnboarding,
+  addPerson,
+  openSection,
+  RA,
+  OBAMA,
+} from './helpers';
 
 /** Pagine da visitare con dati presenti (i segnaposto {id}/{slug} sono sostituiti a runtime). */
 const PAGES_WITH_DATA = [
@@ -70,15 +79,15 @@ test.describe('qualità trasversale: nessun errore in console', () => {
 
   test('una navigazione interna completa (client-side) non produce errori', async ({ page }) => {
     await seed(page);
-    const nav = page.getByRole('navigation', { name: 'Navigazione principale' });
     for (const [link, heading] of [
       ['Oggi', 'Oggi'],
       ['Persone', 'Persone'],
+      ['Connessione', 'Connessione'],
       ['Enciclopedia', 'Enciclopedia'],
       ['Impostazioni', 'Impostazioni'],
       ['Il mio chart', 'Ra Uru Hu'],
     ] as const) {
-      await nav.getByRole('link', { name: link }).click();
+      await openSection(page, link);
       await expect(page.getByRole('heading', { level: 1, name: heading })).toBeVisible();
     }
   });

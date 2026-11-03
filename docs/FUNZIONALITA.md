@@ -44,7 +44,7 @@ Ultimo aggiornamento: 3 novembre 2026.
 | Cosa attiva in te | Canali nuovi, centri definiti dal transito, porte nuove, Strategia e Autorità | Implementata | Un chart salvato |
 | Le 13 attivazioni | Tabella con porta, linea e retrogradazione di ogni corpo | Implementata | — |
 | Calendario del Sole | I prossimi quattro ingressi del Sole in una nuova porta | Implementata | — |
-| Prossime 24 ore | Timeline delle porte per pianeta, canali e centri accesi e cambi in ordine di tempo | In corso ([PR #2](https://github.com/claudio-massarotto/human-design-system-app/pull/2)) | — |
+| Prossime 24 ore | Timeline delle porte per pianeta, canali e centri accesi e cambi in ordine di tempo | Implementata | — |
 | Riepilogo 24 ore nel Chart | "Prossime 24 ore" in breve nella pagina del chart (che fa da Home) | Da valutare | Timeline 24 ore |
 | Notifiche dei transiti | Avviso quando un transito completa un tuo canale o un pianeta scelto cambia porta, all'inizio o 10 minuti prima | Pianificata (fase 2) | Permesso notifiche; Web Push con `apps/server` per gli avvisi ad app chiusa; su iOS solo da PWA installata |
 | Ritorni planetari | Data e chart del ritorno di Saturno, Urano e Chirone | Pianificata (fase 2) | File `.se1` di Swiss Ephemeris (~2 MB) per Chirone; verifica dei golden test |
@@ -77,6 +77,7 @@ Ultimo aggiornamento: 3 novembre 2026.
 
 | Funzionalità | Descrizione | Stato | Requisiti |
 |---|---|---|---|
+| Navigazione con Connessione | Desktop: Connessione tra le voci della barra laterale. Mobile: barra inferiore con Il mio chart, Oggi, Persone, Altro; in Altro ci sono Connessione, Enciclopedia, Impostazioni | In corso | — |
 | PWA offline | Installabile, funziona senza rete (WASM in cache) | Implementata | — |
 | Dati locali | Tutto in IndexedDB sul dispositivo, nessun account | Implementata | — |
 | Italiano e inglese | Interfaccia e contenuti in due lingue | Implementata | — |

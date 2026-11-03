@@ -44,3 +44,35 @@ jobs:
         with:
           name: playwright-report
           path: apps/web/playwright-report
+
+  # Pubblica su GitHub Pages solo i push su main che passano check ed e2e.
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [check, e2e]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @hd/web build
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}/
+      # Pages non conosce le route della SPA: i link diretti ricevono la 404, che è l'app stessa.
+      - run: cp apps/web/dist/index.html apps/web/dist/404.html
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: apps/web/dist
+      - id: deployment
+        uses: actions/deploy-pages@v4

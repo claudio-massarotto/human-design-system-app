@@ -6,6 +6,9 @@ transiti e relazioni — con precisione astronomica e un'esperienza visiva curat
 
 > Stato: **fase 1 — MVP funzionale**. Architettura approvata: `docs/architecture/ARCHITETTURA.md`.
 
+**App online**: <https://claudio-massarotto.github.io/human-design-system-app/> — pubblicata da GitHub Pages
+a ogni push su `main` che supera i controlli della CI.
+
 **Stack**: TypeScript · React + Vite (PWA) · Swiss Ephemeris (WASM) · pnpm monorepo · Vitest · Playwright.
 
 ## Struttura della repository
@@ -52,6 +55,13 @@ pnpm test
 pnpm build
 pnpm e2e
 ```
+
+## Pubblicazione
+
+Il job `deploy` di `.github/workflows/ci.yml` parte dopo `check` ed `e2e` sui push su `main`: compila
+`apps/web` con `BASE_PATH=/human-design-system-app/` (l'app vive in una sottocartella di GitHub Pages),
+copia `index.html` in `404.html` per i link diretti alle route e pubblica `apps/web/dist`.
+Per provare in locale lo stesso build: `BASE_PATH=/human-design-system-app/ pnpm --filter @hd/web build`.
 
 ## Licenza
 

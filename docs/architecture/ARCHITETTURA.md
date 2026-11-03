@@ -154,6 +154,9 @@ BirthInput ─► toUtc (Luxon) ─► JD(UT)
 | `/enciclopedia` (+ `/porte/:n`, `/canali/:id`, `/centri/:id`, `/tipi/:id`, `/profili/:id`, `/croci`) | Enciclopedia |
 | `/impostazioni` | Lingua, tema, nodo vero/medio, cancellazione dati, licenza e sorgente, disclaimer |
 
+Gli URL sono relativi al `base` di Vite (`BASE_PATH`): `/` in locale, `/human-design-system-app/` su GitHub Pages,
+dove l'app è pubblicata dalla CI (job `deploy`). Con `apps/server` (fase 2) servirà un hosting con runtime server.
+
 Navigazione: barra inferiore su mobile, laterale su desktop (Chart, Oggi, Persone, Enciclopedia, Altro).
 
 ## 9. Design system

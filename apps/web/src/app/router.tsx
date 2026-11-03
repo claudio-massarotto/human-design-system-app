@@ -37,7 +37,9 @@ export const appRoutes: RouteObject[] = [
   },
 ];
 
-export const createAppRouter = () => createBrowserRouter(appRoutes);
+// BASE_URL = `base` di Vite: l'app può vivere in una sottocartella (GitHub Pages).
+export const createAppRouter = () =>
+  createBrowserRouter(appRoutes, { basename: import.meta.env.BASE_URL });
 
 /** Per i test: router in memoria. */
 export const createTestRouter = (initialEntries: string[] = ['/']) =>

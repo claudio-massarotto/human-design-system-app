@@ -105,6 +105,35 @@ test.describe('Oggi', () => {
     await expect(row).toContainText(/Sole/);
   });
 
+  test('prossime 24 ore: timeline per corpo, eventi in ordine e dettaglio al tocco', async ({
+    page,
+  }) => {
+    await page.goto('/oggi');
+    await expect(page.getByRole('heading', { name: 'In evidenza' })).toBeVisible({
+      timeout: 30_000,
+    });
+    await page.getByLabel('Data e ora').fill('2024-06-15T12:00');
+    const section = page.locator('section', {
+      has: page.getByRole('heading', { name: 'Prossime 24 ore' }),
+    });
+    await expect(section.getByText(/accende il solo cielo/)).toBeVisible();
+    const planets = section
+      .locator('div', { has: page.getByRole('heading', { name: 'Pianeti' }) })
+      .last();
+    await expect(planets.getByRole('listitem')).toHaveCount(13);
+    // la Luna attraversa almeno tre porte in 24 ore
+    const moon = planets.getByRole('button', { name: /^\d+ · Luna nella porta/ });
+    expect(await moon.count()).toBeGreaterThanOrEqual(3);
+    // l'asse parte dall'istante scelto
+    await expect(moon.first()).toHaveAccessibleName(/, 12:00–/);
+
+    const events = section.locator('ol > li');
+    expect(await events.count()).toBeGreaterThanOrEqual(2);
+    await expect(events.first()).toContainText(/entra nella porta/);
+    await events.first().getByRole('button').click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+  });
+
   test('toccare una porta del transito apre il dettaglio', async ({ page }) => {
     await page.goto('/oggi');
     await expect(page.getByRole('heading', { name: 'Le 13 attivazioni' })).toBeVisible({

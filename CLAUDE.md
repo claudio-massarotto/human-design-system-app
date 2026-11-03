@@ -8,6 +8,8 @@ Lingua di lavoro: **italiano** (docs, commit, UI predefinita). Termini tecnici H
 - `docs/knowledge/00-dati-strutturali.md` — meccanica (ruota, centri, canali, regole). Il codice di
   `packages/core/src/data` deve coincidere con questo file.
 - `docs/architecture/ARCHITETTURA.md` e `docs/architecture/decisioni/ADR-*.md` — scelte tecniche.
+- `docs/FUNZIONALITA.md` — stato delle funzionalità. Aggiornalo nello stesso lavoro: *In corso* (con
+  link alla PR) quando una funzionalità entra in sviluppo, *Implementata* quando la PR è unita.
 
 ## Regole
 - Testi interpretativi **originali**: non copiare né parafrasare da vicino materiale protetto

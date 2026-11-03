@@ -183,6 +183,31 @@ test.describe('qualità trasversale: accessibilità (axe)', () => {
     expect(await scan(page)).toEqual([]);
   });
 
+  for (const theme of ['light', 'dark'] as const) {
+    test(`ruota delle 64 porte senza violazioni serious/critical (tema ${theme})`, async ({
+      page,
+    }) => {
+      const id = await seed(page);
+      await page.goto('/impostazioni');
+      await page
+        .getByRole('radiogroup', { name: 'Tema' })
+        .getByRole('radio', { name: theme === 'dark' ? 'Scuro' : 'Chiaro' })
+        .click();
+      await expect(page.locator('html')).toHaveAttribute('data-theme', theme);
+      const report: Record<string, string[]> = {};
+      for (const p of [PAGES_WITH_DATA[5], PAGES_WITH_DATA[0]]) {
+        const path = p.path.replace('{id}', id);
+        await page.goto(path);
+        await page.getByRole('radio', { name: 'Ruota' }).click();
+        await expect(page.locator('svg.hdwh')).toBeVisible();
+        await waitReady(page, p.ready);
+        const v = await scan(page, { include: 'svg.hdwh' });
+        if (v.length) report[path] = v;
+      }
+      expect(report).toEqual({});
+    });
+  }
+
   test('dialog di dettaglio del bodygraph senza violazioni serious/critical', async ({ page }) => {
     const id = await seed(page);
     await page.goto(`/chart/${id}`);

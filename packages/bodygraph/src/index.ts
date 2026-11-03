@@ -1,5 +1,15 @@
 export { Bodygraph, DEFAULT_LABELS } from './Bodygraph';
 export type { BodygraphLabels, BodygraphComponentProps } from './Bodygraph';
+export { Wheel, DEFAULT_WHEEL_LABELS, PLANET_GLYPHS } from './Wheel';
+export type { WheelLabels, WheelProps } from './Wheel';
+export {
+  wheelFromChart,
+  wheelFromTransit,
+  wheelFromOverlay,
+  gateStart,
+  WHEEL_SIZE,
+} from './wheelGeometry';
+export type { WheelActivation } from './wheelGeometry';
 export { modelFromChart, modelFromOverlay, modelFromComposite, modelFromGates } from './model';
 export { svgToString, exportPng, resolveCssVars, cssVarNames } from './export';
 export type { ExportPngOptions } from './export';

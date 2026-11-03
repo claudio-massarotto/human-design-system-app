@@ -49,7 +49,8 @@
     "legend": "Bodygraph legend",
     "both": "Both",
     "undefinedOpen": "Undefined or open",
-    "hint": "Tap a gate, channel or center to read what it means."
+    "hint": "Tap a gate, channel or center to read what it means.",
+    "hintWheel": "Tap a gate or a planet to read what it means. Outer ring: Personality, inner ring: Design."
   },
   "bodygraph": {
     "title": "Bodygraph of {{name}}",
@@ -225,5 +226,8 @@
     "definedCenters": "Defined centers",
     "openCenters": "Undefined or open centers",
     "footer": "Calculated on your device with Swiss Ephemeris: your birth data never leaves the device."
+  },
+  "wheel": {
+    "title": "{{name}}'s wheel of the 64 gates"
   }
 }

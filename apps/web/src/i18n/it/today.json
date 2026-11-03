@@ -94,5 +94,9 @@
     "title": "Calendario del Sole",
     "hint": "Le prossime volte in cui il Sole entra in una nuova porta (ogni ingresso dura circa sei giorni).",
     "empty": "Impossibile calcolare i prossimi ingressi."
+  },
+  "wheel": {
+    "title": "Ruota delle 64 porte con il transito del momento",
+    "titleSky": "Ruota delle 64 porte: il transito del momento"
   }
 }

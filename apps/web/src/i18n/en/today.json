@@ -94,5 +94,9 @@
     "title": "Sun calendar",
     "hint": "The next times the Sun enters a new gate (each stay lasts about six days).",
     "empty": "The next ingresses could not be calculated."
+  },
+  "wheel": {
+    "title": "Wheel of the 64 gates with the current transit",
+    "titleSky": "Wheel of the 64 gates: the current transit"
   }
 }

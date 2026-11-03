@@ -84,5 +84,10 @@
     "howTo": "Come usarla",
     "strengths": "Punti di forza",
     "challenges": "Sfide"
+  },
+  "view": {
+    "label": "Vista",
+    "bodygraph": "Bodygraph",
+    "wheel": "Ruota"
   }
 }

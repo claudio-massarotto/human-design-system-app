@@ -49,7 +49,8 @@
     "legend": "Legenda del bodygraph",
     "both": "Entrambe",
     "undefinedOpen": "Non definito o aperto",
-    "hint": "Tocca una porta, un canale o un centro per leggerne il significato."
+    "hint": "Tocca una porta, un canale o un centro per leggerne il significato.",
+    "hintWheel": "Tocca una porta o un pianeta per leggerne il significato. Esterno: Personalità, interno: Design."
   },
   "bodygraph": {
     "title": "Bodygraph di {{name}}",
@@ -225,5 +226,8 @@
     "definedCenters": "Centri definiti",
     "openCenters": "Centri non definiti o aperti",
     "footer": "Calcolato sul tuo dispositivo con Swiss Ephemeris: i dati di nascita non lasciano mai il dispositivo."
+  },
+  "wheel": {
+    "title": "Ruota delle 64 porte di {{name}}"
   }
 }

@@ -138,6 +138,38 @@ test.describe('pagina chart', () => {
     await expect(page.getByText(/Immagine salvata: .*\.png/)).toBeVisible();
   });
 
+  test('la vista Ruota mostra le 64 porte, apre il dettaglio e resta scelta', async ({ page }) => {
+    await page.getByRole('radio', { name: 'Ruota' }).click();
+    const wheel = page.getByRole('region', { name: 'Ruota delle 64 porte di Ra Uru Hu' });
+    await expect(wheel.locator('g[data-gate]')).toHaveCount(64);
+    await expect(wheel.locator('[data-body]')).toHaveCount(26);
+    // Il Sole della Personalità di Ra è nella Porta 51.
+    await wheel.getByRole('button', { name: /^51 · Porta 51 .*Personalità: Sole 51\./ }).click();
+    const dialog = page.getByRole('dialog');
+    await expect(dialog.getByRole('heading', { name: 'Shock', exact: true })).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(dialog).toBeHidden();
+
+    await page.reload();
+    await expect(page.getByRole('radio', { name: 'Ruota' })).toHaveAttribute(
+      'aria-checked',
+      'true',
+    );
+    await expect(wheel).toBeVisible();
+    await page.getByRole('radio', { name: 'Bodygraph' }).click();
+    await expect(bodygraph(page)).toBeVisible();
+  });
+
+  test('Esporta PNG nella vista Ruota salva la ruota', async ({ page }) => {
+    await page.getByRole('radio', { name: 'Ruota' }).click();
+    const download = page.waitForEvent('download');
+    await page.getByRole('button', { name: 'Esporta PNG' }).click();
+    const file = await download;
+    expect(file.suggestedFilename()).toMatch(/-wheel\.png$/);
+    const bytes = readFileSync(await file.path());
+    expect([...bytes.subarray(0, 8)]).toEqual([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+  });
+
   test('la pagina di stampa si apre con il chart e il ritorno funziona', async ({ page }) => {
     await page.getByRole('link', { name: 'Stampa / PDF' }).click();
     await expect(page).toHaveURL(/\/chart\/[\w-]+\/stampa$/);

@@ -40,7 +40,7 @@ export function cssVarNames(input: string): string[] {
   return [...names];
 }
 
-const STATIC_STYLE = '.hdbg-anim,.hdbg-fade{animation:none!important}';
+const STATIC_STYLE = '.hdbg-anim,.hdbg-fade,.hdwh-fade{animation:none!important}';
 
 interface Serialized {
   markup: string;

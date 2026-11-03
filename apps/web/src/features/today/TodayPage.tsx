@@ -1,9 +1,17 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'motion/react';
-import { Bodygraph, modelFromGates, modelFromOverlay } from '@hd/bodygraph';
+import {
+  Bodygraph,
+  Wheel,
+  modelFromGates,
+  modelFromOverlay,
+  wheelFromOverlay,
+  wheelFromTransit,
+} from '@hd/bodygraph';
 import { ChevronRightIcon, PlusIcon, SparkleIcon } from '../../components/icons';
 import { ChartPicker } from '../../components/ChartPicker';
+import { ChartViewToggle, useChartView } from '../../components/ChartViewToggle';
 import { Button, LinkButton } from '../../components/ui/Button';
 import { Field, Input } from '../../components/ui/Field';
 import { PageHeader } from '../../components/ui/PageHeader';
@@ -12,6 +20,7 @@ import { useChart, useCharts, useSettings } from '../../data/hooks';
 import { useLocale } from '../../i18n/useContent';
 import { useEngine } from '../../lib/engine';
 import { usePageTitle } from '../../lib/usePageTitle';
+import { useWheelLabels } from '../../lib/useWheelLabels';
 import { useDetailSheet, selectionToTarget } from './DetailSheet';
 import { ForYou } from './ForYou';
 import { formatDay } from './formatters';
@@ -56,6 +65,12 @@ export function TodayPage() {
         : modelFromGates({ transit: transit.gates }),
     [chart, overlay, transit],
   );
+  const activations = useMemo(
+    () => (chart ? wheelFromOverlay(chart, transit) : wheelFromTransit(transit)),
+    [chart, transit],
+  );
+  const [view, setView] = useChartView();
+  const wheelNames = useWheelLabels();
   const ingresses = useMemo(
     () => nextSunIngresses((d) => engine.computeTransit(d, { node }), at, 4),
     [engine, at, node],
@@ -67,7 +82,9 @@ export function TodayPage() {
         { key: 'p', label: t('legend.personality'), swatch: 'personality' },
         { key: 'd', label: t('legend.design'), swatch: 'design' },
         { key: 't', label: t('legend.transit'), swatch: 'transit' },
-        { key: 'r', label: t('legend.conditioned'), swatch: 'ring' },
+        ...(view === 'bodygraph'
+          ? [{ key: 'r', label: t('legend.conditioned'), swatch: 'ring' } satisfies LegendItem]
+          : []),
       ]
     : [{ key: 't', label: t('legend.transit'), swatch: 'transit' }];
 
@@ -146,14 +163,28 @@ export function TodayPage() {
           className="xl:sticky xl:top-8"
         >
           <div className="mx-auto max-w-[400px] rounded-card border border-border bg-surface p-3 shadow-card sm:p-4">
-            <Bodygraph
-              model={model}
-              title={t('bodygraph.titleToday')}
-              labels={labels}
-              centerLabels={centerLabels}
-              selected={sheet.selection}
-              onSelect={(s) => s && sheet.show(selectionToTarget(s))}
-            />
+            <div className="mb-3 flex justify-center">
+              <ChartViewToggle value={view} onChange={setView} />
+            </div>
+            {view === 'wheel' ? (
+              <Wheel
+                key="wheel"
+                activations={activations}
+                title={chart ? t('wheel.title') : t('wheel.titleSky')}
+                labels={{ ...wheelNames, gate: labels.gate, layers: labels.layers }}
+                selected={sheet.selection}
+                onSelect={(s) => s && sheet.show(selectionToTarget(s))}
+              />
+            ) : (
+              <Bodygraph
+                model={model}
+                title={t('bodygraph.titleToday')}
+                labels={labels}
+                centerLabels={centerLabels}
+                selected={sheet.selection}
+                onSelect={(s) => s && sheet.show(selectionToTarget(s))}
+              />
+            )}
             <BodygraphLegend
               items={legend}
               label={t('legend.label')}

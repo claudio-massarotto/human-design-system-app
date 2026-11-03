@@ -55,6 +55,29 @@ describe('TodayPage', () => {
     ).toBeInTheDocument();
   });
 
+  it('prossime 24 ore: una riga per corpo, eventi in ordine e dettaglio al tocco', async () => {
+    await seed([savedChart('a', 'Anna', ROMA, 1)]);
+    await renderWithApp(<TodayPage />, '/oggi');
+    const heading = await screen.findByRole('heading', { name: 'Prossime 24 ore' });
+    const section = heading.closest('section')!;
+    expect(await within(section).findByText(/insieme al tuo chart/)).toBeInTheDocument();
+
+    const planets = within(section).getByRole('heading', { name: 'Pianeti' }).parentElement!;
+    expect(within(planets).getAllByRole('listitem')).toHaveLength(13);
+    // la Luna cambia porta almeno due volte in 24 ore
+    const moon = within(planets).getAllByRole('button', { name: /^\d+ · Luna nella porta/ });
+    expect(moon.length).toBeGreaterThanOrEqual(3);
+
+    const events = within(section)
+      .getAllByRole('listitem')
+      .filter((li) => li.closest('ol'));
+    expect(events.length).toBeGreaterThanOrEqual(2);
+
+    const user = userEvent.setup();
+    await user.click(moon[1]!);
+    expect(await screen.findByRole('dialog')).toBeInTheDocument();
+  });
+
   it('i pulsanti giorno precedente/successivo cambiano la data', async () => {
     await seed([savedChart('a', 'Anna', ROMA, 1)]);
     await renderWithApp(<TodayPage />, '/oggi');

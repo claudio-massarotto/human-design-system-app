@@ -98,5 +98,44 @@
   "wheel": {
     "title": "Wheel of the 64 gates with the current transit",
     "titleSky": "Wheel of the 64 gates: the current transit"
+  },
+  "timeline": {
+    "title": "Next 24 hours",
+    "hint": {
+      "chart": "From the chosen moment onwards: which gate each body moves through, and which channels and centers the transit lights up together with your chart.",
+      "sky": "From the chosen moment onwards: which gate each body moves through, and which channels and centers the sky alone lights up."
+    },
+    "range": "{{from}}–{{to}}",
+    "planets": "Planets",
+    "channels": {
+      "chart": "Channels formed with you",
+      "sky": "Channels in the sky",
+      "empty": {
+        "chart": "In these 24 hours the transit forms no new channels with your chart.",
+        "sky": "In these 24 hours the sky forms no complete channels."
+      }
+    },
+    "centers": {
+      "chart": "Centers defined by the transit",
+      "sky": "Centers defined by the sky"
+    },
+    "gateSpan": "{{gate}} · {{planet}} in gate {{gate}} {{name}}, {{range}}",
+    "channelSpan": "{{id}} · Channel {{id}} {{name}}, {{range}}",
+    "centerSpan": "{{name}} · defined, {{range}}",
+    "events": {
+      "title": "What changes, in order",
+      "empty": "No gate changes in these 24 hours.",
+      "ingress": "{{planet}} enters gate {{gate}} · {{name}}",
+      "channelOn": {
+        "chart": "Channel {{id}} forms with you · {{name}}",
+        "sky": "Channel {{id}} forms in the sky · {{name}}"
+      },
+      "channelOff": {
+        "chart": "Channel {{id}} dissolves · {{name}}",
+        "sky": "Channel {{id}} dissolves in the sky · {{name}}"
+      },
+      "centerOn": "The {{name}} center becomes defined",
+      "centerOff": "The {{name}} center opens again"
+    }
   }
 }

@@ -152,7 +152,7 @@ BirthInput ─► toUtc (Luxon) ─► JD(UT)
 | `/nuovo` | Inserimento dati di nascita (nome, data, ora/approssimata/sconosciuta, città con fuso) |
 | `/chart/:id` | Chart: bodygraph + card tipo/strategia/autorità/profilo/definizione/croce; tab Attivazioni, Centri, Canali, Variabili |
 | `/chart/:id/stampa` | Versione stampabile (PDF) |
-| `/oggi` | Transiti di oggi sul chart selezionato |
+| `/oggi` | Transiti di oggi sul chart selezionato; timeline delle 24 ore successive (cambi di porta, canali e centri accesi) |
 | `/connessione` | Connessione tra due chart salvati |
 | `/persone` | Chart salvati: aggiungi, modifica, elimina, importa/esporta JSON |
 | `/enciclopedia` (+ `/porte/:n`, `/canali/:id`, `/centri/:id`, `/tipi/:id`, `/profili/:id`, `/croci`) | Enciclopedia |

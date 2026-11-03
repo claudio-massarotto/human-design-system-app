@@ -98,5 +98,44 @@
   "wheel": {
     "title": "Ruota delle 64 porte con il transito del momento",
     "titleSky": "Ruota delle 64 porte: il transito del momento"
+  },
+  "timeline": {
+    "title": "Prossime 24 ore",
+    "hint": {
+      "chart": "Dal momento scelto in avanti: in quale porta passa ogni corpo e quali canali e centri il transito accende insieme al tuo chart.",
+      "sky": "Dal momento scelto in avanti: in quale porta passa ogni corpo e quali canali e centri accende il solo cielo."
+    },
+    "range": "{{from}}–{{to}}",
+    "planets": "Pianeti",
+    "channels": {
+      "chart": "Canali che si formano con te",
+      "sky": "Canali del cielo",
+      "empty": {
+        "chart": "In queste 24 ore il transito non forma canali nuovi con il tuo chart.",
+        "sky": "In queste 24 ore il cielo non forma canali completi."
+      }
+    },
+    "centers": {
+      "chart": "Centri che il transito definisce",
+      "sky": "Centri definiti dal cielo"
+    },
+    "gateSpan": "{{gate}} · {{planet}} nella porta {{gate}} {{name}}, {{range}}",
+    "channelSpan": "{{id}} · Canale {{id}} {{name}}, {{range}}",
+    "centerSpan": "{{name}} · definito, {{range}}",
+    "events": {
+      "title": "Cosa cambia, in ordine",
+      "empty": "Nessun cambio di porta in queste 24 ore.",
+      "ingress": "{{planet}} entra nella porta {{gate}} · {{name}}",
+      "channelOn": {
+        "chart": "Si forma con te il canale {{id}} · {{name}}",
+        "sky": "Nel cielo si forma il canale {{id}} · {{name}}"
+      },
+      "channelOff": {
+        "chart": "Si scioglie il canale {{id}} · {{name}}",
+        "sky": "Nel cielo si scioglie il canale {{id}} · {{name}}"
+      },
+      "centerOn": "Il centro {{name}} diventa definito",
+      "centerOff": "Il centro {{name}} torna aperto"
+    }
   }
 }

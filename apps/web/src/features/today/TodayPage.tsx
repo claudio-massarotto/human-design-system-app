@@ -29,7 +29,9 @@ import { SkyHighlights } from './SkyHighlights';
 import { SunCalendarList } from './SunCalendarList';
 import { nextSunIngresses } from './sunCalendar';
 import { TransitTable } from './TransitTable';
+import { TransitTimeline } from './TransitTimeline';
 import { addDays, fromInputValue, nowRounded, toInputValue } from './transitInsights';
+import { skyState, transitTimeline, type AnalyzeFn } from './timeline';
 
 export function TodayPage() {
   const { t } = useTranslation('today');
@@ -75,6 +77,15 @@ export function TodayPage() {
     () => nextSunIngresses((d) => engine.computeTransit(d, { node }), at, 4),
     [engine, at, node],
   );
+  const timeline = useMemo(() => {
+    const analyze: AnalyzeFn = chart
+      ? (tr) => {
+          const o = engine.overlay(chart, tr);
+          return { channels: o.newChannels, centers: o.centersDefinedByTransit };
+        }
+      : skyState;
+    return transitTimeline((d) => engine.computeTransit(d, { node }), analyze, at);
+  }, [engine, at, node, chart]);
 
   const { labels, centerLabels } = useBodygraphLabels();
   const legend: LegendItem[] = chart
@@ -212,6 +223,7 @@ export function TodayPage() {
             <ForYou chart={chart} transit={transit} overlay={overlay} onOpen={sheet.show} />
           )}
 
+          <TransitTimeline timeline={timeline} withChart={!!chart} onOpen={sheet.show} />
           <TransitTable transit={transit} onOpen={sheet.show} />
           <SunCalendarList ingresses={ingresses} from={at} onOpen={sheet.show} />
 

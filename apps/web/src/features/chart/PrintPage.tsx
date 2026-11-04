@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { Link, useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { BODIES, CENTERS, type Chart } from '@hd/core';
-import { Bodygraph, modelFromChart } from '@hd/bodygraph';
+import { Bodygraph, Wheel, modelFromChart, wheelFromChart } from '@hd/bodygraph';
 import { useChartFacts } from '../../components/ChartFacts';
+import { useChartView } from '../../components/ChartViewToggle';
 import { BrandMark } from '../../components/BrandMark';
 import { PlanetGlyph } from '../../components/PlanetGlyph';
 import { Button, LinkButton } from '../../components/ui/Button';
@@ -14,6 +15,7 @@ import type { SavedChart } from '../../data/types';
 import { useContent, useLocale } from '../../i18n/useContent';
 import { formatBirthDate, formatBirthTime } from '../../lib/format';
 import { usePageTitle } from '../../lib/usePageTitle';
+import { useWheelLabels } from '../../lib/useWheelLabels';
 import { BodygraphLegend } from './BodygraphHero';
 import { useBodygraphLabels, useLoadedChart } from './hooks';
 import { PrintIcon } from './icons';
@@ -65,13 +67,22 @@ function FactRow({ label, value }: { label: string; value: string }) {
   );
 }
 
-function PrintDocument({ saved, chart }: { saved: SavedChart; chart: Chart }) {
+function PrintDocument({
+  saved,
+  chart,
+  withWheel,
+}: {
+  saved: SavedChart;
+  chart: Chart;
+  withWheel: boolean;
+}) {
   const { t } = useTranslation('chart');
   const { t: tp } = useTranslation('people');
   const content = useContent();
   const locale = useLocale();
   const facts = useChartFacts(chart);
   const { labels, centerLabels, title } = useBodygraphLabels(saved.name);
+  const wheelNames = useWheelLabels();
   const { birth } = saved;
   const time = formatBirthTime(birth);
   const offset = utcOffsetLabel(chart.utc, birth.place.timezone);
@@ -289,6 +300,22 @@ function PrintDocument({ saved, chart }: { saved: SavedChart; chart: Chart }) {
         <p className="mt-2 text-[11px] text-muted">{t('activations.retrogradeLegend')}</p>
       </section>
 
+      {withWheel && (
+        <section className="hd-print-pagebreak hd-print-avoid mt-8" aria-label={t('print.wheel')}>
+          <h2 className="text-xl font-semibold">{t('print.wheel')}</h2>
+          <div className="mx-auto mt-3 w-full max-w-[150mm]">
+            <Wheel
+              activations={wheelFromChart(chart)}
+              animate={false}
+              title={t('wheel.title', { name: saved.name })}
+              labels={{ ...wheelNames, gate: labels.gate, layers: labels.layers }}
+            />
+          </div>
+          <BodygraphLegend view="wheel" className="mt-3 text-[11px]" />
+          <p className="mt-2 text-center text-[11px] text-muted">{t('print.wheelNote')}</p>
+        </section>
+      )}
+
       <footer className="hd-print-avoid mt-8 border-t border-border pt-3 text-[11px] leading-snug text-muted">
         <p>{content.disclaimer}</p>
         <p className="mt-1">{t('print.footer')}</p>
@@ -304,6 +331,10 @@ export function PrintPage() {
   const { saved, chart, error, loading } = useLoadedChart(id);
   usePageTitle(saved ? `${saved.name} · ${t('print.title')}` : undefined);
   useLightThemeWhilePrinting();
+  // Chi guarda la ruota nel chart la trova già inclusa; la scelta vale solo per questa stampa.
+  const [view] = useChartView();
+  const [withWheel, setWithWheel] = useState(view === 'wheel');
+  const wheelId = useId();
 
   if (loading) return <Spinner className="mx-auto mt-24" />;
   if (!saved) {
@@ -336,14 +367,29 @@ export function PrintPage() {
           <ArrowLeftIcon size={18} />
           {t('print.back')}
         </Link>
-        <Button icon={<PrintIcon size={18} />} onClick={() => window.print()}>
-          {t('print.action')}
-        </Button>
+        <div className="flex flex-wrap items-center gap-3">
+          <label
+            htmlFor={wheelId}
+            className="inline-flex min-h-11 cursor-pointer items-center gap-2 text-[15px]"
+          >
+            <input
+              id={wheelId}
+              type="checkbox"
+              checked={withWheel}
+              onChange={(e) => setWithWheel(e.target.checked)}
+              className="size-5 cursor-pointer accent-(--color-accent)"
+            />
+            {t('print.includeWheel')}
+          </label>
+          <Button icon={<PrintIcon size={18} />} onClick={() => window.print()}>
+            {t('print.action')}
+          </Button>
+        </div>
       </div>
       <p className="hd-print-hide mx-auto mb-4 max-w-[210mm] text-[13px] text-muted">
         {t('print.hint')}
       </p>
-      <PrintDocument saved={saved} chart={chart} />
+      <PrintDocument saved={saved} chart={chart} withWheel={withWheel} />
     </div>
   );
 }

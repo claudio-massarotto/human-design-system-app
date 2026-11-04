@@ -5,6 +5,7 @@
     "activations": "Activations",
     "centers": "Centers",
     "channels": "Channels",
+    "sides": "Conscious and unconscious",
     "variables": "Variables",
     "cross": "Cross"
   },
@@ -49,8 +50,11 @@
     "legend": "Bodygraph legend",
     "both": "Both",
     "undefinedOpen": "Undefined or open",
-    "hint": "Tap a gate, channel or center to read what it means.",
-    "hintWheel": "Tap a gate or a planet to read what it means. Outer ring: Personality, inner ring: Design."
+    "hint": "Tap a gate, a channel or a center to read its meaning. Tap Personality or Design to see one side only.",
+    "hintWheel": "Tap a gate or a planet to read its meaning. Outer: Personality, inner: Design; tap them below to see one alone.",
+    "sides": "Show one side of the chart",
+    "only": "({{side}} only)",
+    "sideSummary": "{{side}} only: defined centers {{centers}}, channels {{channels}}. Channels that exist only when both sides join: {{bridges}}."
   },
   "bodygraph": {
     "title": "Bodygraph of {{name}}",
@@ -225,9 +229,27 @@
     "structure": "Structure",
     "definedCenters": "Defined centers",
     "openCenters": "Undefined or open centers",
-    "footer": "Calculated on your device with Swiss Ephemeris: your birth data never leaves the device."
+    "footer": "Calculated on your device with Swiss Ephemeris: your birth data never leaves the device.",
+    "includeWheel": "Include the wheel of the 64 gates",
+    "wheel": "Wheel of the 64 gates",
+    "wheelNote": "Outer orbit: Personality; inner orbit: Design. 0° Aries on the left, longitude counter-clockwise."
   },
   "wheel": {
     "title": "{{name}}'s wheel of the 64 gates"
+  },
+  "sides": {
+    "intro": "The Personality is the conscious side: what you recognise in yourself and identify with. The Design is the unconscious side, tied to the body: it works without your choosing and others often notice it before you do. Here you see what each side defines on its own and what exists only when the two meet.",
+    "personalityIntro": "The gates activated at the moment of birth: the side that feels like you.",
+    "designIntro": "The gates activated about three months before birth: the side that lives in the body.",
+    "bodygraph": "{{name}}'s bodygraph: {{side}} only",
+    "centers": "Centers defined by this side",
+    "noCenters": "None: on its own this side completes no channels.",
+    "channels": "Channels of this side",
+    "noChannels": "No complete channel with this side's gates alone.",
+    "bridges": "Channels born from the union",
+    "bridgesIntro": "One gate comes from the Personality and the other from the Design: the channel exists only because the two sides complete each other.",
+    "noBridges": "None: every channel in the chart is already complete within one of the two sides.",
+    "gateFrom": "Gate {{gate}} · {{side}}",
+    "bridgeCenters": "Centers defined only by the union of the two sides: {{centers}}."
   }
 }

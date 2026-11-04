@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
+import type { Chart } from '@hd/core';
 import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'motion/react';
@@ -6,6 +7,7 @@ import { Badge } from '../components/ui/Badge';
 import { Button, LinkButton } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { ConfirmDialog } from '../components/ui/Dialog';
+import { Input, Select } from '../components/ui/Field';
 import { EmptyState } from '../components/ui/EmptyState';
 import { PageHeader } from '../components/ui/PageHeader';
 import { toast } from '../components/ui/Toast';
@@ -16,18 +18,21 @@ import {
   MapPinIcon,
   PeopleIcon,
   PlusIcon,
+  SearchIcon,
   StarIcon,
   TrashIcon,
   UploadIcon,
 } from '../components/icons';
 import { deleteChart, setPrimaryChart } from '../data/actions';
 import { createBackup, downloadTextFile, serializeBackup } from '../data/backup';
-import { useChart, useCharts, useSettings } from '../data/hooks';
-import type { SavedChart } from '../data/types';
-import { useLocale } from '../i18n/useContent';
+import { useCharts, useSettings } from '../data/hooks';
+import { RELATIONS, type Relation, type SavedChart } from '../data/types';
+import { useContent, useLocale } from '../i18n/useContent';
+import { useEngine } from '../lib/engine';
 import { formatBirthDate, formatBirthTime } from '../lib/format';
 import { useBackupImport } from '../lib/useBackupImport';
 import { usePageTitle } from '../lib/usePageTitle';
+import { matchesQuery } from '../lib/peopleSearch';
 
 export function Component() {
   const { t } = useTranslation('people');
@@ -38,6 +43,31 @@ export function Component() {
   const { importFile } = useBackupImport();
   const [toDelete, setToDelete] = useState<SavedChart | null>(null);
   const [deleting, setDeleting] = useState(false);
+  const [query, setQuery] = useState('');
+  const [relation, setRelation] = useState<Relation | 'all'>('all');
+  const engine = useEngine();
+  const content = useContent();
+
+  // Un calcolo per chart, condiviso da schede e ricerca (porte, canali, tipo, profilo).
+  const computed = useMemo(() => {
+    const out = new Map<string, Chart | null>();
+    for (const c of charts) {
+      try {
+        out.set(c.id, engine.computeChart(c.birth, { node: settings.node }));
+      } catch {
+        out.set(c.id, null);
+      }
+    }
+    return out;
+  }, [charts, engine, settings.node]);
+
+  const relations = RELATIONS.filter((r) => charts.some((c) => c.relation === r));
+  const visible = charts.filter(
+    (c) =>
+      (relation === 'all' || c.relation === relation) &&
+      matchesQuery(c, computed.get(c.id) ?? null, query, content, t(`relation.${c.relation}`)),
+  );
+  const filtering = query.trim() !== '' || relation !== 'all';
 
   function exportJson() {
     const backup = createBackup(charts, settings);
@@ -121,8 +151,65 @@ export function Component() {
         />
       )}
 
+      {charts.length > 1 && (
+        <div
+          role="search"
+          className="mb-5 grid gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(10rem,14rem)]"
+        >
+          <div className="relative">
+            <SearchIcon
+              size={18}
+              aria-hidden
+              className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted"
+            />
+            <Input
+              type="search"
+              aria-label={t('search.label')}
+              placeholder={t('search.placeholder')}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              autoComplete="off"
+              className="!pl-10"
+            />
+          </div>
+          <Select
+            aria-label={t('search.relation')}
+            value={relation}
+            onChange={(e) => setRelation(e.target.value as Relation | 'all')}
+          >
+            <option value="all">{t('search.allRelations')}</option>
+            {relations.map((r) => (
+              <option key={r} value={r}>
+                {t(`relation.${r}`)}
+              </option>
+            ))}
+          </Select>
+          <p aria-live="polite" className="text-[13px] text-muted sm:col-span-2">
+            {filtering
+              ? t('search.count', { count: visible.length, total: charts.length })
+              : t('search.hint')}
+          </p>
+        </div>
+      )}
+
+      {filtering && visible.length === 0 && (
+        <div className="flex flex-col items-start gap-3 rounded-card border border-dashed border-border bg-surface/60 p-4 sm:p-5">
+          <p className="text-[15px] text-muted">{t('search.empty')}</p>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => {
+              setQuery('');
+              setRelation('all');
+            }}
+          >
+            {t('search.reset')}
+          </Button>
+        </div>
+      )}
+
       <ul className="grid gap-4 md:grid-cols-2">
-        {charts.map((chart, i) => (
+        {visible.map((chart, i) => (
           <motion.li
             key={chart.id}
             initial={{ opacity: 0, y: 14 }}
@@ -131,6 +218,7 @@ export function Component() {
           >
             <PersonCard
               chart={chart}
+              computed={computed.get(chart.id) ?? null}
               isPrimary={chart.id === settings.primaryChartId}
               onDelete={() => setToDelete(chart)}
             />
@@ -154,16 +242,17 @@ export function Component() {
 
 function PersonCard({
   chart: saved,
+  computed: chart,
   isPrimary,
   onDelete,
 }: {
   chart: SavedChart;
+  computed: Chart | null;
   isPrimary: boolean;
   onDelete(): void;
 }) {
   const { t } = useTranslation('people');
   const locale = useLocale();
-  const { chart } = useChart(saved);
   const time = formatBirthTime(saved.birth);
 
   return (

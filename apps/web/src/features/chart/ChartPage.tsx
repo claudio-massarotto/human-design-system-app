@@ -17,6 +17,7 @@ import type { SavedChart } from '../../data/types';
 import { useContent } from '../../i18n/useContent';
 import { usePageTitle } from '../../lib/usePageTitle';
 import { BodygraphHero } from './BodygraphHero';
+import type { ChartSide } from './sides';
 import { ChartHeader } from './ChartHeader';
 import { DetailSheet } from './DetailSheet';
 import { SummaryCards } from './SummaryCards';
@@ -27,9 +28,10 @@ import { ActivationsTab } from './tabs/ActivationsTab';
 import { CentersTab } from './tabs/CentersTab';
 import { ChannelsTab } from './tabs/ChannelsTab';
 import { CrossTab } from './tabs/CrossTab';
+import { SidesTab } from './tabs/SidesTab';
 import { VariablesTab } from './tabs/VariablesTab';
 
-const TAB_KEYS = ['activations', 'centers', 'channels', 'variables', 'cross'] as const;
+const TAB_KEYS = ['activations', 'centers', 'channels', 'sides', 'variables', 'cross'] as const;
 type TabKey = (typeof TAB_KEYS)[number];
 
 function downloadBlob(blob: Blob, filename: string): void {
@@ -60,6 +62,8 @@ function ChartView({ saved, chart }: { saved: SavedChart; chart: Chart }) {
   const [tab, setTab] = useState<TabKey>('activations');
   const [exporting, setExporting] = useState(false);
   const [view, setView] = useChartView();
+  // Il lato non si ricorda: aprendo un chart si vede sempre il chart intero.
+  const [side, setSide] = useState<ChartSide>('both');
   const selected = useMemo(() => selectionOf(detail), [detail]);
 
   async function onExport() {
@@ -68,7 +72,7 @@ function ChartView({ saved, chart }: { saved: SavedChart; chart: Chart }) {
     setExporting(true);
     try {
       const blob = await exportPng(svg as SVGSVGElement, 2);
-      const file = `${safeFileName(saved.name)}-${view}.png`;
+      const file = `${safeFileName(saved.name)}-${view}${side === 'both' ? '' : `-${side}`}.png`;
       downloadBlob(blob, file);
       toast(t('toast.exported', { file }));
     } catch {
@@ -104,6 +108,8 @@ function ChartView({ saved, chart }: { saved: SavedChart; chart: Chart }) {
           name={saved.name}
           view={view}
           onViewChange={setView}
+          side={side}
+          onSideChange={setSide}
           selected={selected}
           onSelect={(sel) => setDetail(sel)}
           svgBoxRef={boxRef}
@@ -137,6 +143,9 @@ function ChartView({ saved, chart }: { saved: SavedChart; chart: Chart }) {
           </TabsContent>
           <TabsContent value="channels">
             <ChannelsTab chart={chart} onOpen={setDetail} />
+          </TabsContent>
+          <TabsContent value="sides">
+            <SidesTab chart={chart} name={saved.name} onOpen={setDetail} />
           </TabsContent>
           <TabsContent value="variables">
             <VariablesTab chart={chart} />

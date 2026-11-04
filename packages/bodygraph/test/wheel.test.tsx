@@ -13,6 +13,7 @@ import {
   tracksOf,
   wheelFromChart,
   wheelFromOverlay,
+  wheelFromPair,
   wheelFromTransit,
   type WheelActivation,
 } from '../src/wheelGeometry';
@@ -126,6 +127,10 @@ describe('geometria della ruota', () => {
     expect(tracksOf(overlay)).toEqual(['transit', 'personality', 'design']);
     const sun = overlay.find((a) => a.layer === 'personality' && a.body === 'sun')!;
     expect(sun).toMatchObject({ gate: 41, line: 1, longitude: 302 });
+
+    const pair = wheelFromPair(chart, chart);
+    expect(pair).toHaveLength(52);
+    expect(tracksOf(pair)).toEqual(['personA', 'personB']);
   });
 });
 
@@ -214,6 +219,15 @@ describe('Wheel', () => {
     onSelect.mockClear();
     fireEvent.keyDown(container.querySelector('svg')!, { key: 'Escape' });
     expect(onSelect).toHaveBeenLastCalledWith(null);
+  });
+
+  it('due persone: 26 dischi per orbita, senza chiavi duplicate', () => {
+    const errors = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const { container } = render(<Wheel activations={wheelFromPair(chart, chart)} />);
+    expect(qa(container, '[data-body][data-layer="personA"]')).toHaveLength(26);
+    expect(qa(container, '[data-body][data-layer="personB"]')).toHaveLength(26);
+    expect(errors).not.toHaveBeenCalled();
+    errors.mockRestore();
   });
 
   it('senza onSelect non è interattiva', () => {

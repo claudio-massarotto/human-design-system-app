@@ -216,6 +216,24 @@ test.describe('Connessione', () => {
     await expect(page.getByRole('dialog')).toBeVisible();
   });
 
+  test('la vista Ruota mostra le due persone su due orbite', async ({ page }) => {
+    await createFromOnboarding(page, RA);
+    await addPerson(page, OBAMA);
+    await page.goto('/connessione');
+    await expect(page.getByRole('heading', { name: 'Tema di connessione' })).toBeVisible({
+      timeout: 30_000,
+    });
+    await page.getByRole('radio', { name: 'Ruota' }).click();
+    const wheel = page.locator('svg.hdwh');
+    await expect(wheel).toBeVisible();
+    await expect(wheel.locator('[data-body][data-layer="personA"]')).toHaveCount(26);
+    await expect(wheel.locator('[data-body][data-layer="personB"]')).toHaveCount(26);
+    const legend = page.getByRole('list', { name: 'Legenda dei colori' });
+    await expect(legend.getByRole('listitem')).toHaveText(['Ra Uru Hu', 'Barack Obama']);
+    await wheel.locator('g[data-gate][data-active="true"]').first().click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+  });
+
   test('inverti A e B scambia le persone', async ({ page }) => {
     await createFromOnboarding(page, RA);
     await addPerson(page, OBAMA);

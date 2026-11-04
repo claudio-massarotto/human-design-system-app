@@ -6,6 +6,7 @@ export {
   wheelFromChart,
   wheelFromTransit,
   wheelFromOverlay,
+  wheelFromPair,
   gateStart,
   WHEEL_SIZE,
 } from './wheelGeometry';

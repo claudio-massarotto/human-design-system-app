@@ -29,9 +29,9 @@ Ultimo aggiornamento: 3 novembre 2026.
 | Sensibilità dell'ora | Avviso quando un'ora di nascita approssimata cambia tipo, profilo, canali o croce | Implementata | — |
 | Export PNG | Salva il bodygraph o la ruota (la vista corrente) come immagine PNG | Implementata | — |
 | Stampa / PDF | Pagina di stampa del chart | Implementata | — |
-| Ruota nella stampa | La versione stampabile e il PDF mostrano anche la ruota | Da valutare | — |
+| Ruota nella stampa | Opzione "Includi la ruota delle 64 porte" nella pagina di stampa (già attiva se nel chart si guarda la ruota) | In corso | — |
 | Esaltazione e detrimento | Triangolini accanto a ogni attivazione | Da valutare | Dati per porta e linea nel content, con testi originali |
-| Personalità e Design separati | Due bodygraph piccoli con le sole attivazioni di ciascun lato | Da valutare | — |
+| Personalità e Design separati | Legenda cliccabile (Entrambe / Personalità / Design) che mostra un lato solo su bodygraph e ruota, con canali e centri ricalcolati; scheda "Conscio e inconscio" con un bodygraph per lato e i canali che nascono dall'unione | In corso | — |
 | Grafico del sogno | Bodygraph ridotto dei soli centri attivi nel sonno (nell'app di riferimento è a pagamento) | Da valutare | Regole di calcolo documentate in `docs/knowledge`; nome non registrato in UI |
 
 ## Transiti (Oggi)
@@ -59,8 +59,9 @@ Ultimo aggiornamento: 3 novembre 2026.
 | Ricerca dei luoghi | Città con fuso orario storico; coordinate a mano se offline | Implementata | Rete per la ricerca (Open-Meteo, solo il nome della città) |
 | Backup | Esportazione e importazione JSON dei chart | Implementata | — |
 | Connessione a due | Tema di connessione, composito e canali per dinamica (elettromagnetica, compromesso, dominanza, compagnia) | Implementata | Due chart salvati |
-| Ruota nella Connessione | I due chart sovrapposti sulla ruota | Da valutare | — |
-| Ricerca e categorie | Cercare per nome, porta, porta.linea, tipo, profilo; categorie come Preferiti, Famiglia, Lavoro, Clienti | Da valutare | Migrazione dello schema Dexie (tag sui chart) |
+| Ruota nella Connessione | Selettore Bodygraph/Ruota nella Connessione: le due persone su due orbite | In corso | — |
+| Ricerca e filtro | Cercare per nome, luogo, note, tipo, autorità, profilo, porta (41), porta.linea (41.3), canale (30-41); filtro per relazione | In corso | — |
+| Etichette libere | Categorie personali sui chart (Preferiti, Clienti, Studio…) oltre alla relazione | Da valutare | Migrazione dello schema Dexie e del formato di backup |
 | Penta e gruppi | Analisi di gruppi da 3 a 5 persone (famiglia, lavoro) con membri da includere o escludere | Pianificata (fase 2) | Regole Penta in `docs/knowledge`; gruppi nello schema Dexie |
 
 ## Enciclopedia
@@ -77,7 +78,7 @@ Ultimo aggiornamento: 3 novembre 2026.
 
 | Funzionalità | Descrizione | Stato | Requisiti |
 |---|---|---|---|
-| Navigazione con Connessione | Desktop: Connessione tra le voci della barra laterale. Mobile: barra inferiore con Il mio chart, Oggi, Persone, Altro; in Altro ci sono Connessione, Enciclopedia, Impostazioni | In corso | — |
+| Navigazione con Connessione | Desktop: Connessione tra le voci della barra laterale. Mobile: barra inferiore con Il mio chart, Oggi, Persone, Altro; in Altro ci sono Connessione, Enciclopedia, Impostazioni | Implementata | — |
 | PWA offline | Installabile, funziona senza rete (WASM in cache) | Implementata | — |
 | Dati locali | Tutto in IndexedDB sul dispositivo, nessun account | Implementata | — |
 | Italiano e inglese | Interfaccia e contenuti in due lingue | Implementata | — |

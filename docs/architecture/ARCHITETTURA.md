@@ -140,8 +140,9 @@ BirthInput ─► toUtc (Luxon) ─► JD(UT)
 - `<Wheel>`: ruota delle 64 porte (ordine `WHEEL`, Porta 41 a 302°) con zodiaco, quarti e le attivazioni
   per strato su orbite concentriche (Transito all'esterno, poi Personalità e Design), distanziate per non
   sovrapporsi. Orientamento delle carte astrologiche: 0° Ariete a ore 9, longitudine in senso antiorario.
-  Dati da `wheelFromChart` / `wheelFromTransit` / `wheelFromOverlay`; selezione delle porte come il bodygraph.
-  Nell'app si sceglie Bodygraph / Ruota in Chart e Oggi (scelta ricordata sul dispositivo).
+  Dati da `wheelFromChart` / `wheelFromTransit` / `wheelFromOverlay` / `wheelFromPair` (due persone su due
+  orbite); selezione delle porte come il bodygraph. Nell'app si sceglie Bodygraph / Ruota in Chart, Oggi e
+  Connessione (scelta ricordata sul dispositivo); la stampa può includere la ruota.
 - Funzione `exportSvg(element)` / `exportPng(element, scale)`.
 
 ## 8. `apps/web` — schermate e URL
@@ -150,11 +151,11 @@ BirthInput ─► toUtc (Luxon) ─► JD(UT)
 |---|---|
 | `/` | Home: se non c'è un chart → onboarding; altrimenti il proprio chart |
 | `/nuovo` | Inserimento dati di nascita (nome, data, ora/approssimata/sconosciuta, città con fuso) |
-| `/chart/:id` | Chart: bodygraph + card tipo/strategia/autorità/profilo/definizione/croce; tab Attivazioni, Centri, Canali, Variabili |
-| `/chart/:id/stampa` | Versione stampabile (PDF) |
+| `/chart/:id` | Chart: bodygraph o ruota (con legenda cliccabile per un lato solo) + card tipo/strategia/autorità/profilo/definizione/croce; tab Attivazioni, Centri, Canali, Conscio e inconscio, Variabili, Croce |
+| `/chart/:id/stampa` | Versione stampabile (PDF), con la ruota a richiesta |
 | `/oggi` | Transiti di oggi sul chart selezionato; timeline delle 24 ore successive (cambi di porta, canali e centri accesi) |
-| `/connessione` | Connessione tra due chart salvati |
-| `/persone` | Chart salvati: aggiungi, modifica, elimina, importa/esporta JSON |
+| `/connessione` | Connessione tra due chart salvati (bodygraph composito o ruota a due orbite) |
+| `/persone` | Chart salvati: ricerca e filtro per relazione, aggiungi, modifica, elimina, importa/esporta JSON |
 | `/enciclopedia` (+ `/porte/:n`, `/canali/:id`, `/centri/:id`, `/tipi/:id`, `/profili/:id`, `/croci`) | Enciclopedia |
 | `/impostazioni` | Lingua, tema, nodo vero/medio, cancellazione dati, licenza e sorgente, disclaimer |
 

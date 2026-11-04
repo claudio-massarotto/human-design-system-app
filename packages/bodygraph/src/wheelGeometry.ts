@@ -45,6 +45,16 @@ export function wheelFromOverlay(chart: Chart, transit: Transit): WheelActivatio
   return [...wheelFromChart(chart), ...wheelFromTransit(transit)];
 }
 
+/** Due persone a confronto: le 26 attivazioni di ciascuna sulla propria orbita (A e B). */
+export function wheelFromPair(a: Chart, b: Chart): WheelActivation[] {
+  return [
+    ...fromSet(a.personality, 'personA'),
+    ...fromSet(a.design, 'personA'),
+    ...fromSet(b.personality, 'personB'),
+    ...fromSet(b.design, 'personB'),
+  ];
+}
+
 /** Strati attivi per porta, nell'ordine in cui compaiono le attivazioni. */
 export function gateLayers(activations: readonly WheelActivation[]): Map<Gate, Layer[]> {
   const out = new Map<Gate, Layer[]>();

@@ -381,12 +381,12 @@ export function Wheel({
 
       {/* ── Attivazioni: tacca sulla longitudine esatta e filo fino al disco ── */}
       <g data-layer-group="leaders" aria-hidden="true" fill="none" strokeLinecap="round">
-        {placed.map(({ a, r, shown }) => {
+        {placed.map(({ a, r, shown }, i) => {
           const [tx0, ty0] = polar(R.gates, a.longitude);
           const [tx1, ty1] = polar(R.gates - 10, a.longitude);
           const [px, py] = polar(r + PLANET_RADIUS, shown);
           return (
-            <g key={`${a.layer}-${a.body}`}>
+            <g key={`${a.layer}-${a.body}-${i}`}>
               <path
                 d={`M${tx0.toFixed(2)} ${ty0.toFixed(2)}L${tx1.toFixed(2)} ${ty1.toFixed(2)}`}
                 stroke={LAYER_COLOR[a.layer]}
@@ -409,7 +409,8 @@ export function Wheel({
           const label = onLayer(a);
           return (
             <g
-              key={`${a.layer}-${a.body}`}
+              // Sulla stessa orbita lo stesso corpo può comparire due volte (Connessione: P e D).
+              key={`${a.layer}-${a.body}-${i}`}
               data-body={a.body}
               data-layer={a.layer}
               data-gate-ref={a.gate}

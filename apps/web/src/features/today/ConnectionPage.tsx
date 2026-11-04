@@ -1,9 +1,10 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'motion/react';
-import { Bodygraph, modelFromComposite } from '@hd/bodygraph';
+import { Bodygraph, Wheel, modelFromComposite, wheelFromPair } from '@hd/bodygraph';
 import { CENTERS, type Chart, type Composite } from '@hd/core';
 import { ChartPicker } from '../../components/ChartPicker';
+import { ChartViewToggle, useChartView } from '../../components/ChartViewToggle';
 import { PeopleIcon, PlusIcon } from '../../components/icons';
 import { Badge } from '../../components/ui/Badge';
 import { Button, LinkButton } from '../../components/ui/Button';
@@ -16,6 +17,7 @@ import { useContent } from '../../i18n/useContent';
 import { cn } from '../../lib/cn';
 import { useEngine } from '../../lib/engine';
 import { usePageTitle } from '../../lib/usePageTitle';
+import { useWheelLabels } from '../../lib/useWheelLabels';
 import {
   channelCarriers,
   chartGateSet,
@@ -146,6 +148,12 @@ export function ConnectionPage() {
   const nameA = savedA?.name ?? '';
   const nameB = savedB?.name ?? '';
   const { labels, centerLabels } = useBodygraphLabels({ personA: nameA, personB: nameB });
+  const [view, setView] = useChartView();
+  const wheelNames = useWheelLabels();
+  const activations = useMemo(
+    () => (chartA && chartB ? wheelFromPair(chartA, chartB) : []),
+    [chartA, chartB],
+  );
 
   // Pochi chart: stato vuoto con invito ad aggiungere un partner.
   if (!loading && charts.length < 2) {
@@ -234,21 +242,37 @@ export function ConnectionPage() {
             className="xl:sticky xl:top-8"
           >
             <div className="mx-auto max-w-[400px] rounded-card border border-border bg-surface p-3 shadow-card sm:p-4">
-              <Bodygraph
-                model={model}
-                title={t('bodygraph.title', { a: nameA, b: nameB })}
-                labels={labels}
-                centerLabels={centerLabels}
-                selected={sheet.selection}
-                onSelect={(s) => s && sheet.show(selectionToTarget(s))}
-              />
+              <div className="mb-3 flex justify-center">
+                <ChartViewToggle value={view} onChange={setView} />
+              </div>
+              {view === 'wheel' ? (
+                <Wheel
+                  key="wheel"
+                  activations={activations}
+                  title={t('wheel.title', { a: nameA, b: nameB })}
+                  labels={{ ...wheelNames, gate: labels.gate, layers: labels.layers }}
+                  selected={sheet.selection}
+                  onSelect={(s) => s && sheet.show(selectionToTarget(s))}
+                />
+              ) : (
+                <Bodygraph
+                  model={model}
+                  title={t('bodygraph.title', { a: nameA, b: nameB })}
+                  labels={labels}
+                  centerLabels={centerLabels}
+                  selected={sheet.selection}
+                  onSelect={(s) => s && sheet.show(selectionToTarget(s))}
+                />
+              )}
               <BodygraphLegend
                 label={t('legend.label')}
                 className="mt-3 border-t border-border pt-3"
                 items={[
                   { key: 'a', label: nameA, swatch: 'personA' },
                   { key: 'b', label: nameB, swatch: 'personB' },
-                  { key: 'r', label: t('legend.together'), swatch: 'ring' },
+                  ...(view === 'bodygraph'
+                    ? [{ key: 'r', label: t('legend.together'), swatch: 'ring' } as const]
+                    : []),
                 ]}
               />
             </div>

@@ -16,6 +16,9 @@
   "bodygraph": {
     "title": "Bodygraph di connessione tra {{a}} e {{b}}"
   },
+  "wheel": {
+    "title": "Ruota delle 64 porte di {{a}} e {{b}}"
+  },
   "legend": {
     "label": "Legenda dei colori",
     "together": "Centro definito solo insieme"

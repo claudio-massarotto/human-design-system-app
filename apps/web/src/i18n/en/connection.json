@@ -16,6 +16,9 @@
   "bodygraph": {
     "title": "Connection bodygraph for {{a}} and {{b}}"
   },
+  "wheel": {
+    "title": "Wheel of the 64 gates for {{a}} and {{b}}"
+  },
   "legend": {
     "label": "Color legend",
     "together": "Center defined only together"

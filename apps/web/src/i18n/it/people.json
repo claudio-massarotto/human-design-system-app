@@ -10,6 +10,17 @@
     "title": "Nessun chart salvato",
     "description": "Aggiungi la prima persona: bastano nome, data, ora e luogo di nascita."
   },
+  "search": {
+    "label": "Cerca tra le persone",
+    "placeholder": "Nome, luogo, tipo, profilo…",
+    "hint": "Puoi cercare anche una porta (41), una porta con linea (41.3) o un canale (30-41).",
+    "relation": "Relazione",
+    "allRelations": "Tutte le relazioni",
+    "count_one": "{{count}} persona su {{total}}",
+    "count_other": "{{count}} persone su {{total}}",
+    "empty": "Nessuna persona corrisponde alla ricerca.",
+    "reset": "Azzera la ricerca"
+  },
   "card": {
     "mine": "Il mio chart",
     "setPrimary": "Imposta come il mio",

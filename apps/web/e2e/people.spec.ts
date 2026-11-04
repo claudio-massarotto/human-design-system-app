@@ -24,6 +24,38 @@ test.describe('persone', () => {
     await expect(card(page, 'Barack Obama')).toContainText('Emotiva');
   });
 
+  test('ricerca per nome, luogo, tipo e porta, filtro per relazione e azzeramento', async ({
+    page,
+  }) => {
+    const search = page.getByRole('searchbox', { name: 'Cerca tra le persone' });
+    const names = page.getByRole('heading', { level: 2 });
+
+    await search.fill('obama');
+    await expect(names).toHaveText(['Barack Obama']);
+    await expect(page.getByText('1 persona su 2')).toBeVisible();
+
+    await search.fill('montréal');
+    await expect(names).toHaveText(['Ra Uru Hu']);
+    await search.fill('MONTREAL'); // senza accento e in maiuscolo
+    await expect(names).toHaveText(['Ra Uru Hu']);
+
+    // Obama è Proiettore; Ra Uru Hu no.
+    await search.fill('proiettore');
+    await expect(names).toHaveText(['Barack Obama']);
+
+    await search.fill('nessuno-così');
+    await expect(page.getByText('Nessuna persona corrisponde alla ricerca.')).toBeVisible();
+    await page.getByRole('button', { name: 'Azzera la ricerca' }).click();
+    await expect(search).toHaveValue('');
+    await expect(names).toHaveCount(2);
+
+    const relation = page.getByRole('combobox', { name: 'Relazione' });
+    await relation.selectOption({ label: 'Io' });
+    await expect(names).toHaveText(['Ra Uru Hu']);
+    await relation.selectOption({ label: 'Tutte le relazioni' });
+    await expect(names).toHaveCount(2);
+  });
+
   test('imposta "il mio chart" e la navigazione punta al nuovo chart', async ({ page }) => {
     await card(page, 'Barack Obama').getByRole('button', { name: 'Imposta come il mio' }).click();
     await expect(page.getByText('Barack Obama è ora il tuo chart.')).toBeVisible();

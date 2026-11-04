@@ -5,6 +5,7 @@
     "activations": "Attivazioni",
     "centers": "Centri",
     "channels": "Canali",
+    "sides": "Conscio e inconscio",
     "variables": "Variabili",
     "cross": "Croce"
   },
@@ -49,8 +50,11 @@
     "legend": "Legenda del bodygraph",
     "both": "Entrambe",
     "undefinedOpen": "Non definito o aperto",
-    "hint": "Tocca una porta, un canale o un centro per leggerne il significato.",
-    "hintWheel": "Tocca una porta o un pianeta per leggerne il significato. Esterno: Personalità, interno: Design."
+    "hint": "Tocca una porta, un canale o un centro per leggerne il significato. Tocca Personalità o Design per vedere un lato solo.",
+    "hintWheel": "Tocca una porta o un pianeta per leggerne il significato. Esterno: Personalità, interno: Design; toccali qui sotto per vederne uno solo.",
+    "sides": "Mostra un lato del chart",
+    "only": "(solo {{side}})",
+    "sideSummary": "Solo {{side}}: centri definiti {{centers}}, canali {{channels}}. Canali che esistono solo unendo i due lati: {{bridges}}."
   },
   "bodygraph": {
     "title": "Bodygraph di {{name}}",
@@ -225,9 +229,27 @@
     "structure": "Struttura",
     "definedCenters": "Centri definiti",
     "openCenters": "Centri non definiti o aperti",
-    "footer": "Calcolato sul tuo dispositivo con Swiss Ephemeris: i dati di nascita non lasciano mai il dispositivo."
+    "footer": "Calcolato sul tuo dispositivo con Swiss Ephemeris: i dati di nascita non lasciano mai il dispositivo.",
+    "includeWheel": "Includi la ruota delle 64 porte",
+    "wheel": "Ruota delle 64 porte",
+    "wheelNote": "Orbita esterna: Personalità; orbita interna: Design. 0° Ariete a sinistra, longitudine in senso antiorario."
   },
   "wheel": {
     "title": "Ruota delle 64 porte di {{name}}"
+  },
+  "sides": {
+    "intro": "La Personalità è il lato conscio: ciò che riconosci di te e con cui ti identifichi. Il Design è il lato inconscio, legato al corpo: lavora senza che tu lo scelga e spesso gli altri lo notano prima di te. Qui vedi cosa definisce ciascun lato da solo e cosa esiste soltanto quando i due si incontrano.",
+    "personalityIntro": "Le porte attivate al momento della nascita: il lato che senti tuo.",
+    "designIntro": "Le porte attivate circa tre mesi prima della nascita: il lato che vive nel corpo.",
+    "bodygraph": "Bodygraph di {{name}}: solo {{side}}",
+    "centers": "Centri definiti da questo lato",
+    "noCenters": "Nessuno: da solo questo lato non completa canali.",
+    "channels": "Canali di questo lato",
+    "noChannels": "Nessun canale completo con le sole porte di questo lato.",
+    "bridges": "Canali che nascono dall'unione",
+    "bridgesIntro": "Una porta viene dalla Personalità e l'altra dal Design: il canale esiste solo perché i due lati si completano.",
+    "noBridges": "Nessuno: ogni canale del chart è già completo dentro uno dei due lati.",
+    "gateFrom": "Porta {{gate}} · {{side}}",
+    "bridgeCenters": "Centri definiti solo grazie all'unione dei due lati: {{centers}}."
   }
 }

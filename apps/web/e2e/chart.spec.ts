@@ -68,6 +68,7 @@ test.describe('pagina chart', () => {
       'Attivazioni',
       'Centri',
       'Canali',
+      'Conscio e inconscio',
       'Variabili',
       'Croce',
     ]);
@@ -90,6 +91,16 @@ test.describe('pagina chart', () => {
     await tabs.getByRole('tab', { name: 'Canali' }).click();
     await expect(page.getByRole('heading', { name: 'Canali definiti' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Porte sospese' })).toBeVisible();
+
+    // Conscio e inconscio: un bodygraph per lato e i canali che nascono dall'unione.
+    await tabs.getByRole('tab', { name: 'Conscio e inconscio' }).click();
+    const sides = page.getByRole('tabpanel');
+    await expect(sides.getByRole('heading', { level: 3, name: 'Personalità' })).toBeVisible();
+    await expect(sides.getByRole('heading', { level: 3, name: 'Design' })).toBeVisible();
+    await expect(sides.locator('svg.hdbg')).toHaveCount(2);
+    await expect(
+      sides.getByRole('heading', { name: /Canali che nascono dall'unione/ }),
+    ).toBeVisible();
 
     // Variabili
     await tabs.getByRole('tab', { name: 'Variabili' }).click();
@@ -182,6 +193,53 @@ test.describe('pagina chart', () => {
 
     await page.getByRole('link', { name: 'Torna al chart' }).click();
     await expect(page).toHaveURL(/\/chart\/[\w-]+$/);
+  });
+
+  test('la legenda mostra un lato solo, con canali ricalcolati, anche sulla ruota', async ({
+    page,
+  }) => {
+    const sides = page.getByRole('group', { name: 'Mostra un lato del chart' });
+    await expect(sides.getByRole('button', { name: 'Entrambe' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+    const allChannels = await page.locator('svg.hdbg [data-channel][data-full="true"]').count();
+
+    await sides.getByRole('button', { name: 'Personalità' }).click();
+    await expect(
+      page.getByRole('region', { name: 'Bodygraph di Ra Uru Hu (solo Personalità)' }),
+    ).toBeVisible();
+    await expect(page.getByText(/^Solo Personalità: centri definiti \d+/)).toBeVisible();
+    const onlyP = await page.locator('svg.hdbg [data-channel][data-full="true"]').count();
+    expect(onlyP).toBeLessThanOrEqual(allChannels);
+
+    // di nuovo sullo stesso pulsante: torna il chart intero
+    await sides.getByRole('button', { name: 'Personalità' }).click();
+    await expect(bodygraph(page)).toBeVisible();
+
+    await sides.getByRole('button', { name: 'Design' }).click();
+    await page.getByRole('radio', { name: 'Ruota' }).click();
+    const wheel = page.getByRole('region', {
+      name: 'Ruota delle 64 porte di Ra Uru Hu (solo Design)',
+    });
+    await expect(wheel.locator('[data-body]')).toHaveCount(13);
+    await expect(wheel.locator('[data-body][data-layer="personality"]')).toHaveCount(0);
+  });
+
+  test('la stampa può includere la ruota delle 64 porte', async ({ page }) => {
+    await page.getByRole('link', { name: 'Stampa / PDF' }).click();
+    const include = page.getByRole('checkbox', { name: 'Includi la ruota delle 64 porte' });
+    await expect(include).not.toBeChecked();
+    await expect(page.locator('svg.hdwh')).toHaveCount(0);
+    await include.check();
+    await expect(page.getByRole('heading', { name: 'Ruota delle 64 porte' })).toBeVisible();
+    await expect(page.locator('svg.hdwh [data-body]')).toHaveCount(26);
+
+    // Chi guarda la ruota nel chart la trova già inclusa nella stampa.
+    await page.getByRole('link', { name: 'Torna al chart' }).click();
+    await page.getByRole('radio', { name: 'Ruota' }).click();
+    await page.getByRole('link', { name: 'Stampa / PDF' }).click();
+    await expect(include).toBeChecked();
   });
 
   test('il pulsante di stampa chiama window.print', async ({ page }) => {

@@ -13,6 +13,7 @@ import { quarters } from './quarters';
 import { planets } from './planets';
 import { variables } from './variables';
 import { glossary } from './glossary';
+import { paths } from './paths';
 import { disclaimer } from './meta';
 
 export const en: ContentBundle = {
@@ -31,5 +32,6 @@ export const en: ContentBundle = {
   planets,
   variables,
   glossary,
+  paths,
   disclaimer,
 };

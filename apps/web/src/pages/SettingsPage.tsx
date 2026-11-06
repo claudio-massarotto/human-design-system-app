@@ -6,6 +6,7 @@ import type { Locale } from '@hd/content';
 import pkg from '../../package.json';
 import { Button } from '../components/ui/Button';
 import { CHART_VIEW_STORAGE_KEY } from '../components/ChartViewToggle';
+import { PATHS_STORAGE_KEY } from '../features/encyclopedia/learning';
 import { Card } from '../components/ui/Card';
 import { ConfirmDialog } from '../components/ui/Dialog';
 import { PageHeader } from '../components/ui/PageHeader';
@@ -73,6 +74,7 @@ export function Component() {
         localStorage.removeItem(THEME_STORAGE_KEY);
         localStorage.removeItem('hd:locale');
         localStorage.removeItem(CHART_VIEW_STORAGE_KEY);
+        localStorage.removeItem(PATHS_STORAGE_KEY);
       } catch {
         /* ignora */
       }

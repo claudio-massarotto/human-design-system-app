@@ -34,15 +34,25 @@ export function useMyChart(): Chart | null {
 }
 
 /** Briciole di pane: Enciclopedia › Sezione › Voce. */
-export function Crumbs({ section, current }: { section?: SectionKey; current?: string }) {
+export function Crumbs({
+  section,
+  current,
+  trail,
+}: {
+  section?: SectionKey;
+  current?: string;
+  /** Voci intermedie e finale al posto di sezione/voce (es. percorsi di apprendimento). */
+  trail?: { label: string; to?: string }[];
+}) {
   const { t } = useTranslation('encyclopedia');
   const items: { label: string; to?: string }[] = [{ label: t('title'), to: BASE }];
-  if (section)
+  if (trail) items.push(...trail);
+  else if (section)
     items.push({
       label: t(`sections.${section}.title`),
       to: current ? sectionHref(section) : undefined,
     });
-  if (current) items.push({ label: current });
+  if (current && !trail) items.push({ label: current });
   return (
     <nav aria-label={t('crumbs')} className="mb-4">
       <ol className="flex flex-wrap items-center gap-x-1 gap-y-0.5 text-[13px] text-muted">

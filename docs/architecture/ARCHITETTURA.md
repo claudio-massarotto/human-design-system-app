@@ -132,7 +132,14 @@ BirthInput ─► toUtc (Luxon) ─► JD(UT)
 - Ogni voce ha `summary` (semplice, 1–2 frasi) e `description` (approfondita); dove pertinente
   `notSelf`, `gifts`, `challenges`, `keywords`.
 - Accesso: `getContent(locale)` → oggetto con `gates`, `lines`, `channels`, `centers`, `types`,
-  `authorities`, `profiles`, `definitions`, `crosses`, `variables`, `circuits`, `glossary`.
+  `authorities`, `profiles`, `definitions`, `crosses`, `variables`, `circuits`, `glossary`, `paths`.
+- **Percorsi di apprendimento** (`paths`, `LearningPath[]`): lezioni guidate (4 percorsi: Le basi, Centri e
+  definizione, Profili e linee, Porte/canali/circuiti; 4–8 lezioni ciascuno). Ogni `Lesson` ha `id` (slug),
+  `title`, `text` (livello semplice), `deep` opzionale (approfondito), `links` a voci esistenti
+  (`{ section, id }`), `quiz` opzionale a scelta multipla (`options`, `correct`, `explanation`) e `mine`
+  opzionale (`type`, `authority`, `profile`, `definition`, `centers`, `channels`) per mostrare "nel tuo chart".
+  Id, collegamenti, indice della risposta giusta e `mine` sono identici in IT ed EN; il test
+  `packages/content/test/paths.test.ts` verifica parità, 4–8 lezioni, link a voci esistenti e quiz validi.
 - Nomi neutri per elementi a marchio ("bodygraph", "ruota").
 
 ## 7. `@hd/bodygraph` — visualizzazione
@@ -165,6 +172,7 @@ BirthInput ─► toUtc (Luxon) ─► JD(UT)
 | `/persone` | Chart salvati: ricerca e filtro per relazione, aggiungi, modifica, elimina, importa/esporta JSON |
 | `/gruppi` | Gruppi salvati: membri selezionabili e analisi delle 12 porte e 6 canali |
 | `/enciclopedia` (+ `/porte/:n`, `/canali/:id`, `/centri/:id`, `/tipi/:id`, `/profili/:id`, `/croci`) | Enciclopedia |
+| `/enciclopedia/percorsi` (+ `/:id`, `/:id/:lezione`) | Percorsi di apprendimento: elenco con avanzamento, panoramica del percorso, lezione con testo (semplice/approfondito, come nelle schede), "nel tuo chart", collegamenti alle voci, domanda di verifica, avanti/indietro |
 | `/impostazioni` | Lingua, tema, nodo vero/medio, notifiche dei transiti, cancellazione dati, licenza e sorgente, disclaimer |
 
 Gli URL sono relativi al `base` di Vite (`BASE_PATH`): `/` in locale, `/human-design-system-app/` su GitHub Pages,
@@ -175,6 +183,9 @@ contatti esatti, compresi quelli retrogradi. Chirone è escluso dalle 13 attivaz
 carica i file Swiss `.se1` solo su richiesta e usa un'istanza effemeride separata con flag Swiss esplicito.
 La cache runtime del service worker mantiene i file per l'uso offline. Il chart del ritorno usa il provider
 standard Moshier e l'URL porta l'istante UTC.
+
+Il progresso dei percorsi (lezioni completate per percorso) è in `localStorage`, chiave `hd:paths`, quindi resta
+sul dispositivo senza toccare lo schema Dexie; viene azzerato con la cancellazione dei dati. Il quiz non viene salvato.
 
 Navigazione: laterale su desktop con tutte le sezioni (Il mio chart, Oggi, Persone, Gruppi, Connessione,
 Enciclopedia, Impostazioni); barra inferiore su mobile con Il mio chart, Oggi, Persone e Altro, che apre un

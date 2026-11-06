@@ -153,11 +153,35 @@ BirthInput ─► toUtc (Luxon) ─► JD(UT)
 | `/nuovo` | Inserimento dati di nascita (nome, data, ora/approssimata/sconosciuta, città con fuso) |
 | `/chart/:id` | Chart: bodygraph o ruota (con legenda cliccabile per un lato solo) + card tipo/strategia/autorità/profilo/definizione/croce; tab Attivazioni, Centri, Canali, Conscio e inconscio, Variabili, Croce |
 | `/chart/:id/stampa` | Versione stampabile (PDF), con la ruota a richiesta |
+| `/chart/:id/diario` | Diario di sperimentazione del chart: note datate (testo, giorno, esito facoltativo allineato/così così/non allineato, umore facoltativo) su come si vivono Strategia e Autorità; promemoria di Strategia e Autorità, spunti di scrittura, lista cronologica, aggiunta/modifica/eliminazione |
 | `/oggi` | Transiti di oggi sul chart selezionato; timeline delle 24 ore successive (cambi di porta, canali e centri accesi) |
 | `/connessione` | Connessione tra due chart salvati (bodygraph composito o ruota a due orbite) |
-| `/persone` | Chart salvati: ricerca e filtro per relazione, aggiungi, modifica, elimina, importa/esporta JSON |
+| `/persone` | Chart salvati: ricerca (anche nelle etichette) e filtri per relazione e per etichetta, aggiungi, modifica (anche le etichette libere), elimina, accesso al diario, importa/esporta JSON (chart, etichette e note) |
 | `/enciclopedia` (+ `/porte/:n`, `/canali/:id`, `/centri/:id`, `/tipi/:id`, `/profili/:id`, `/croci`) | Enciclopedia |
 | `/impostazioni` | Lingua, tema, nodo vero/medio, cancellazione dati, licenza e sorgente, disclaimer |
+
+### 8.1 Dati locali (Dexie, schema v2)
+
+Database IndexedDB `hd-app`, accesso solo tramite i repository (ADR-003):
+
+| Tabella | Chiave e indici | Contenuto |
+|---|---|---|
+| `charts` | `id`, `name`, `createdAt`, `updatedAt`, `*tags` (multiEntry) | `SavedChart`: dati di nascita, relazione, note, **etichette libere** `tags?: string[]` |
+| `notes` | `id`, `chartId`, `date`, `[chartId+date]` | `JournalEntry` del diario: `chartId`, `date` (`YYYY-MM-DD`), `text`, `outcome?`, `mood?`, `createdAt`, `updatedAt` |
+| `settings` | `id` (riga `main`) | Impostazioni |
+
+- **Migrazione v1 → v2** (`version(2)` in `data/db.ts`): aggiunge l'indice `*tags` e la tabella `notes`; non
+  tocca i dati esistenti (i chart v1 restano senza `tags`, `schemaVersion` del chart resta 1 perché il
+  campo è facoltativo). Coperta da `test/migration.test.ts`.
+- **Etichette**: normalizzate da `data/tags.ts` (spazi compattati, max 30 caratteri, max 10 per chart,
+  doppioni eliminati senza badare a maiuscole/accenti, vince la prima grafia). Filtro e ricerca in
+  `pages/PeoplePage.tsx` e `lib/peopleSearch.ts` (le etichette fanno parte del testo cercato).
+- **Integrità**: eliminare un chart elimina le sue note nella stessa transazione
+  (`ChartRepository.remove`); "Cancella tutti i dati" svuota anche `notes`.
+- **Backup JSON**: `version: 2` aggiunge `notes[]` e `tags` sui chart. I backup `version: 1` si importano
+  ancora (nessuna nota, nessuna etichetta). Le note devono riferirsi a un chart presente nel file,
+  altrimenti il file è rifiutato per intero. All'import le note seguono la regola dei chart: id nuovo →
+  aggiunta; id esistente → sostituita solo se `updatedAt` è più recente.
 
 Gli URL sono relativi al `base` di Vite (`BASE_PATH`): `/` in locale, `/human-design-system-app/` su GitHub Pages,
 dove l'app è pubblicata dalla CI (job `deploy`). Con `apps/server` (fase 2) servirà un hosting con runtime server.

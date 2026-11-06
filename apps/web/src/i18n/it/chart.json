@@ -38,7 +38,8 @@
     "edit": "Modifica",
     "setPrimary": "Imposta come il mio chart",
     "exportPng": "Esporta PNG",
-    "print": "Stampa / PDF"
+    "print": "Stampa / PDF",
+    "diary": "Diario"
   },
   "toast": {
     "exported": "Immagine salvata: {{file}}",

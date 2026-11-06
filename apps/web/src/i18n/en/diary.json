@@ -1,0 +1,80 @@
+{
+  "title": "{{name}}'s journal",
+  "pageTitle": "Journal",
+  "subtitle": "Dated notes on how you live your Strategy and your Authority. They stay on your device only.",
+  "back": "Back to the chart",
+  "notFound": {
+    "title": "Chart not found",
+    "action": "Go to People"
+  },
+  "reminder": {
+    "title": "Your starting point",
+    "strategy": "Strategy",
+    "authority": "Authority",
+    "note": "This is your own experiment: there is no right result to reach."
+  },
+  "form": {
+    "titleNew": "New note",
+    "titleEdit": "Edit note",
+    "date": "Day",
+    "text": "What did you notice?",
+    "textPlaceholder": "Write down a situation, how you decided and how you felt afterwards…",
+    "outcome": "How did it go with your Strategy and Authority?",
+    "mood": "Mood",
+    "none": "Not specified",
+    "save": "Add to the journal",
+    "saveEdit": "Save changes",
+    "cancel": "Cancel editing",
+    "prompts": "Writing prompts",
+    "promptsHint": "Tap a prompt to insert it into the note."
+  },
+  "prompts": {
+    "choice": "What situation put a choice in front of me, and how did I respond?",
+    "body": "What did I feel in my body before deciding?",
+    "wait": "What difference did I see when I gave myself time, or when I didn't?"
+  },
+  "outcome": {
+    "aligned": "Aligned",
+    "mixed": "So-so",
+    "notAligned": "Not aligned"
+  },
+  "mood": {
+    "serene": "Serene",
+    "energized": "Energised",
+    "neutral": "Neutral",
+    "tired": "Tired",
+    "tense": "Tense"
+  },
+  "errors": {
+    "textRequired": "Write something in the note.",
+    "textTooLong": "The note is too long (maximum {{max}} characters).",
+    "dateRequired": "Pick the day.",
+    "dateInvalid": "The date is not valid.",
+    "dateFuture": "The day cannot be in the future."
+  },
+  "list": {
+    "title": "Your notes",
+    "count_one": "{{count}} note",
+    "count_other": "{{count}} notes",
+    "edit": "Edit the note of {{date}}",
+    "editShort": "Edit",
+    "delete": "Delete the note of {{date}}",
+    "deleteShort": "Delete"
+  },
+  "empty": {
+    "title": "The journal is empty",
+    "description": "Write the first note: a few lines are enough. Over time you will see how your way of deciding changes."
+  },
+  "delete": {
+    "title": "Delete this note?",
+    "description": "The note of {{date}} will be removed from this device.",
+    "confirm": "Delete"
+  },
+  "toast": {
+    "saved": "Note added to the journal.",
+    "updated": "Note updated.",
+    "saveError": "The note could not be saved. Try again.",
+    "deleted": "Note deleted.",
+    "deleteError": "The note could not be deleted."
+  }
+}

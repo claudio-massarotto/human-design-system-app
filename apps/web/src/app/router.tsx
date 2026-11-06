@@ -1,5 +1,6 @@
 import { createBrowserRouter, createMemoryRouter, type RouteObject } from 'react-router';
 import { routes as chartRoutes } from '../features/chart/routes';
+import { routes as diaryRoutes } from '../features/diary/routes';
 import { routes as todayRoutes } from '../features/today/routes';
 import { routes as encyclopediaRoutes } from '../features/encyclopedia/routes';
 import { AppShell } from './AppShell';
@@ -28,6 +29,7 @@ export const appRoutes: RouteObject[] = [
         children: [
           ...shellRoutes,
           ...chartRoutes,
+          ...diaryRoutes,
           ...todayRoutes,
           ...encyclopediaRoutes,
           { path: '*', lazy: () => import('../pages/NotFoundPage') },

@@ -1,0 +1,80 @@
+{
+  "title": "Diario di {{name}}",
+  "pageTitle": "Diario",
+  "subtitle": "Note datate su come vivi la tua Strategia e la tua Autorità. Restano solo sul tuo dispositivo.",
+  "back": "Torna al chart",
+  "notFound": {
+    "title": "Chart non trovato",
+    "action": "Vai alle persone"
+  },
+  "reminder": {
+    "title": "Il punto di partenza",
+    "strategy": "Strategia",
+    "authority": "Autorità",
+    "note": "È una sperimentazione tua: non c'è un risultato giusto da ottenere."
+  },
+  "form": {
+    "titleNew": "Nuova nota",
+    "titleEdit": "Modifica nota",
+    "date": "Giorno",
+    "text": "Che cosa hai notato?",
+    "textPlaceholder": "Scrivi una situazione, come hai deciso e come ti sei sentito dopo…",
+    "outcome": "Com'è andata rispetto a Strategia e Autorità?",
+    "mood": "Umore",
+    "none": "Non indicato",
+    "save": "Aggiungi al diario",
+    "saveEdit": "Salva modifiche",
+    "cancel": "Annulla modifica",
+    "prompts": "Spunti per scrivere",
+    "promptsHint": "Tocca uno spunto per inserirlo nella nota."
+  },
+  "prompts": {
+    "choice": "Quale situazione mi ha messo davanti a una scelta, e come ho risposto?",
+    "body": "Che cosa ho sentito nel corpo prima di decidere?",
+    "wait": "Che differenza ho visto quando mi sono preso del tempo, o quando non l'ho fatto?"
+  },
+  "outcome": {
+    "aligned": "Allineato",
+    "mixed": "Così così",
+    "notAligned": "Non allineato"
+  },
+  "mood": {
+    "serene": "Sereno",
+    "energized": "Energico",
+    "neutral": "Neutro",
+    "tired": "Stanco",
+    "tense": "Teso"
+  },
+  "errors": {
+    "textRequired": "Scrivi qualcosa nella nota.",
+    "textTooLong": "La nota è troppo lunga (massimo {{max}} caratteri).",
+    "dateRequired": "Scegli il giorno.",
+    "dateInvalid": "La data non è valida.",
+    "dateFuture": "Il giorno non può essere nel futuro."
+  },
+  "list": {
+    "title": "Le tue note",
+    "count_one": "{{count}} nota",
+    "count_other": "{{count}} note",
+    "edit": "Modifica la nota del {{date}}",
+    "editShort": "Modifica",
+    "delete": "Elimina la nota del {{date}}",
+    "deleteShort": "Elimina"
+  },
+  "empty": {
+    "title": "Il diario è vuoto",
+    "description": "Scrivi la prima nota: poche righe bastano. Col tempo vedrai come cambia il tuo modo di decidere."
+  },
+  "delete": {
+    "title": "Eliminare questa nota?",
+    "description": "La nota del {{date}} verrà rimossa da questo dispositivo.",
+    "confirm": "Elimina"
+  },
+  "toast": {
+    "saved": "Nota aggiunta al diario.",
+    "updated": "Nota aggiornata.",
+    "saveError": "Non è stato possibile salvare la nota. Riprova.",
+    "deleted": "Nota eliminata.",
+    "deleteError": "Non è stato possibile eliminare la nota."
+  }
+}

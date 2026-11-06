@@ -45,11 +45,11 @@ Ultimo aggiornamento: 6 novembre 2026.
 | Le 13 attivazioni | Tabella con porta, linea e retrogradazione di ogni corpo | Implementata | — |
 | Calendario del Sole | I prossimi quattro ingressi del Sole in una nuova porta | Implementata | — |
 | Prossime 24 ore | Timeline delle porte per pianeta, canali e centri accesi e cambi in ordine di tempo | Implementata | — |
-| Riepilogo 24 ore nel Chart | "Prossime 24 ore" in breve nella pagina del chart (che fa da Home) | In corso (branch `feat/funzionalita-senza-server`) | — |
-| Notifiche dei transiti | Avviso quando un transito completa un tuo canale o un pianeta scelto cambia porta, all'inizio o 10 minuti prima, finché l'app o la PWA è aperta | In corso (branch `feat/funzionalita-senza-server`) | Permesso notifiche; su iOS solo da PWA installata (iOS 16.4+) |
+| Riepilogo 24 ore nel Chart | "Prossime 24 ore" in breve nella pagina del chart (che fa da Home) | In corso ([PR #5](https://github.com/claudio-massarotto/human-design-system-app/pull/5)) | — |
+| Notifiche dei transiti | Avviso quando un transito completa un tuo canale o un pianeta scelto cambia porta, all'inizio o 10 minuti prima, finché l'app o la PWA è aperta | In corso ([PR #5](https://github.com/claudio-massarotto/human-design-system-app/pull/5)) | Permesso notifiche; su iOS solo da PWA installata (iOS 16.4+) |
 | Notifiche ad app chiusa | Gli stessi avvisi anche con l'app chiusa | Pianificata (fase 2) | Web Push con `apps/server` |
-| Ritorni planetari | Data e chart del ritorno di Saturno, Urano e Chirone | In corso (branch `feat/funzionalita-senza-server`) | File `.se1` di Swiss Ephemeris (~2 MB) per Chirone, scaricati solo su richiesta e messi in cache per l'offline |
-| Ruota interattiva nel tempo | Scorrere date e transiti direttamente sulla ruota e sul bodygraph in Oggi: passo ora/giorno/settimana/mese, slider, riproduzione | In corso (branch `feat/funzionalita-senza-server`) | — |
+| Ritorni planetari | Data e chart del ritorno di Saturno, Urano e Chirone | In corso ([PR #5](https://github.com/claudio-massarotto/human-design-system-app/pull/5)) | File `.se1` di Swiss Ephemeris (~2 MB) per Chirone, scaricati solo su richiesta e messi in cache per l'offline |
+| Ruota interattiva nel tempo | Scorrere date e transiti direttamente sulla ruota e sul bodygraph in Oggi: passo ora/giorno/settimana/mese, slider, riproduzione | In corso ([PR #5](https://github.com/claudio-massarotto/human-design-system-app/pull/5)) | — |
 
 ## Persone e relazioni
 
@@ -62,8 +62,8 @@ Ultimo aggiornamento: 6 novembre 2026.
 | Connessione a due | Tema di connessione, composito e canali per dinamica (elettromagnetica, compromesso, dominanza, compagnia) | Implementata | Due chart salvati |
 | Ruota nella Connessione | Selettore Bodygraph/Ruota nella Connessione: le due persone su due orbite | Implementata | — |
 | Ricerca e filtro | Cercare per nome, luogo, note, tipo, autorità, profilo, porta (41), porta.linea (41.3), canale (30-41); filtro per relazione | Implementata | — |
-| Etichette libere | Categorie personali sui chart (Preferiti, Clienti, Studio…) oltre alla relazione | In corso (branch `feat/funzionalita-senza-server`) | — |
-| Penta e gruppi | Analisi di gruppi da 3 a 5 persone (famiglia, lavoro) con membri da includere o escludere | In corso (branch `feat/funzionalita-senza-server`) | — |
+| Etichette libere | Categorie personali sui chart (Preferiti, Clienti, Studio…) oltre alla relazione | In corso ([PR #5](https://github.com/claudio-massarotto/human-design-system-app/pull/5)) | — |
+| Penta e gruppi | Analisi di gruppi da 3 a 5 persone (famiglia, lavoro) con membri da includere o escludere | In corso ([PR #5](https://github.com/claudio-massarotto/human-design-system-app/pull/5)) | — |
 
 ## Enciclopedia
 
@@ -72,7 +72,7 @@ Ultimo aggiornamento: 6 novembre 2026.
 | Enciclopedia | Tipi, autorità, profili, centri, porte e linee, canali, circuiti, croci, variabili, glossario | Implementata | — |
 | Ricerca nell'enciclopedia | Ricerca testuale su tutte le voci | Implementata | — |
 | Livello di lettura | Testi semplici o approfonditi | Implementata | — |
-| Percorsi di apprendimento | Lezioni guidate passo per passo | In corso (branch `feat/funzionalita-senza-server`) | — |
+| Percorsi di apprendimento | Lezioni guidate passo per passo | In corso ([PR #5](https://github.com/claudio-massarotto/human-design-system-app/pull/5)) | — |
 | Oracolo a carte | Lettura con tre carte (interna, esterna, equilibrio) | Da valutare | Fuori dal taglio dell'app: da decidere se farla |
 
 ## App e piattaforma
@@ -88,8 +88,8 @@ Ultimo aggiornamento: 6 novembre 2026.
 | Cancella tutti i dati | Azzera chart e impostazioni dal dispositivo | Implementata | — |
 | Pubblicazione | GitHub Pages dalla CI dopo check ed E2E | Implementata | — |
 | Pagine condivisibili | Link pubblico a un chart, anche per la SEO | Pianificata (fase 2) | `apps/server` (ADR-002) e hosting con runtime |
-| Condivisione | Pulsante condividi su chart, transiti e immagini | In corso (branch `feat/funzionalita-senza-server`) | — |
+| Condivisione | Pulsante condividi su chart, transiti e immagini | In corso ([PR #5](https://github.com/claudio-massarotto/human-design-system-app/pull/5)) | — |
 | Account e sincronizzazione | Salvare i chart in cloud e usarli su più dispositivi | Pianificata (fase 2) | `apps/server`, account, database (ADR-003) |
 | Assistente AI | Domande sul proprio chart con risposte basate sui testi dell'enciclopedia | Pianificata (fase 2) | `apps/server`, API di Claude, costi e limiti d'uso |
 | App negli store | iOS e Android | Pianificata (fase 3) | Capacitor; account sviluppatore Apple e Google |
-| Diario di sperimentazione | Note datate su Strategia e Autorità nel tempo | In corso (branch `feat/funzionalita-senza-server`) | — |
+| Diario di sperimentazione | Note datate su Strategia e Autorità nel tempo | In corso ([PR #5](https://github.com/claudio-massarotto/human-design-system-app/pull/5)) | — |

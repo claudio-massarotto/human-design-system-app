@@ -87,6 +87,34 @@ test.describe('Oggi', () => {
     await expect(now).toBeDisabled();
   });
 
+  test('scorrere nel tempo: slider con frecce da tastiera, passo e sincronia con data/ora', async ({
+    page,
+  }) => {
+    await page.goto('/oggi');
+    await expect(page.getByRole('heading', { name: 'In evidenza' })).toBeVisible({
+      timeout: 30_000,
+    });
+    await page.getByLabel('Data e ora').fill('2024-06-15T12:00');
+    const slider = page.getByRole('slider', { name: 'Scorri nel tempo' });
+    await expect(slider).toHaveValue('0');
+
+    await slider.focus();
+    await page.keyboard.press('ArrowRight');
+    await page.keyboard.press('ArrowRight');
+    await expect(page.getByLabel('Data e ora')).toHaveValue('2024-06-17T12:00');
+
+    await page.getByRole('radio', { name: 'Ora' }).click();
+    await page.getByRole('button', { name: "Un'ora avanti" }).click();
+    await expect(page.getByLabel('Data e ora')).toHaveValue('2024-06-17T13:00');
+
+    // senza scroll orizzontale anche con il controllo
+    const m = await page.evaluate(() => ({
+      sw: document.documentElement.scrollWidth,
+      cw: document.documentElement.clientWidth,
+    }));
+    expect(m.sw).toBeLessThanOrEqual(m.cw);
+  });
+
   test('una data scelta a mano ricalcola il transito (data fissa, deterministico)', async ({
     page,
   }) => {

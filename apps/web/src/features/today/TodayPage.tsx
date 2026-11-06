@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useDeferredValue, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'motion/react';
 import {
@@ -28,6 +28,7 @@ import { BodygraphLegend, useBodygraphLabels, type LegendItem } from './parts';
 import { SkyHighlights } from './SkyHighlights';
 import { SunCalendarList } from './SunCalendarList';
 import { nextSunIngresses } from './sunCalendar';
+import { TimeScrubber } from './TimeScrubber';
 import { TransitTable } from './TransitTable';
 import { TransitTimeline } from './TransitTimeline';
 import { addDays, fromInputValue, nowRounded, toInputValue } from './transitInsights';
@@ -73,9 +74,11 @@ export function TodayPage() {
   );
   const [view, setView] = useChartView();
   const wheelNames = useWheelLabels();
+  // Le parti pesanti (timeline di 24 ore, calendario del Sole) seguono con priorità bassa mentre si scorre.
+  const slowAt = useDeferredValue(at);
   const ingresses = useMemo(
-    () => nextSunIngresses((d) => engine.computeTransit(d, { node }), at, 4),
-    [engine, at, node],
+    () => nextSunIngresses((d) => engine.computeTransit(d, { node }), slowAt, 4),
+    [engine, slowAt, node],
   );
   const timeline = useMemo(() => {
     const analyze: AnalyzeFn = chart
@@ -84,8 +87,8 @@ export function TodayPage() {
           return { channels: o.newChannels, centers: o.centersDefinedByTransit };
         }
       : skyState;
-    return transitTimeline((d) => engine.computeTransit(d, { node }), analyze, at);
-  }, [engine, at, node, chart]);
+    return transitTimeline((d) => engine.computeTransit(d, { node }), analyze, slowAt);
+  }, [engine, slowAt, node, chart]);
 
   const { labels, centerLabels } = useBodygraphLabels();
   const legend: LegendItem[] = chart
@@ -196,6 +199,7 @@ export function TodayPage() {
                 onSelect={(s) => s && sheet.show(selectionToTarget(s))}
               />
             )}
+            <TimeScrubber at={at} onChange={setAt} />
             <BodygraphLegend
               items={legend}
               label={t('legend.label')}
@@ -225,7 +229,7 @@ export function TodayPage() {
 
           <TransitTimeline timeline={timeline} withChart={!!chart} onOpen={sheet.show} />
           <TransitTable transit={transit} onOpen={sheet.show} />
-          <SunCalendarList ingresses={ingresses} from={at} onOpen={sheet.show} />
+          <SunCalendarList ingresses={ingresses} from={slowAt} onOpen={sheet.show} />
 
           <p className="text-[12px] leading-snug text-muted">{t('footnote')}</p>
         </div>

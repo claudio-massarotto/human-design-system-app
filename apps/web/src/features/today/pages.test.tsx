@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from 'vitest';
-import { screen, waitFor, within } from '@testing-library/react';
+import { fireEvent, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ConnectionPage } from './ConnectionPage';
 import { TodayPage } from './TodayPage';
@@ -139,5 +139,56 @@ describe('ConnectionPage', () => {
       expect(a!.selectedOptions[0]!.textContent).toContain('Marco');
       expect(b!.selectedOptions[0]!.textContent).toContain('Anna');
     });
+  });
+});
+
+describe('TimeScrubber su Oggi', () => {
+  it('lo slider sposta il momento (e il campo data/ora), il passo cambia l’ampiezza, Adesso riporta indietro', async () => {
+    await seed([savedChart('a', 'Anna', ROMA, 1)]);
+    await renderWithApp(<TodayPage />, '/oggi');
+    const input = (await screen.findByLabelText('Data e ora')) as HTMLInputElement;
+    const start = new Date(input.value).getTime();
+    const user = userEvent.setup();
+
+    const slider = screen.getByRole('slider', { name: 'Scorri nel tempo' });
+    expect(slider).toHaveValue('0');
+    fireEvent.change(slider, { target: { value: '3' } });
+    await waitFor(() => expect(new Date(input.value).getTime() - start).toBe(3 * 86_400_000));
+    expect(slider).toHaveValue('3');
+
+    await user.click(screen.getByRole('radio', { name: 'Ora' }));
+    expect(screen.getByRole('slider', { name: 'Scorri nel tempo' })).toHaveValue('0');
+    await user.click(screen.getByRole('button', { name: "Un'ora avanti" }));
+    await waitFor(() =>
+      expect(new Date(input.value).getTime() - start).toBe(3 * 86_400_000 + 3_600_000),
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Adesso' }));
+    await waitFor(() =>
+      expect(Math.abs(new Date(input.value).getTime() - Date.now())).toBeLessThan(120_000),
+    );
+    expect(screen.getByRole('slider', { name: 'Scorri nel tempo' })).toHaveValue('0');
+  });
+
+  it('con "riduci animazioni" la riproduzione è disattivata', async () => {
+    const original = window.matchMedia;
+    window.matchMedia = ((q: string) => ({
+      matches: q.includes('reduce'),
+      media: q,
+      addEventListener() {},
+      removeEventListener() {},
+      addListener() {},
+      removeListener() {},
+      onchange: null,
+      dispatchEvent: () => false,
+    })) as typeof window.matchMedia;
+    try {
+      await seed([]);
+      await renderWithApp(<TodayPage />, '/oggi');
+      const play = await screen.findByRole('button', { name: /Riproduzione non disponibile/ });
+      expect(play).toBeDisabled();
+    } finally {
+      window.matchMedia = original;
+    }
   });
 });

@@ -208,7 +208,7 @@ test.describe('qualità trasversale: accessibilità (axe)', () => {
         .click();
       await expect(page.locator('html')).toHaveAttribute('data-theme', theme);
       const report: Record<string, string[]> = {};
-      for (const p of [PAGES_WITH_DATA[5], PAGES_WITH_DATA[0]]) {
+      for (const p of PAGES_WITH_DATA.filter((x) => x.path === '/chart/{id}' || x.path === '/oggi')) {
         const path = p.path.replace('{id}', id);
         await page.goto(path);
         await page.getByRole('radio', { name: 'Ruota' }).click();

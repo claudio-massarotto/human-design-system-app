@@ -188,9 +188,9 @@ standard Moshier e l'URL porta l'istante UTC.
 Il progresso dei percorsi (lezioni completate per percorso) è in `localStorage`, chiave `hd:paths`, quindi resta
 sul dispositivo senza toccare lo schema Dexie; viene azzerato con la cancellazione dei dati. Il quiz non viene salvato.
 
-Navigazione: laterale su desktop con tutte le sezioni (Il mio chart, Oggi, Persone, Gruppi, Connessione,
+Navigazione: laterale su desktop con tutte le sezioni (Il mio chart, Oggi, Persone, Connessione, Gruppi,
 Enciclopedia, Impostazioni); barra inferiore su mobile con Il mio chart, Oggi, Persone e Altro, che apre un
-pannello con Gruppi, Connessione, Enciclopedia e Impostazioni.
+pannello con Connessione, Gruppi, Enciclopedia e Impostazioni.
 
 ### 8.1 Dati locali (Dexie, schema v2)
 

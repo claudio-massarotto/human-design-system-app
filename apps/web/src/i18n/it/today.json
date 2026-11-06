@@ -137,5 +137,10 @@
       "centerOn": "Il centro {{name}} diventa definito",
       "centerOff": "Il centro {{name}} torna aperto"
     }
+  },
+  "share": {
+    "title": "Transiti di {{date}}",
+    "text": "Transiti di {{date}}: il Sole illumina «{{sun}}», la Luna porta in primo piano «{{moon}}».",
+    "file": "transiti"
   }
 }

@@ -1,9 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'motion/react';
 import {
   Bodygraph,
   Wheel,
+  exportPng,
   modelFromGates,
   modelFromOverlay,
   wheelFromOverlay,
@@ -11,13 +12,15 @@ import {
 } from '@hd/bodygraph';
 import { ChevronRightIcon, PlusIcon, SparkleIcon } from '../../components/icons';
 import { ChartPicker } from '../../components/ChartPicker';
+import { ShareButton, appUrl } from '../../components/ShareButton';
+import type { SharePayload } from '../../lib/share';
 import { ChartViewToggle, useChartView } from '../../components/ChartViewToggle';
 import { Button, LinkButton } from '../../components/ui/Button';
 import { Field, Input } from '../../components/ui/Field';
 import { PageHeader } from '../../components/ui/PageHeader';
 import { Spinner } from '../../components/ui/Spinner';
 import { useChart, useCharts, useSettings } from '../../data/hooks';
-import { useLocale } from '../../i18n/useContent';
+import { useContent, useLocale } from '../../i18n/useContent';
 import { useEngine } from '../../lib/engine';
 import { usePageTitle } from '../../lib/usePageTitle';
 import { useWheelLabels } from '../../lib/useWheelLabels';
@@ -41,6 +44,7 @@ export function TodayPage() {
   const { settings } = useSettings();
   const { charts, loading } = useCharts();
   const sheet = useDetailSheet();
+  const content = useContent();
 
   const [chosenId, setChosenId] = useState<string | undefined>();
   const [at, setAt] = useState<Date>(() => nowRounded());
@@ -99,6 +103,22 @@ export function TodayPage() {
       ]
     : [{ key: 't', label: t('legend.transit'), swatch: 'transit' }];
 
+  const boxRef = useRef<HTMLDivElement>(null);
+  const buildShare = async (): Promise<SharePayload | null> => {
+    const svg = boxRef.current?.querySelector('svg');
+    if (!svg) return null;
+    const blob = await exportPng(svg as SVGSVGElement, 2);
+    const day = toInputValue(at).slice(0, 10);
+    const sun = content.gates[transit.activations.sun.gate]?.name ?? '';
+    const moon = content.gates[transit.activations.moon.gate]?.name ?? '';
+    return {
+      title: t('share.title', { date: formatDay(at, locale) }),
+      text: t('share.text', { date: formatDay(at, locale), sun, moon }),
+      url: appUrl(),
+      file: new File([blob], `${t('share.file')}-${day}-${view}.png`, { type: 'image/png' }),
+    };
+  };
+
   const isNow = Math.abs(at.getTime() - Date.now()) < 60_000;
 
   return (
@@ -107,6 +127,7 @@ export function TodayPage() {
         eyebrow={formatDay(at, locale)}
         title={t('title')}
         subtitle={chart && saved ? t('subtitle', { name: saved.name }) : t('subtitleWeather')}
+        actions={<ShareButton build={buildShare} />}
       />
 
       {/* Chart e istante */}
@@ -173,7 +194,10 @@ export function TodayPage() {
           transition={{ duration: 0.4, ease: [0.2, 0.8, 0.2, 1] }}
           className="xl:sticky xl:top-8"
         >
-          <div className="mx-auto max-w-[400px] rounded-card border border-border bg-surface p-3 shadow-card sm:p-4">
+          <div
+            ref={boxRef}
+            className="mx-auto max-w-[400px] rounded-card border border-border bg-surface p-3 shadow-card sm:p-4"
+          >
             <div className="mb-3 flex justify-center">
               <ChartViewToggle value={view} onChange={setView} />
             </div>

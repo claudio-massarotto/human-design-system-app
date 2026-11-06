@@ -15,6 +15,9 @@ import { setPrimaryChart } from '../../data/actions';
 import { useSettings } from '../../data/hooks';
 import type { SavedChart } from '../../data/types';
 import { useContent } from '../../i18n/useContent';
+import { downloadBlob } from '../../lib/download';
+import type { SharePayload } from '../../lib/share';
+import { appUrl } from '../../components/ShareButton';
 import { usePageTitle } from '../../lib/usePageTitle';
 import { BodygraphHero } from './BodygraphHero';
 import type { ChartSide } from './sides';
@@ -33,17 +36,6 @@ import { VariablesTab } from './tabs/VariablesTab';
 
 const TAB_KEYS = ['activations', 'centers', 'channels', 'sides', 'variables', 'cross'] as const;
 type TabKey = (typeof TAB_KEYS)[number];
-
-function downloadBlob(blob: Blob, filename: string): void {
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
 
 function selectionOf(detail: DetailTarget | null): Selection | null {
   if (!detail) return null;
@@ -82,6 +74,20 @@ function ChartView({ saved, chart }: { saved: SavedChart; chart: Chart }) {
     }
   }
 
+  async function buildShare(): Promise<SharePayload | null> {
+    const svg = boxRef.current?.querySelector('svg');
+    if (!svg) return null;
+    const blob = await exportPng(svg as SVGSVGElement, 2);
+    const name = `${safeFileName(saved.name)}-${view}${side === 'both' ? '' : `-${side}`}.png`;
+    const type = content.types[chart.type]?.name ?? '';
+    return {
+      title: saved.name,
+      text: t('share.text', { name: saved.name, type, profile: chart.profile.id }),
+      url: appUrl(),
+      file: new File([blob], name, { type: 'image/png' }),
+    };
+  }
+
   async function onSetPrimary() {
     try {
       await setPrimaryChart(saved.id);
@@ -100,6 +106,7 @@ function ChartView({ saved, chart }: { saved: SavedChart; chart: Chart }) {
         exporting={exporting}
         onSetPrimary={onSetPrimary}
         onExport={onExport}
+        buildShare={buildShare}
       />
 
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-start lg:gap-12">

@@ -97,5 +97,12 @@
     "label": "View",
     "bodygraph": "Bodygraph",
     "wheel": "Wheel"
+  },
+  "share": {
+    "button": "Share",
+    "shared": "Shared.",
+    "downloaded": "Sharing isn't available: image saved ({{file}}).",
+    "copied": "Sharing isn't available: link copied to the clipboard.",
+    "error": "Couldn't share."
   }
 }

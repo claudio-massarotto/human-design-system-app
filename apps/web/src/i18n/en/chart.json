@@ -251,5 +251,8 @@
     "noBridges": "None: every channel in the chart is already complete within one of the two sides.",
     "gateFrom": "Gate {{gate}} · {{side}}",
     "bridgeCenters": "Centers defined only by the union of the two sides: {{centers}}."
+  },
+  "share": {
+    "text": "{{name}} — {{type}}, profile {{profile}}. Calculated with Human Design System."
   }
 }

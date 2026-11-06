@@ -179,6 +179,14 @@ Impostazioni; permesso negato o API assente sono spiegati in UI. Ad app chiusa n
 Preferenze in `Settings.notifications` (`enabled`, `channels`, `gates`, `bodies`, `lead: start | 10min`):
 nessuna migrazione Dexie, la riga `settings` resta unica e `sanitizeSettings` dà i predefiniti alle righe vecchie.
 
+### 8.2 Condivisione
+
+Pulsante **Condividi** in Chart e Oggi (`components/ShareButton`, logica pura in `lib/share.ts`): crea al clic
+un PNG di ciò che si vede (bodygraph o ruota, via `exportPng`) e lo passa a `navigator.share` allegandolo
+quando `navigator.canShare({ files })` lo consente. Ripieghi, in ordine: download del PNG, copia del link
+(URL dell'app, senza dati personali) o del testo negli appunti. L'annullamento dell'utente non attiva ripieghi.
+Nessun dato è inviato a servizi esterni: solo l'app di condivisione scelta dall'utente riceve il contenuto.
+
 ## 9. Design system
 
 ### 9.1 Token

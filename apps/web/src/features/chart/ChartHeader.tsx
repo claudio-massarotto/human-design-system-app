@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { motion } from 'motion/react';
 import type { Chart } from '@hd/core';
+import { ShareButton } from '../../components/ShareButton';
+import type { SharePayload } from '../../lib/share';
 import { Badge } from '../../components/ui/Badge';
 import { Button, LinkButton } from '../../components/ui/Button';
 import { EditIcon, MapPinIcon, StarIcon } from '../../components/icons';
@@ -17,10 +19,19 @@ interface Props {
   exporting: boolean;
   onSetPrimary(): void;
   onExport(): void;
+  buildShare(): Promise<SharePayload | null>;
 }
 
 /** Nome, relazione, dati di nascita (con fuso e offset) e azioni del chart. */
-export function ChartHeader({ saved, chart, isPrimary, exporting, onSetPrimary, onExport }: Props) {
+export function ChartHeader({
+  saved,
+  chart,
+  isPrimary,
+  exporting,
+  onSetPrimary,
+  onExport,
+  buildShare,
+}: Props) {
   const { t } = useTranslation('chart');
   const { t: tp } = useTranslation('people');
   const locale = useLocale();
@@ -104,6 +115,7 @@ export function ChartHeader({ saved, chart, isPrimary, exporting, onSetPrimary, 
         >
           {t('actions.exportPng')}
         </Button>
+        <ShareButton build={buildShare} />
         <LinkButton
           to={`/chart/${saved.id}/stampa`}
           variant="secondary"

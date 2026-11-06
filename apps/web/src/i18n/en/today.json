@@ -137,5 +137,10 @@
       "centerOn": "The {{name}} center becomes defined",
       "centerOff": "The {{name}} center opens again"
     }
+  },
+  "share": {
+    "title": "Transits for {{date}}",
+    "text": "Transits for {{date}}: the Sun lights up “{{sun}}”, the Moon brings “{{moon}}” forward.",
+    "file": "transits"
   }
 }

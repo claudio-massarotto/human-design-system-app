@@ -251,5 +251,8 @@
     "noBridges": "Nessuno: ogni canale del chart è già completo dentro uno dei due lati.",
     "gateFrom": "Porta {{gate}} · {{side}}",
     "bridgeCenters": "Centri definiti solo grazie all'unione dei due lati: {{centers}}."
+  },
+  "share": {
+    "text": "{{name}} — {{type}}, profilo {{profile}}. Calcolato con Human Design System."
   }
 }

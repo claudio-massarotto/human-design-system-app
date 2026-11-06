@@ -9,12 +9,14 @@
     "chart": "Il mio chart",
     "today": "Oggi",
     "people": "Persone",
+    "groups": "Gruppi",
     "connection": "Connessione",
     "encyclopedia": "Enciclopedia",
     "settings": "Impostazioni",
     "more": "Altro",
     "moreTitle": "Altre sezioni",
     "hint": {
+      "groups": "Porte e canali condivisi da 3–5 chart",
       "connection": "Come si incontrano due chart",
       "encyclopedia": "Porte, canali, centri e il resto del sistema",
       "settings": "Lingua, tema, calcolo e dati"

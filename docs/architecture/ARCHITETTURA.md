@@ -163,6 +163,7 @@ BirthInput ─► toUtc (Luxon) ─► JD(UT)
 | `/oggi` | Transiti di oggi sul chart selezionato; timeline delle 24 ore successive (cambi di porta, canali e centri accesi) |
 | `/connessione` | Connessione tra due chart salvati (bodygraph composito o ruota a due orbite) |
 | `/persone` | Chart salvati: ricerca e filtro per relazione, aggiungi, modifica, elimina, importa/esporta JSON |
+| `/gruppi` | Gruppi salvati: membri selezionabili e analisi delle 12 porte e 6 canali |
 | `/enciclopedia` (+ `/porte/:n`, `/canali/:id`, `/centri/:id`, `/tipi/:id`, `/profili/:id`, `/croci`) | Enciclopedia |
 | `/impostazioni` | Lingua, tema, nodo vero/medio, cancellazione dati, licenza e sorgente, disclaimer |
 
@@ -175,9 +176,9 @@ carica i file Swiss `.se1` solo su richiesta e usa un'istanza effemeride separat
 La cache runtime del service worker mantiene i file per l'uso offline. Il chart del ritorno usa il provider
 standard Moshier e l'URL porta l'istante UTC.
 
-Navigazione: laterale su desktop con tutte le sezioni (Il mio chart, Oggi, Persone, Connessione,
+Navigazione: laterale su desktop con tutte le sezioni (Il mio chart, Oggi, Persone, Gruppi, Connessione,
 Enciclopedia, Impostazioni); barra inferiore su mobile con Il mio chart, Oggi, Persone e Altro, che apre un
-pannello con Connessione, Enciclopedia e Impostazioni.
+pannello con Gruppi, Connessione, Enciclopedia e Impostazioni.
 
 ## 9. Design system
 

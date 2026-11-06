@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { applyBackup, createBackup, parseBackup, serializeBackup } from '../src/data/backup';
 import { HdDatabase } from '../src/data/db';
-import { createChartRepository, createSettingsRepository } from '../src/data/repositories';
+import { createChartRepository, createGroupRepository, createSettingsRepository } from '../src/data/repositories';
 import { SCHEMA_VERSION, type SavedChart } from '../src/data/types';
 
 const saved: SavedChart = {
@@ -28,7 +28,17 @@ describe('backup JSON', () => {
     if (res.ok) {
       expect(res.backup.charts).toEqual([saved]);
       expect(res.backup.primaryChartId).toBe('abc');
+      expect(res.backup.groups).toEqual([]);
     }
+  });
+
+  it('mantiene i gruppi nel backup e accetta i backup precedenti senza gruppi', () => {
+    const group = { id: 'famiglia', name: 'Famiglia', memberIds: ['abc'], createdAt: saved.createdAt, updatedAt: saved.updatedAt };
+    const modern = createBackup([saved], {}, new Date('2024-02-01T00:00:00Z'), [group]);
+    expect(parseBackup(serializeBackup(modern))).toMatchObject({ ok: true, backup: { groups: [group] } });
+    const legacy = JSON.parse(serializeBackup(createBackup([saved], {})));
+    delete legacy.groups;
+    expect(parseBackup(JSON.stringify(legacy))).toMatchObject({ ok: true, backup: { groups: [] } });
   });
 
   it('rifiuta JSON non valido e formati sconosciuti', () => {
@@ -73,10 +83,13 @@ describe('backup JSON', () => {
 
   it('importa: aggiunge, aggiorna solo se più recente, imposta il principale se vuoto', async () => {
     const db = new HdDatabase('test-backup');
-    const repos = { charts: createChartRepository(db), settings: createSettingsRepository(db) };
+    const repos = { charts: createChartRepository(db), settings: createSettingsRepository(db), groups: createGroupRepository(db) };
     const backup = createBackup([saved], { primaryChartId: 'abc' });
     expect(await applyBackup(backup, repos)).toEqual({ added: 1, updated: 0, skipped: 0 });
     expect((await repos.settings.get()).primaryChartId).toBe('abc');
+    const group = { id: 'g', name: 'Casa', memberIds: ['abc'], createdAt: saved.createdAt, updatedAt: saved.updatedAt };
+    await applyBackup(createBackup([], {}, new Date(), [group]), repos);
+    expect(await repos.groups.get('g')).toEqual(group);
     // stesso contenuto → saltato
     expect(await applyBackup(backup, repos)).toEqual({ added: 0, updated: 0, skipped: 1 });
     // versione più recente → aggiornato

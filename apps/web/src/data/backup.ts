@@ -3,7 +3,8 @@
 import type { BirthInput, Place } from '@hd/core';
 import type { Repos } from './actions';
 import { isRelation } from './repositories';
-import { SCHEMA_VERSION, type SavedChart, type Settings } from './types';
+import { groupRepository } from './repositories';
+import { SCHEMA_VERSION, type SavedChart, type SavedGroup, type Settings } from './types';
 
 export const BACKUP_FORMAT = 'hd-system-backup';
 export const BACKUP_VERSION = 1;
@@ -15,13 +16,15 @@ export interface BackupFile {
   exportedAt: string;
   primaryChartId?: string;
   charts: SavedChart[];
+  groups: SavedGroup[];
 }
 
 export type BackupError =
   | { code: 'notJson' }
   | { code: 'wrongFormat' }
   | { code: 'unsupportedVersion'; version: unknown }
-  | { code: 'invalidChart'; index: number };
+  | { code: 'invalidChart'; index: number }
+  | { code: 'invalidGroup'; index: number };
 
 export type ParseResult = { ok: true; backup: BackupFile } | { ok: false; error: BackupError };
 
@@ -35,6 +38,7 @@ export function createBackup(
   charts: SavedChart[],
   settings: Pick<Settings, 'primaryChartId'>,
   now: Date = new Date(),
+  groups: SavedGroup[] = [],
 ): BackupFile {
   return {
     format: BACKUP_FORMAT,
@@ -42,6 +46,7 @@ export function createBackup(
     exportedAt: now.toISOString(),
     ...(settings.primaryChartId ? { primaryChartId: settings.primaryChartId } : {}),
     charts,
+    groups,
   };
 }
 
@@ -152,6 +157,27 @@ export function parseBackup(text: string): ParseResult {
     seen.add(chart.id);
     charts.push(chart);
   }
+  const groups: SavedGroup[] = [];
+  if (data.groups !== undefined && !Array.isArray(data.groups)) {
+    return { ok: false, error: { code: 'invalidGroup', index: 0 } };
+  }
+  const rawGroups = Array.isArray(data.groups) ? data.groups : [];
+  for (let i = 0; i < rawGroups.length; i++) {
+    const group = rawGroups[i];
+    if (
+      !isObject(group) || typeof group.id !== 'string' || !group.id ||
+      typeof group.name !== 'string' || !group.name.trim() || group.name.length > 120 ||
+      !Array.isArray(group.memberIds) || group.memberIds.some((id) => typeof id !== 'string') ||
+      !isIsoDateTime(group.createdAt) || !isIsoDateTime(group.updatedAt)
+    ) return { ok: false, error: { code: 'invalidGroup', index: i } };
+    groups.push({
+      id: group.id,
+      name: group.name.trim(),
+      memberIds: [...new Set((group.memberIds as string[]).filter((id) => seen.has(id)))],
+      createdAt: group.createdAt,
+      updatedAt: group.updatedAt,
+    });
+  }
   const primary =
     typeof data.primaryChartId === 'string' && seen.has(data.primaryChartId)
       ? data.primaryChartId
@@ -164,6 +190,7 @@ export function parseBackup(text: string): ParseResult {
       exportedAt: isIsoDateTime(data.exportedAt) ? data.exportedAt : new Date().toISOString(),
       ...(primary ? { primaryChartId: primary } : {}),
       charts,
+      groups,
     },
   };
 }
@@ -185,6 +212,11 @@ export async function applyBackup(backup: BackupFile, repos: Repos): Promise<Imp
     } else {
       summary.skipped++;
     }
+  }
+  const groups = repos.groups ?? groupRepository;
+  for (const group of backup.groups ?? []) {
+    const existing = await groups.get(group.id);
+    if (!existing || group.updatedAt > existing.updatedAt) await groups.save(group);
   }
   const settings = await repos.settings.get();
   if (!settings.primaryChartId) {

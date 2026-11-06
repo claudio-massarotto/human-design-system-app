@@ -57,6 +57,7 @@ export const MAIN_PAGES = [
   { path: '/oggi', h1: 'Oggi' },
   { path: '/connessione', h1: 'Connessione' },
   { path: '/persone', h1: 'Persone' },
+  { path: '/gruppi', h1: 'Gruppi' },
   { path: '/enciclopedia', h1: 'Enciclopedia' },
   { path: '/impostazioni', h1: 'Impostazioni' },
 ] as const;

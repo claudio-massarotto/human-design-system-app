@@ -3,6 +3,7 @@ import {
   DEFAULT_SETTINGS,
   RELATIONS,
   type ChartRepository,
+  type GroupRepository,
   type Settings,
   type SettingsRepository,
 } from './types';
@@ -20,6 +21,15 @@ export function createChartRepository(db: HdDatabase = defaultDb): ChartReposito
     async remove(id) {
       await db.charts.delete(id);
     },
+  };
+}
+
+export function createGroupRepository(db: HdDatabase = defaultDb): GroupRepository {
+  return {
+    async list() { return (await db.groups.toArray()).sort((a, b) => a.name.localeCompare(b.name)); },
+    get: (id) => db.groups.get(id),
+    async save(group) { await db.groups.put(group); },
+    async remove(id) { await db.groups.delete(id); },
   };
 }
 
@@ -60,13 +70,15 @@ export function createSettingsRepository(db: HdDatabase = defaultDb): SettingsRe
 }
 
 export const chartRepository: ChartRepository = createChartRepository();
+export const groupRepository: GroupRepository = createGroupRepository();
 export const settingsRepository: SettingsRepository = createSettingsRepository();
 
 /** Cancella tutti i dati locali (chart e impostazioni). */
 export async function clearAllData(db: HdDatabase = defaultDb): Promise<void> {
-  await db.transaction('rw', db.charts, db.settings, async () => {
+  await db.transaction('rw', db.charts, db.settings, db.groups, async () => {
     await db.charts.clear();
     await db.settings.clear();
+    await db.groups.clear();
   });
 }
 

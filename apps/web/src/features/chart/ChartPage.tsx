@@ -13,6 +13,7 @@ import { toast } from '../../components/ui/Toast';
 import { InfoIcon, PeopleIcon, WarningIcon } from '../../components/icons';
 import { setPrimaryChart } from '../../data/actions';
 import { useSettings } from '../../data/hooks';
+import { useEngine } from '../../lib/engine';
 import type { SavedChart } from '../../data/types';
 import { useContent } from '../../i18n/useContent';
 import { usePageTitle } from '../../lib/usePageTitle';
@@ -22,6 +23,7 @@ import { ChartHeader } from './ChartHeader';
 import { DetailSheet } from './DetailSheet';
 import { SummaryCards } from './SummaryCards';
 import { TimeAccuracy } from './TimeAccuracy';
+import { PlanetaryReturns } from './PlanetaryReturns';
 import { useLoadedChart } from './hooks';
 import { safeFileName, type DetailTarget } from './lib';
 import { ActivationsTab } from './tabs/ActivationsTab';
@@ -57,6 +59,7 @@ function ChartView({ saved, chart }: { saved: SavedChart; chart: Chart }) {
   const { t } = useTranslation('chart');
   const content = useContent();
   const { settings } = useSettings();
+  const engine = useEngine();
   const boxRef = useRef<HTMLDivElement>(null);
   const [detail, setDetail] = useState<DetailTarget | null>(null);
   const [tab, setTab] = useState<TabKey>('activations');
@@ -119,6 +122,8 @@ function ChartView({ saved, chart }: { saved: SavedChart; chart: Chart }) {
           <TimeAccuracy chart={chart} birth={saved.birth} />
         </div>
       </div>
+
+      <PlanetaryReturns chart={chart} engine={engine} chartId={saved.id} />
 
       <motion.section
         initial={{ opacity: 0, y: 12 }}

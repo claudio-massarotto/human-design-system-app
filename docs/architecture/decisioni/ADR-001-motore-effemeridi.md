@@ -60,6 +60,8 @@ riferimento.
 ## Note tecniche
 
 - In Node (Vitest) il WASM si carica con uno shim di `fetch` per gli URL `file://` (setup dei test).
-- Chirone e asteroidi richiedono i file `.se1` (`swe.loadStandardEphemeris()`, ~2 MB): servono solo per
-  il ritorno di Chirone (fase 2).
+- Chirone e asteroidi richiedono i file `.se1` (`swe.loadStandardEphemeris()`, circa 2 MB): il client li
+  carica solo quando viene aperto il ritorno di Chirone e il service worker li conserva per l'offline.
+  Il calcolo usa un'istanza Swiss separata, con flag Swiss esplicito; il provider standard continua a
+  usare Moshier e i suoi risultati non cambiano.
 - Evoluzione possibile: file `.se1` per precisione JPL (da valutare l'impatto sui golden test).

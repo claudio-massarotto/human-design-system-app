@@ -82,6 +82,7 @@ Dipendenze: `web → bodygraph, content, core`; `bodygraph → core (solo tipi e
 | `transit/` | posizioni a un istante, overlay su un chart |
 | `composite/` | connessione tra due chart |
 | `sensitivity/` | come cambia il chart entro ±N minuti dall'ora di nascita |
+| `returns/` | ricerca deterministica dei contatti esatti di ritorno/opposizione, inclusi i passaggi retrogradi |
 
 ### 5.2 Contratto
 
@@ -94,9 +95,14 @@ engine.computeTransit(at: Date, opts?: ChartOptions): Transit
 engine.overlay(chart: Chart, transit: Transit): Overlay
 engine.composite(a: Chart, b: Chart): Composite
 engine.timeSensitivity(input: BirthInput, rangeMinutes: number): Sensitivity
+findLongitudeReturns(longitudeAt, targetLongitude, from, to): LongitudeReturn[]
 toUtc(input: BirthInput): { utc: Date; offsetMinutes: number; warnings: TimeWarning[] }
 longitudeToActivation(lon: number): ActivationPosition
 ```
+
+`findLongitudeReturns` accetta una funzione longitudine→gradi e un intervallo UTC, restituisce ogni
+passaggio esatto rilevato con bisezione (tolleranza predefinita 500 ms). Il chart dell'istante si
+costruisce con `engine.computeChartFromUtc`. La scansione di un pianeta lento usa passi giornalieri.
 
 ### 5.3 Pipeline
 
@@ -152,6 +158,7 @@ BirthInput ─► toUtc (Luxon) ─► JD(UT)
 | `/` | Home: se non c'è un chart → onboarding; altrimenti il proprio chart |
 | `/nuovo` | Inserimento dati di nascita (nome, data, ora/approssimata/sconosciuta, città con fuso) |
 | `/chart/:id` | Chart: bodygraph o ruota (con legenda cliccabile per un lato solo) + card tipo/strategia/autorità/profilo/definizione/croce; tab Attivazioni, Centri, Canali, Conscio e inconscio, Variabili, Croce |
+| `/chart/:id/ritorno?at=<UTC>` | Chart calcolato all'istante esatto di un ritorno planetario |
 | `/chart/:id/stampa` | Versione stampabile (PDF), con la ruota a richiesta |
 | `/oggi` | Transiti di oggi sul chart selezionato; timeline delle 24 ore successive (cambi di porta, canali e centri accesi) |
 | `/connessione` | Connessione tra due chart salvati (bodygraph composito o ruota a due orbite) |
@@ -161,6 +168,12 @@ BirthInput ─► toUtc (Luxon) ─► JD(UT)
 
 Gli URL sono relativi al `base` di Vite (`BASE_PATH`): `/` in locale, `/human-design-system-app/` su GitHub Pages,
 dove l'app è pubblicata dalla CI (job `deploy`). Con `apps/server` (fase 2) servirà un hosting con runtime server.
+
+La pagina chart calcola i ritorni di Saturno (cicli successivi) e l'opposizione di Urano; mostra tutti i
+contatti esatti, compresi quelli retrogradi. Chirone è escluso dalle 13 attivazioni standard: il suo pannello
+carica i file Swiss `.se1` solo su richiesta e usa un'istanza effemeride separata con flag Swiss esplicito.
+La cache runtime del service worker mantiene i file per l'uso offline. Il chart del ritorno usa il provider
+standard Moshier e l'URL porta l'istante UTC.
 
 Navigazione: laterale su desktop con tutte le sezioni (Il mio chart, Oggi, Persone, Connessione,
 Enciclopedia, Impostazioni); barra inferiore su mobile con Il mio chart, Oggi, Persone e Altro, che apre un
@@ -225,5 +238,5 @@ Comandi radice: `pnpm typecheck`, `pnpm test`, `pnpm build`, `pnpm e2e`.
 | Fase | Contenuto |
 |---|---|
 | **1 — MVP** | Tutto quanto sopra |
-| **2** | `apps/server`: pagine condivisibili SEO, AI con Claude, account e sync; Penta; ritorni planetari (Saturno, Urano, Chirone); ruota interattiva; notifiche |
+| **2** | `apps/server`: pagine condivisibili SEO, AI con Claude, account e sync; Penta; ruota interattiva; notifiche |
 | **3** | App negli store (Capacitor), diario di sperimentazione, percorsi di apprendimento |

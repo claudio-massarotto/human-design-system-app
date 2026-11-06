@@ -1,5 +1,30 @@
 {
   "title": "Chart",
+  "returns": {
+    "title": "Ritorni planetari",
+    "intro": "Qui trovi i passaggi esatti di Saturno e l’opposizione di Urano, calcolati sulla longitudine natale della Personalità. I passaggi retrogradi sono mostrati singolarmente.",
+    "interpretation": "Una soglia ciclica può offrire un momento per osservare come cambiano priorità e prospettiva.",
+    "groupCore": "Saturno e Urano",
+    "past": "già avvenuto",
+    "future": "futuro",
+    "openChart": "Apri il chart",
+    "chironLoad": "Calcola il ritorno di Chirone",
+    "chironHide": "Nascondi Chirone",
+    "chironLoading": "Caricamento delle effemeridi di Chirone…",
+    "chironError": "Non è stato possibile caricare i dati di Chirone. Saturno e Urano restano disponibili; riprova quando sei online.",
+    "eyebrow": "{{planet}}",
+    "chartTitle": "Chart di ritorno · {{name}}",
+    "chartSummary": "Sintesi del momento",
+    "chartNote": "Questo chart descrive le attivazioni calcolate all’istante indicato; il chart natale resta il riferimento personale.",
+    "invalidDate": "Data del ritorno non valida",
+    "invalidDateHelp": "Apri il chart natale e seleziona un ritorno dall’elenco.",
+    "back": "Torna al chart natale",
+    "planets": {
+      "saturn": "Ritorno di Saturno",
+      "uranus": "Opposizione di Urano",
+      "chiron": "Ritorno di Chirone"
+    }
+  },
   "tabs": {
     "label": "Dettagli del chart",
     "activations": "Attivazioni",

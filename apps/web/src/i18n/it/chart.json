@@ -276,5 +276,15 @@
     "noBridges": "Nessuno: ogni canale del chart è già completo dentro uno dei due lati.",
     "gateFrom": "Porta {{gate}} · {{side}}",
     "bridgeCenters": "Centri definiti solo grazie all'unione dei due lati: {{centers}}."
+  },
+  "nextHours": {
+    "title": "Prossime 24 ore",
+    "hint": "Cosa cambia nel cielo da adesso e quali canali il transito accende insieme al tuo chart.",
+    "loading": "Calcolo del transito…",
+    "empty": "Nelle prossime 24 ore nessun cambio di porta né canali nuovi con il tuo chart.",
+    "ingress": "{{planet}} entra nella porta {{gate}} · {{name}}",
+    "channelOn": "Si forma con te il canale {{id}} · {{name}}",
+    "more": "e altri {{count}} cambi",
+    "open": "Apri Oggi"
   }
 }

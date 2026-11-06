@@ -21,6 +21,7 @@ import { BodygraphHero } from './BodygraphHero';
 import type { ChartSide } from './sides';
 import { ChartHeader } from './ChartHeader';
 import { DetailSheet } from './DetailSheet';
+import { NextHoursCard } from './NextHoursCard';
 import { SummaryCards } from './SummaryCards';
 import { TimeAccuracy } from './TimeAccuracy';
 import { PlanetaryReturns } from './PlanetaryReturns';
@@ -119,6 +120,7 @@ function ChartView({ saved, chart }: { saved: SavedChart; chart: Chart }) {
         />
         <div className="flex flex-col gap-5">
           <SummaryCards chart={chart} onOpen={setDetail} />
+          <NextHoursCard chart={chart} />
           <TimeAccuracy chart={chart} birth={saved.birth} />
         </div>
       </div>

@@ -137,5 +137,31 @@
       "centerOn": "Il centro {{name}} diventa definito",
       "centerOff": "Il centro {{name}} torna aperto"
     }
+  },
+  "scrub": {
+    "label": "Scorri nel tempo",
+    "step": "Passo di scorrimento",
+    "slider": "Scorri nel tempo",
+    "steps": {
+      "hour": "Ora",
+      "day": "Giorno",
+      "week": "Settimana",
+      "month": "Mese"
+    },
+    "back": {
+      "hour": "Un'ora indietro",
+      "day": "Un giorno indietro",
+      "week": "Una settimana indietro",
+      "month": "Un mese indietro"
+    },
+    "forward": {
+      "hour": "Un'ora avanti",
+      "day": "Un giorno avanti",
+      "week": "Una settimana avanti",
+      "month": "Un mese avanti"
+    },
+    "play": "Avvia la riproduzione",
+    "pause": "Ferma la riproduzione",
+    "reducedMotion": "Riproduzione non disponibile: hai chiesto di ridurre le animazioni"
   }
 }

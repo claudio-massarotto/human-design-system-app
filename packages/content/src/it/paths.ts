@@ -5,7 +5,8 @@ export const paths: LearningPath[] = [
   {
     id: 'basi',
     title: 'Le basi',
-    summary: 'Chart, tipi, strategia e autorità: il minimo per leggere il tuo bodygraph con sicurezza.',
+    summary:
+      'Chart, tipi, strategia e autorità: il minimo per leggere il tuo bodygraph con sicurezza.',
     lessons: [
       {
         id: 'mappa',
@@ -21,7 +22,8 @@ export const paths: LearningPath[] = [
           question: 'Quanti sono i centri del bodygraph?',
           options: ['Sette', 'Nove', 'Dodici'],
           correct: 1,
-          explanation: 'I centri sono nove: Testa, Ajna, Gola, G, Cuore, Sacrale, Plesso Solare, Milza e Radice.',
+          explanation:
+            'I centri sono nove: Testa, Ajna, Gola, G, Cuore, Sacrale, Plesso Solare, Milza e Radice.',
         },
       },
       {
@@ -41,7 +43,8 @@ export const paths: LearningPath[] = [
           question: 'Quale tipo non ha nessun centro definito?',
           options: ['Il Proiettore', 'Il Manifestatore', 'Il Riflettore'],
           correct: 2,
-          explanation: 'Il Riflettore ha tutti e nove i centri non definiti: è il tipo più raro, circa l’1%.',
+          explanation:
+            'Il Riflettore ha tutti e nove i centri non definiti: è il tipo più raro, circa l’1%.',
         },
       },
       {
@@ -58,7 +61,8 @@ export const paths: LearningPath[] = [
           question: 'Qual è la strategia del Proiettore?',
           options: ['Rispondere', 'Aspettare l’invito', 'Informare prima di agire'],
           correct: 1,
-          explanation: 'Il Proiettore aspetta di essere riconosciuto e invitato per le cose importanti, invece di imporsi.',
+          explanation:
+            'Il Proiettore aspetta di essere riconosciuto e invitato per le cose importanti, invece di imporsi.',
         },
       },
       {
@@ -73,10 +77,12 @@ export const paths: LearningPath[] = [
           { section: 'authorities', id: 'splenic' },
         ],
         quiz: {
-          question: 'Hai il Plesso Solare definito e anche il Sacrale definito. Quale autorità prevale?',
+          question:
+            'Hai il Plesso Solare definito e anche il Sacrale definito. Quale autorità prevale?',
           options: ['Sacrale', 'Emotiva', 'Splenica'],
           correct: 1,
-          explanation: 'Il Plesso Solare viene per primo nell’ordine di precedenza: con questo centro definito l’autorità è emotiva.',
+          explanation:
+            'Il Plesso Solare viene per primo nell’ordine di precedenza: con questo centro definito l’autorità è emotiva.',
         },
       },
       {
@@ -93,7 +99,8 @@ export const paths: LearningPath[] = [
           question: 'Quale segnale di disallineamento è associato al Generatore?',
           options: ['Frustrazione', 'Amarezza', 'Delusione'],
           correct: 0,
-          explanation: 'Per il Generatore il segnale è la frustrazione; l’amarezza è del Proiettore e la delusione del Riflettore.',
+          explanation:
+            'Per il Generatore il segnale è la frustrazione; l’amarezza è del Proiettore e la delusione del Riflettore.',
         },
       },
     ],
@@ -101,7 +108,8 @@ export const paths: LearningPath[] = [
   {
     id: 'centri',
     title: 'Centri e definizione',
-    summary: 'I nove centri, che cosa significa definito o non definito e come si collegano fra loro.',
+    summary:
+      'I nove centri, che cosa significa definito o non definito e come si collegano fra loro.',
     lessons: [
       {
         id: 'nove-centri',
@@ -122,7 +130,8 @@ export const paths: LearningPath[] = [
           question: 'Quale di questi è un centro del bodygraph?',
           options: ['Il Plesso Solare', 'Il Cervelletto', 'Il Diaframma'],
           correct: 0,
-          explanation: 'Il Plesso Solare è uno dei nove centri. Gli altri nomi non fanno parte del sistema.',
+          explanation:
+            'Il Plesso Solare è uno dei nove centri. Gli altri nomi non fanno parte del sistema.',
         },
       },
       {
@@ -143,7 +152,8 @@ export const paths: LearningPath[] = [
             'Un pianeta in transito',
           ],
           correct: 1,
-          explanation: 'Per definire un centro serve un canale completo. Una porta isolata non lo definisce.',
+          explanation:
+            'Per definire un centro serve un canale completo. Una porta isolata non lo definisce.',
         },
       },
       {
@@ -179,7 +189,8 @@ export const paths: LearningPath[] = [
           question: 'Quale centro è legato all’espressione?',
           options: ['La Gola', 'La Milza', 'Il Cuore'],
           correct: 0,
-          explanation: 'La Gola è il centro della manifestazione: è dove l’energia diventa comunicazione o azione.',
+          explanation:
+            'La Gola è il centro della manifestazione: è dove l’energia diventa comunicazione o azione.',
         },
       },
       {
@@ -223,7 +234,8 @@ export const paths: LearningPath[] = [
           question: 'Come si chiama la linea 4?',
           options: ['Eremita', 'Opportunista', 'Eretico'],
           correct: 1,
-          explanation: 'La linea 1 è l’Investigatore, la 2 l’Eremita, la 3 il Martire, la 4 l’Opportunista, la 5 l’Eretico, la 6 il Modello di Ruolo.',
+          explanation:
+            'La linea 1 è l’Investigatore, la 2 l’Eremita, la 3 il Martire, la 4 l’Opportunista, la 5 l’Eretico, la 6 il Modello di Ruolo.',
         },
       },
       {
@@ -241,7 +253,8 @@ export const paths: LearningPath[] = [
           question: 'Nel profilo 4/6, quale numero rappresenta il Design?',
           options: ['Il 4', 'Il 6', 'Entrambi'],
           correct: 1,
-          explanation: 'Il primo numero è la linea della Personalità, il secondo quella del Design: in 4/6 il Design è la linea 6.',
+          explanation:
+            'Il primo numero è la linea della Personalità, il secondo quella del Design: in 4/6 il Design è la linea 6.',
         },
       },
       {
@@ -257,7 +270,8 @@ export const paths: LearningPath[] = [
           question: 'A quanti gradi di Sole prima della nascita si calcola il Design?',
           options: ['88', '120', '180'],
           correct: 0,
-          explanation: 'Il Design si calcola quando il Sole era 88° prima della sua posizione alla nascita.',
+          explanation:
+            'Il Design si calcola quando il Sole era 88° prima della sua posizione alla nascita.',
         },
       },
       {
@@ -274,7 +288,8 @@ export const paths: LearningPath[] = [
           question: 'Nel profilo 6/2, qual è la linea della Personalità?',
           options: ['Eremita', 'Modello di Ruolo', 'Martire'],
           correct: 1,
-          explanation: 'Il primo numero è la Personalità: la linea 6, il Modello di Ruolo. La linea 2 (Eremita) è il Design.',
+          explanation:
+            'Il primo numero è la Personalità: la linea 6, il Modello di Ruolo. La linea 2 (Eremita) è il Design.',
         },
       },
     ],
@@ -282,7 +297,8 @@ export const paths: LearningPath[] = [
   {
     id: 'porte-canali',
     title: 'Porte, canali e circuiti',
-    summary: 'Come le 64 porte si uniscono in 36 canali e come i canali si raggruppano in circuiti.',
+    summary:
+      'Come le 64 porte si uniscono in 36 canali e come i canali si raggruppano in circuiti.',
     lessons: [
       {
         id: 'porte',
@@ -320,7 +336,8 @@ export const paths: LearningPath[] = [
             'Che sia attivo il Sole',
           ],
           correct: 1,
-          explanation: 'Servono entrambe le porte: l’una può venire dalla Personalità e l’altra dal Design.',
+          explanation:
+            'Servono entrambe le porte: l’una può venire dalla Personalità e l’altra dal Design.',
         },
       },
       {
@@ -341,7 +358,8 @@ export const paths: LearningPath[] = [
             'Un canale con tre porte',
           ],
           correct: 0,
-          explanation: 'È una porta attiva senza la compagna: non forma un canale e non definisce da sola il centro.',
+          explanation:
+            'È una porta attiva senza la compagna: non forma un canale e non definisce da sola il centro.',
         },
       },
       {
@@ -362,7 +380,8 @@ export const paths: LearningPath[] = [
           question: 'Quale di questi è un circuito?',
           options: ['Tribale', 'Planetario', 'Lunare'],
           correct: 0,
-          explanation: 'Tribale è una delle famiglie: le altre sono Individuale, Collettivo e Integrazione.',
+          explanation:
+            'Tribale è una delle famiglie: le altre sono Individuale, Collettivo e Integrazione.',
         },
       },
       {

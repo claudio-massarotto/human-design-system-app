@@ -70,7 +70,10 @@ describe('percorsi di apprendimento', () => {
       for (const p of c.paths)
         for (const l of p.lessons)
           for (const link of l.links)
-            expect(valid[link.section].has(link.id), `${p.id}/${l.id} → ${link.section}/${link.id}`).toBe(true);
+            expect(
+              valid[link.section].has(link.id),
+              `${p.id}/${l.id} → ${link.section}/${link.id}`,
+            ).toBe(true);
     }
   });
 

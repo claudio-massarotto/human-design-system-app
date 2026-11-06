@@ -29,6 +29,8 @@ const PAGES_WITH_DATA = [
   { path: '/enciclopedia/glossario', ready: { name: 'Glossario', level: 1 } },
   { path: '/enciclopedia/variabili', ready: { name: 'Variabili', level: 1 } },
   { path: '/enciclopedia/tipi', ready: { name: 'Tipi', level: 1 } },
+  { path: '/enciclopedia/percorsi', ready: { name: 'Percorsi di apprendimento', level: 1 } },
+  { path: '/enciclopedia/percorsi/basi/tipi', ready: { name: 'I cinque tipi', level: 1 } },
   { path: '/impostazioni', ready: { name: 'Impostazioni', level: 1 } },
   { path: '/pagina-che-non-esiste', ready: { name: 'Pagina non trovata' } },
 ] as const;

@@ -1,4 +1,5 @@
-// Enciclopedia — URL: /enciclopedia, /porte(/:n), /canali(/:id), /croci(/:slug), /glossario, /variabili
+// Enciclopedia — URL: /enciclopedia, /porte(/:n), /canali(/:id), /croci(/:slug), /glossario, /variabili,
+// /percorsi(/:id(/:lezione)) per i percorsi di apprendimento
 // e le sezioni piccole (/tipi, /autorita, /profili, /linee, /definizioni, /centri, /circuiti, /quarti, /pianeti)
 // con elenco e scheda (`:section/:id`; per i profili '1/3' → '1-3').
 import type { RouteObject } from 'react-router';
@@ -39,6 +40,18 @@ export const routes: RouteObject[] = [
   {
     path: 'enciclopedia/variabili',
     lazy: async () => ({ Component: (await import('./VariablesPage')).VariablesPage }),
+  },
+  {
+    path: 'enciclopedia/percorsi',
+    lazy: async () => ({ Component: (await import('./PathsPage')).PathsListPage }),
+  },
+  {
+    path: 'enciclopedia/percorsi/:id',
+    lazy: async () => ({ Component: (await import('./PathsPage')).PathPage }),
+  },
+  {
+    path: 'enciclopedia/percorsi/:id/:lezione',
+    lazy: async () => ({ Component: (await import('./PathsPage')).LessonPage }),
   },
   {
     path: 'enciclopedia/:section',

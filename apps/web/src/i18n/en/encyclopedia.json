@@ -217,5 +217,38 @@
       "right": "Right"
     },
     "tones": "The six tones"
+  },
+  "paths": {
+    "title": "Learning paths",
+    "eyebrow": "Learn step by step",
+    "subtitle": "Short guided lessons, with links to encyclopedia entries and a question to check yourself. Your progress stays on this device.",
+    "entryBlurb": "Guided lessons to learn one topic at a time, from the basics to circuits.",
+    "lessonsCount_one": "{{count}} lesson",
+    "lessonsCount_other": "{{count}} lessons",
+    "progress": "{{done}} of {{total}} completed",
+    "progressLabel": "Progress: {{title}}",
+    "completed": "Completed",
+    "start": "Start",
+    "continue": "Continue",
+    "review": "Review",
+    "reset": "Reset progress",
+    "lessonDone": "Lesson completed",
+    "lessonOf": "Lesson {{n}} of {{total}}",
+    "lessonNav": "Path lessons",
+    "overview": "Overview",
+    "finish": "Finish the path",
+    "explore": "Go deeper in the encyclopedia",
+    "backToList": "Back to paths",
+    "mine": {
+      "title": "In your chart",
+      "none": "None in your chart."
+    },
+    "quiz": {
+      "title": "Check yourself",
+      "check": "Check",
+      "right": "Correct!",
+      "wrong": "Not quite.",
+      "tryAgain": "Reread the lesson and try another answer."
+    }
   }
 }

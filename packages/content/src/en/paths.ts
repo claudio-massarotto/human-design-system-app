@@ -5,7 +5,8 @@ export const paths: LearningPath[] = [
   {
     id: 'basi',
     title: 'The basics',
-    summary: 'Chart, types, strategy and authority: the minimum you need to read your bodygraph with confidence.',
+    summary:
+      'Chart, types, strategy and authority: the minimum you need to read your bodygraph with confidence.',
     lessons: [
       {
         id: 'mappa',
@@ -21,7 +22,8 @@ export const paths: LearningPath[] = [
           question: 'How many centers are there in the bodygraph?',
           options: ['Seven', 'Nine', 'Twelve'],
           correct: 1,
-          explanation: 'There are nine centers: Head, Ajna, Throat, G, Heart, Sacral, Solar Plexus, Spleen and Root.',
+          explanation:
+            'There are nine centers: Head, Ajna, Throat, G, Heart, Sacral, Solar Plexus, Spleen and Root.',
         },
       },
       {
@@ -41,7 +43,8 @@ export const paths: LearningPath[] = [
           question: 'Which type has no defined center?',
           options: ['The Projector', 'The Manifestor', 'The Reflector'],
           correct: 2,
-          explanation: 'The Reflector has all nine centers undefined: it is the rarest type, about 1%.',
+          explanation:
+            'The Reflector has all nine centers undefined: it is the rarest type, about 1%.',
         },
       },
       {
@@ -58,7 +61,8 @@ export const paths: LearningPath[] = [
           question: 'What is the Projector’s strategy?',
           options: ['To respond', 'To wait for the invitation', 'To inform before acting'],
           correct: 1,
-          explanation: 'The Projector waits to be recognized and invited for important things, rather than pushing in.',
+          explanation:
+            'The Projector waits to be recognized and invited for important things, rather than pushing in.',
         },
       },
       {
@@ -73,10 +77,12 @@ export const paths: LearningPath[] = [
           { section: 'authorities', id: 'splenic' },
         ],
         quiz: {
-          question: 'You have both the Solar Plexus and the Sacral defined. Which authority prevails?',
+          question:
+            'You have both the Solar Plexus and the Sacral defined. Which authority prevails?',
           options: ['Sacral', 'Emotional', 'Splenic'],
           correct: 1,
-          explanation: 'The Solar Plexus comes first in the order of precedence: with this center defined, authority is emotional.',
+          explanation:
+            'The Solar Plexus comes first in the order of precedence: with this center defined, authority is emotional.',
         },
       },
       {
@@ -93,7 +99,8 @@ export const paths: LearningPath[] = [
           question: 'Which warning sign is associated with the Generator?',
           options: ['Frustration', 'Bitterness', 'Disappointment'],
           correct: 0,
-          explanation: 'For the Generator the sign is frustration; bitterness belongs to the Projector and disappointment to the Reflector.',
+          explanation:
+            'For the Generator the sign is frustration; bitterness belongs to the Projector and disappointment to the Reflector.',
         },
       },
     ],
@@ -101,7 +108,8 @@ export const paths: LearningPath[] = [
   {
     id: 'centri',
     title: 'Centers and definition',
-    summary: 'The nine centers, what defined and undefined mean, and how they connect to each other.',
+    summary:
+      'The nine centers, what defined and undefined mean, and how they connect to each other.',
     lessons: [
       {
         id: 'nove-centri',
@@ -122,7 +130,8 @@ export const paths: LearningPath[] = [
           question: 'Which of these is a center of the bodygraph?',
           options: ['The Solar Plexus', 'The Cerebellum', 'The Diaphragm'],
           correct: 0,
-          explanation: 'The Solar Plexus is one of the nine centers. The other names are not part of the system.',
+          explanation:
+            'The Solar Plexus is one of the nine centers. The other names are not part of the system.',
         },
       },
       {
@@ -143,7 +152,8 @@ export const paths: LearningPath[] = [
             'A transiting planet',
           ],
           correct: 1,
-          explanation: 'A complete channel is needed to define a center. An isolated gate does not.',
+          explanation:
+            'A complete channel is needed to define a center. An isolated gate does not.',
         },
       },
       {
@@ -179,7 +189,8 @@ export const paths: LearningPath[] = [
           question: 'Which center is tied to expression?',
           options: ['The Throat', 'The Spleen', 'The Heart'],
           correct: 0,
-          explanation: 'The Throat is the center of manifestation: it is where energy becomes communication or action.',
+          explanation:
+            'The Throat is the center of manifestation: it is where energy becomes communication or action.',
         },
       },
       {
@@ -223,7 +234,8 @@ export const paths: LearningPath[] = [
           question: 'What is line 4 called?',
           options: ['Hermit', 'Opportunist', 'Heretic'],
           correct: 1,
-          explanation: 'Line 1 is the Investigator, 2 the Hermit, 3 the Martyr, 4 the Opportunist, 5 the Heretic, 6 the Role Model.',
+          explanation:
+            'Line 1 is the Investigator, 2 the Hermit, 3 the Martyr, 4 the Opportunist, 5 the Heretic, 6 the Role Model.',
         },
       },
       {
@@ -241,7 +253,8 @@ export const paths: LearningPath[] = [
           question: 'In the 4/6 profile, which number represents the Design?',
           options: ['The 4', 'The 6', 'Both'],
           correct: 1,
-          explanation: 'The first number is the Personality line, the second the Design line: in 4/6 the Design is line 6.',
+          explanation:
+            'The first number is the Personality line, the second the Design line: in 4/6 the Design is line 6.',
         },
       },
       {
@@ -257,7 +270,8 @@ export const paths: LearningPath[] = [
           question: 'How many degrees of Sun before birth is the Design calculated?',
           options: ['88', '120', '180'],
           correct: 0,
-          explanation: 'The Design is calculated when the Sun was 88° before its position at birth.',
+          explanation:
+            'The Design is calculated when the Sun was 88° before its position at birth.',
         },
       },
       {
@@ -274,7 +288,8 @@ export const paths: LearningPath[] = [
           question: 'In the 6/2 profile, which is the Personality line?',
           options: ['Hermit', 'Role Model', 'Martyr'],
           correct: 1,
-          explanation: 'The first number is the Personality: line 6, the Role Model. Line 2 (Hermit) is the Design.',
+          explanation:
+            'The first number is the Personality: line 6, the Role Model. Line 2 (Hermit) is the Design.',
         },
       },
     ],
@@ -320,7 +335,8 @@ export const paths: LearningPath[] = [
             'The Sun is active',
           ],
           correct: 1,
-          explanation: 'Both gates are needed: one can come from the Personality and the other from the Design.',
+          explanation:
+            'Both gates are needed: one can come from the Personality and the other from the Design.',
         },
       },
       {
@@ -341,7 +357,8 @@ export const paths: LearningPath[] = [
             'A channel with three gates',
           ],
           correct: 0,
-          explanation: 'It is an active gate without its partner: it forms no channel and does not define the center on its own.',
+          explanation:
+            'It is an active gate without its partner: it forms no channel and does not define the center on its own.',
         },
       },
       {
@@ -362,7 +379,8 @@ export const paths: LearningPath[] = [
           question: 'Which of these is a circuit?',
           options: ['Tribal', 'Planetary', 'Lunar'],
           correct: 0,
-          explanation: 'Tribal is one of the families; the others are Individual, Collective and Integration.',
+          explanation:
+            'Tribal is one of the families; the others are Individual, Collective and Integration.',
         },
       },
       {

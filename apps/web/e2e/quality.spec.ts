@@ -16,6 +16,7 @@ const PAGES_WITH_DATA = [
   { path: '/oggi', ready: { name: 'Le 13 attivazioni' } },
   { path: '/connessione', ready: { name: 'Tema di connessione' } },
   { path: '/persone', ready: { name: 'Ra Uru Hu', level: 2 } },
+  { path: '/gruppi', ready: { name: 'Gruppi', level: 1 } },
   { path: '/nuovo', ready: { name: 'Aggiungi una persona', level: 1 } },
   { path: '/persone/{id}/modifica', ready: { name: /^Modifica Ra Uru Hu$/, level: 1 } },
   { path: '/chart/{id}', ready: { name: 'Ra Uru Hu', level: 1 } },

@@ -1,9 +1,10 @@
 // Operazioni di alto livello sui dati (regole di dominio sopra i repository).
 import type { BirthInput } from '@hd/core';
-import { chartRepository, settingsRepository } from './repositories';
+import { chartRepository, groupRepository, settingsRepository } from './repositories';
 import {
   SCHEMA_VERSION,
   type ChartRepository,
+  type GroupRepository,
   type Relation,
   type SavedChart,
   type SettingsRepository,
@@ -12,9 +13,10 @@ import {
 export interface Repos {
   charts: ChartRepository;
   settings: SettingsRepository;
+  groups?: GroupRepository;
 }
 
-export const defaultRepos: Repos = { charts: chartRepository, settings: settingsRepository };
+export const defaultRepos: Repos = { charts: chartRepository, settings: settingsRepository, groups: groupRepository };
 
 export function newId(): string {
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {

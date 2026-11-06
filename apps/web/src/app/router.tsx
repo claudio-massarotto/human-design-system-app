@@ -12,6 +12,7 @@ export const shellRoutes: RouteObject[] = [
   { path: 'nuovo', lazy: () => import('../pages/BirthFormPage') },
   { path: 'persone', lazy: () => import('../pages/PeoplePage') },
   { path: 'persone/:id/modifica', lazy: () => import('../pages/BirthFormPage') },
+  { path: 'gruppi', lazy: () => import('../pages/GroupsPage') },
   { path: 'impostazioni', lazy: () => import('../pages/SettingsPage') },
 ];
 

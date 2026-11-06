@@ -26,6 +26,7 @@ import {
 import { deleteChart, setPrimaryChart } from '../data/actions';
 import { createBackup, downloadTextFile, serializeBackup } from '../data/backup';
 import { useCharts, useSettings } from '../data/hooks';
+import { groupRepository } from '../data/repositories';
 import { RELATIONS, type Relation, type SavedChart } from '../data/types';
 import { useContent, useLocale } from '../i18n/useContent';
 import { useEngine } from '../lib/engine';
@@ -69,8 +70,8 @@ export function Component() {
   );
   const filtering = query.trim() !== '' || relation !== 'all';
 
-  function exportJson() {
-    const backup = createBackup(charts, settings);
+  async function exportJson() {
+    const backup = createBackup(charts, settings, new Date(), await groupRepository.list());
     const stamp = new Date().toISOString().slice(0, 10);
     downloadTextFile(`hd-system-backup-${stamp}.json`, serializeBackup(backup));
     toast(t('export.done', { count: charts.length }));
@@ -126,7 +127,7 @@ export function Component() {
               size="sm"
               icon={<DownloadIcon size={16} />}
               disabled={charts.length === 0}
-              onClick={exportJson}
+              onClick={() => void exportJson()}
             >
               {t('actions.export')}
             </Button>

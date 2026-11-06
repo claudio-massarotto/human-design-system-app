@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import type { BirthInput } from '@hd/core';
+import Dexie from 'dexie';
 import { HdDatabase } from '../src/data/db';
 import {
   clearAllData,
@@ -49,6 +50,24 @@ afterEach(async () => {
 });
 
 describe('ChartRepository', () => {
+  it('migra lo schema v1 senza perdere chart e impostazioni', async () => {
+    const name = `migration-${++n}`;
+    const legacy = new Dexie(name);
+    legacy.version(1).stores({ charts: 'id, name, createdAt, updatedAt', settings: 'id' });
+    await legacy.open();
+    await legacy.table('charts').put(chart('legacy', '2024-01-01T00:00:00.000Z'));
+    await legacy.table('settings').put({ id: 'main', locale: 'en', theme: 'dark', node: 'true', contentLevel: 'simple' });
+    legacy.close();
+    const upgraded = new HdDatabase(name);
+    const upgradedCharts = createChartRepository(upgraded);
+    const upgradedSettings = createSettingsRepository(upgraded);
+    expect(await upgradedCharts.get('legacy')).toMatchObject({ name: 'Persona legacy' });
+    expect(await upgradedSettings.get()).toMatchObject({ locale: 'en', theme: 'dark' });
+    expect(await upgraded.groups.toArray()).toEqual([]);
+    upgraded.close();
+    await upgraded.delete();
+  });
+
   it('salva, legge, aggiorna ed elimina', async () => {
     expect(await repos.charts.list()).toEqual([]);
     const a = chart('a', '2024-01-01T00:00:00.000Z');

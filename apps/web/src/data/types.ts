@@ -20,6 +20,21 @@ export interface SavedChart {
   schemaVersion: typeof SCHEMA_VERSION;
 }
 
+export interface SavedGroup {
+  id: string;
+  name: string;
+  memberIds: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface GroupRepository {
+  list(): Promise<SavedGroup[]>;
+  get(id: string): Promise<SavedGroup | undefined>;
+  save(group: SavedGroup): Promise<void>;
+  remove(id: string): Promise<void>;
+}
+
 export type ThemeSetting = 'system' | 'light' | 'dark';
 export type ContentLevel = 'simple' | 'deep';
 

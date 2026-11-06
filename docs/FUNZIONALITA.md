@@ -14,7 +14,7 @@ Stati:
 - **Pianificata**: nella roadmap (fase indicata).
 - **Da valutare**: vista nell'app di riferimento o proposta, non ancora decisa.
 
-Ultimo aggiornamento: 3 novembre 2026.
+Ultimo aggiornamento: 6 novembre 2026.
 
 ## Chart
 
@@ -29,10 +29,10 @@ Ultimo aggiornamento: 3 novembre 2026.
 | Sensibilità dell'ora | Avviso quando un'ora di nascita approssimata cambia tipo, profilo, canali o croce | Implementata | — |
 | Export PNG | Salva il bodygraph o la ruota (la vista corrente) come immagine PNG | Implementata | — |
 | Stampa / PDF | Pagina di stampa del chart | Implementata | — |
-| Ruota nella stampa | Opzione "Includi la ruota delle 64 porte" nella pagina di stampa (già attiva se nel chart si guarda la ruota) | In corso ([PR #4](https://github.com/claudio-massarotto/human-design-system-app/pull/4)) | — |
-| Esaltazione e detrimento | Triangolini accanto a ogni attivazione | Da valutare | Dati per porta e linea nel content, con testi originali |
-| Personalità e Design separati | Legenda cliccabile (Entrambe / Personalità / Design) che mostra un lato solo su bodygraph e ruota, con canali e centri ricalcolati; scheda "Conscio e inconscio" con un bodygraph per lato e i canali che nascono dall'unione | In corso ([PR #4](https://github.com/claudio-massarotto/human-design-system-app/pull/4)) | — |
-| Grafico del sogno | Bodygraph ridotto dei soli centri attivi nel sonno (nell'app di riferimento è a pagamento) | Da valutare | Regole di calcolo documentate in `docs/knowledge`; nome non registrato in UI |
+| Ruota nella stampa | Opzione "Includi la ruota delle 64 porte" nella pagina di stampa (già attiva se nel chart si guarda la ruota) | Implementata | — |
+| Esaltazione e detrimento | Triangolini accanto a ogni attivazione | Da valutare | Bloccata: manca una fonte verificata per i pianeti di esaltazione e detrimento delle linee (`docs/knowledge/04b-porte-33-64.md`); testi originali |
+| Personalità e Design separati | Legenda cliccabile (Entrambe / Personalità / Design) che mostra un lato solo su bodygraph e ruota, con canali e centri ricalcolati; scheda "Conscio e inconscio" con un bodygraph per lato e i canali che nascono dall'unione | Implementata | — |
+| Grafico del sogno | Bodygraph ridotto dei soli centri attivi nel sonno (nell'app di riferimento è a pagamento) | Da valutare | Bloccata: regole di calcolo non ancora documentate in `docs/knowledge`; nome non registrato in UI |
 
 ## Transiti (Oggi)
 
@@ -45,10 +45,11 @@ Ultimo aggiornamento: 3 novembre 2026.
 | Le 13 attivazioni | Tabella con porta, linea e retrogradazione di ogni corpo | Implementata | — |
 | Calendario del Sole | I prossimi quattro ingressi del Sole in una nuova porta | Implementata | — |
 | Prossime 24 ore | Timeline delle porte per pianeta, canali e centri accesi e cambi in ordine di tempo | Implementata | — |
-| Riepilogo 24 ore nel Chart | "Prossime 24 ore" in breve nella pagina del chart (che fa da Home) | Da valutare | Timeline 24 ore |
-| Notifiche dei transiti | Avviso quando un transito completa un tuo canale o un pianeta scelto cambia porta, all'inizio o 10 minuti prima | Pianificata (fase 2) | Permesso notifiche; Web Push con `apps/server` per gli avvisi ad app chiusa; su iOS solo da PWA installata |
-| Ritorni planetari | Data e chart del ritorno di Saturno, Urano e Chirone | Pianificata (fase 2) | File `.se1` di Swiss Ephemeris (~2 MB) per Chirone; verifica dei golden test |
-| Ruota interattiva nel tempo | Scorrere date e transiti direttamente sulla ruota (la ruota è già cliccabile; manca il movimento nel tempo) | Pianificata (fase 2) | — |
+| Riepilogo 24 ore nel Chart | "Prossime 24 ore" in breve nella pagina del chart (che fa da Home) | In corso (branch `feat/funzionalita-senza-server`) | — |
+| Notifiche dei transiti | Avviso quando un transito completa un tuo canale o un pianeta scelto cambia porta, all'inizio o 10 minuti prima, finché l'app o la PWA è aperta | In corso (branch `feat/funzionalita-senza-server`) | Permesso notifiche; su iOS solo da PWA installata (iOS 16.4+) |
+| Notifiche ad app chiusa | Gli stessi avvisi anche con l'app chiusa | Pianificata (fase 2) | Web Push con `apps/server` |
+| Ritorni planetari | Data e chart del ritorno di Saturno, Urano e Chirone | In corso (branch `feat/funzionalita-senza-server`) | File `.se1` di Swiss Ephemeris (~2 MB) per Chirone, scaricati solo su richiesta e messi in cache per l'offline |
+| Ruota interattiva nel tempo | Scorrere date e transiti direttamente sulla ruota e sul bodygraph in Oggi: passo ora/giorno/settimana/mese, slider, riproduzione | In corso (branch `feat/funzionalita-senza-server`) | — |
 
 ## Persone e relazioni
 
@@ -59,10 +60,10 @@ Ultimo aggiornamento: 3 novembre 2026.
 | Ricerca dei luoghi | Città con fuso orario storico; coordinate a mano se offline | Implementata | Rete per la ricerca (Open-Meteo, solo il nome della città) |
 | Backup | Esportazione e importazione JSON dei chart | Implementata | — |
 | Connessione a due | Tema di connessione, composito e canali per dinamica (elettromagnetica, compromesso, dominanza, compagnia) | Implementata | Due chart salvati |
-| Ruota nella Connessione | Selettore Bodygraph/Ruota nella Connessione: le due persone su due orbite | In corso ([PR #4](https://github.com/claudio-massarotto/human-design-system-app/pull/4)) | — |
-| Ricerca e filtro | Cercare per nome, luogo, note, tipo, autorità, profilo, porta (41), porta.linea (41.3), canale (30-41); filtro per relazione | In corso ([PR #4](https://github.com/claudio-massarotto/human-design-system-app/pull/4)) | — |
-| Etichette libere | Categorie personali sui chart (Preferiti, Clienti, Studio…) oltre alla relazione | Da valutare | Migrazione dello schema Dexie e del formato di backup |
-| Penta e gruppi | Analisi di gruppi da 3 a 5 persone (famiglia, lavoro) con membri da includere o escludere | Pianificata (fase 2) | Regole Penta in `docs/knowledge`; gruppi nello schema Dexie |
+| Ruota nella Connessione | Selettore Bodygraph/Ruota nella Connessione: le due persone su due orbite | Implementata | — |
+| Ricerca e filtro | Cercare per nome, luogo, note, tipo, autorità, profilo, porta (41), porta.linea (41.3), canale (30-41); filtro per relazione | Implementata | — |
+| Etichette libere | Categorie personali sui chart (Preferiti, Clienti, Studio…) oltre alla relazione | In corso (branch `feat/funzionalita-senza-server`) | — |
+| Penta e gruppi | Analisi di gruppi da 3 a 5 persone (famiglia, lavoro) con membri da includere o escludere | In corso (branch `feat/funzionalita-senza-server`) | — |
 
 ## Enciclopedia
 
@@ -71,7 +72,7 @@ Ultimo aggiornamento: 3 novembre 2026.
 | Enciclopedia | Tipi, autorità, profili, centri, porte e linee, canali, circuiti, croci, variabili, glossario | Implementata | — |
 | Ricerca nell'enciclopedia | Ricerca testuale su tutte le voci | Implementata | — |
 | Livello di lettura | Testi semplici o approfonditi | Implementata | — |
-| Percorsi di apprendimento | Lezioni guidate passo per passo | Pianificata (fase 3) | Contenuti originali |
+| Percorsi di apprendimento | Lezioni guidate passo per passo | In corso (branch `feat/funzionalita-senza-server`) | — |
 | Oracolo a carte | Lettura con tre carte (interna, esterna, equilibrio) | Da valutare | Fuori dal taglio dell'app: da decidere se farla |
 
 ## App e piattaforma
@@ -87,8 +88,8 @@ Ultimo aggiornamento: 3 novembre 2026.
 | Cancella tutti i dati | Azzera chart e impostazioni dal dispositivo | Implementata | — |
 | Pubblicazione | GitHub Pages dalla CI dopo check ed E2E | Implementata | — |
 | Pagine condivisibili | Link pubblico a un chart, anche per la SEO | Pianificata (fase 2) | `apps/server` (ADR-002) e hosting con runtime |
-| Condivisione | Pulsante condividi su chart, transiti e immagini | Da valutare | Web Share API, con ripiego sul download |
+| Condivisione | Pulsante condividi su chart, transiti e immagini | In corso (branch `feat/funzionalita-senza-server`) | — |
 | Account e sincronizzazione | Salvare i chart in cloud e usarli su più dispositivi | Pianificata (fase 2) | `apps/server`, account, database (ADR-003) |
 | Assistente AI | Domande sul proprio chart con risposte basate sui testi dell'enciclopedia | Pianificata (fase 2) | `apps/server`, API di Claude, costi e limiti d'uso |
 | App negli store | iOS e Android | Pianificata (fase 3) | Capacitor; account sviluppatore Apple e Google |
-| Diario di sperimentazione | Note datate su Strategia e Autorità nel tempo | Pianificata (fase 3) | Schema Dexie per le note |
+| Diario di sperimentazione | Note datate su Strategia e Autorità nel tempo | In corso (branch `feat/funzionalita-senza-server`) | — |

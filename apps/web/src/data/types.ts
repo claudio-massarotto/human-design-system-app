@@ -6,6 +6,10 @@ export type Relation = (typeof RELATIONS)[number];
 
 export const SCHEMA_VERSION = 1 as const;
 
+/** Etichette libere: massimo per chart e lunghezza massima di una etichetta. */
+export const MAX_TAGS = 10;
+export const MAX_TAG_LENGTH = 30;
+
 /** Un chart salvato: solo dati di nascita e metadati. Il chart si ricalcola sempre dal motore. */
 export interface SavedChart {
   id: string;
@@ -13,6 +17,8 @@ export interface SavedChart {
   relation: Relation;
   birth: BirthInput;
   notes?: string;
+  /** Etichette libere (es. "Clienti"), già normalizzate: vedi `normalizeTags`. Assenti = nessuna. */
+  tags?: string[];
   /** ISO 8601 UTC. */
   createdAt: string;
   /** ISO 8601 UTC. */
@@ -52,4 +58,43 @@ export interface ChartRepository {
 export interface SettingsRepository {
   get(): Promise<Settings>;
   update(patch: Partial<Settings>): Promise<Settings>;
+}
+
+// ───────────── Diario di sperimentazione ─────────────
+
+/** Come è andata la giornata rispetto a Strategia e Autorità. */
+export const JOURNAL_OUTCOMES = ['aligned', 'mixed', 'notAligned'] as const;
+export type JournalOutcome = (typeof JOURNAL_OUTCOMES)[number];
+
+export const JOURNAL_MOODS = ['serene', 'energized', 'neutral', 'tired', 'tense'] as const;
+export type JournalMood = (typeof JOURNAL_MOODS)[number];
+
+export const MAX_JOURNAL_TEXT = 5000;
+
+/** Una nota del diario, legata a un chart. Si elimina insieme al chart. */
+export interface JournalEntry {
+  id: string;
+  chartId: string;
+  /** Giorno a cui si riferisce la nota, 'YYYY-MM-DD' (locale dell'utente). */
+  date: string;
+  text: string;
+  outcome?: JournalOutcome;
+  mood?: JournalMood;
+  /** ISO 8601 UTC. */
+  createdAt: string;
+  /** ISO 8601 UTC. */
+  updatedAt: string;
+}
+
+export interface JournalRepository {
+  /** Note di un chart: dalla più recente (per giorno, poi per creazione). */
+  listByChart(chartId: string): Promise<JournalEntry[]>;
+  /** Tutte le note (per il backup). */
+  listAll(): Promise<JournalEntry[]>;
+  get(id: string): Promise<JournalEntry | undefined>;
+  /** Crea o aggiorna. */
+  save(entry: JournalEntry): Promise<void>;
+  remove(id: string): Promise<void>;
+  /** Elimina tutte le note di un chart. */
+  removeByChart(chartId: string): Promise<void>;
 }

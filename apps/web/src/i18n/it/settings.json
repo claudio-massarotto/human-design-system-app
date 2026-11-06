@@ -1,7 +1,9 @@
 {
   "title": "Impostazioni",
   "subtitle": "Personalizza l'app. Le scelte sono salvate sul tuo dispositivo.",
-  "appearance": { "title": "Aspetto" },
+  "appearance": {
+    "title": "Aspetto"
+  },
   "language": {
     "label": "Lingua",
     "description": "Lingua dell'interfaccia e dei testi interpretativi."
@@ -13,7 +15,9 @@
     "light": "Chiaro",
     "dark": "Scuro"
   },
-  "calculation": { "title": "Calcolo e testi" },
+  "calculation": {
+    "title": "Calcolo e testi"
+  },
   "node": {
     "label": "Nodo lunare",
     "description": "Il nodo vero segue la posizione reale dei nodi, il nodo medio ne è la media regolare: differiscono di pochi gradi e possono cambiare una linea. Tutti i chart si ricalcolano subito.",
@@ -32,10 +36,10 @@
   "data": {
     "title": "I tuoi dati",
     "label": "Cancella tutti i dati",
-    "description": "Elimina dal dispositivo tutti i chart salvati e le impostazioni. Prima di procedere puoi esportare un backup dalla pagina Persone.",
+    "description": "Elimina dal dispositivo tutti i chart salvati, le etichette, le note del diario e le impostazioni. Prima di procedere puoi esportare un backup dalla pagina Persone.",
     "delete": "Cancella tutto",
     "confirmTitle": "Cancellare tutti i dati?",
-    "confirmDescription": "Verranno eliminati definitivamente tutti i chart salvati e le impostazioni. L'operazione non si può annullare.",
+    "confirmDescription": "Verranno eliminati definitivamente tutti i chart salvati, le etichette, le note del diario e le impostazioni. L'operazione non si può annullare.",
     "confirm": "Sì, cancella tutto",
     "wiped": "Tutti i dati sono stati cancellati.",
     "wipeError": "Non è stato possibile cancellare i dati."

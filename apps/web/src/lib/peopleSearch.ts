@@ -8,7 +8,7 @@ export function norm(s: string): string {
   return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 }
 
-/** Testo libero su cui cercare: nome, luogo, relazione, tipo, autorità, profilo, definizione. */
+/** Testo libero su cui cercare: nome, luogo, relazione, etichette, tipo, autorità, profilo, definizione. */
 function haystack(
   saved: SavedChart,
   chart: Chart | null,
@@ -21,6 +21,7 @@ function haystack(
     saved.birth.place.country ?? '',
     relationLabel,
     saved.notes ?? '',
+    ...(saved.tags ?? []),
   ];
   if (chart) {
     parts.push(

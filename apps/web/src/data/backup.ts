@@ -3,10 +3,24 @@
 import type { BirthInput, Place } from '@hd/core';
 import type { Repos } from './actions';
 import { isRelation } from './repositories';
-import { SCHEMA_VERSION, type SavedChart, type Settings } from './types';
+import { normalizeTags } from './tags';
+import {
+  JOURNAL_MOODS,
+  JOURNAL_OUTCOMES,
+  MAX_JOURNAL_TEXT,
+  SCHEMA_VERSION,
+  type JournalEntry,
+  type JournalMood,
+  type JournalOutcome,
+  type SavedChart,
+  type Settings,
+} from './types';
 
 export const BACKUP_FORMAT = 'hd-system-backup';
-export const BACKUP_VERSION = 1;
+/** v2: aggiunge `notes` (diario) e `tags` sui chart. I backup v1 si leggono ancora. */
+export const BACKUP_VERSION = 2;
+/** Versioni che `parseBackup` sa leggere. */
+export const SUPPORTED_BACKUP_VERSIONS: readonly number[] = [1, 2];
 export const MAX_BACKUP_BYTES = 5 * 1024 * 1024;
 
 export interface BackupFile {
@@ -15,13 +29,16 @@ export interface BackupFile {
   exportedAt: string;
   primaryChartId?: string;
   charts: SavedChart[];
+  /** Note del diario (assenti nei backup v1). */
+  notes: JournalEntry[];
 }
 
 export type BackupError =
   | { code: 'notJson' }
   | { code: 'wrongFormat' }
   | { code: 'unsupportedVersion'; version: unknown }
-  | { code: 'invalidChart'; index: number };
+  | { code: 'invalidChart'; index: number }
+  | { code: 'invalidNote'; index: number };
 
 export type ParseResult = { ok: true; backup: BackupFile } | { ok: false; error: BackupError };
 
@@ -29,11 +46,14 @@ export interface ImportSummary {
   added: number;
   updated: number;
   skipped: number;
+  notesAdded: number;
+  notesUpdated: number;
 }
 
 export function createBackup(
   charts: SavedChart[],
   settings: Pick<Settings, 'primaryChartId'>,
+  notes: JournalEntry[] = [],
   now: Date = new Date(),
 ): BackupFile {
   return {
@@ -42,6 +62,7 @@ export function createBackup(
     exportedAt: now.toISOString(),
     ...(settings.primaryChartId ? { primaryChartId: settings.primaryChartId } : {}),
     charts,
+    notes,
   };
 }
 
@@ -109,24 +130,52 @@ function readBirth(x: unknown): BirthInput | null {
 /** Valida un oggetto sconosciuto e ne restituisce una copia pulita (campi ignoti scartati). */
 export function readSavedChart(x: unknown): SavedChart | null {
   if (!isObject(x)) return null;
-  const { id, name, relation, notes, createdAt, updatedAt, schemaVersion } = x;
+  const { id, name, relation, notes, tags, createdAt, updatedAt, schemaVersion } = x;
   if (typeof id !== 'string' || !id || id.length > 100) return null;
   if (typeof name !== 'string' || !name.trim() || name.length > 120) return null;
   if (!isRelation(relation)) return null;
   if (notes !== undefined && (typeof notes !== 'string' || notes.length > 5000)) return null;
   if (!isIsoDateTime(createdAt) || !isIsoDateTime(updatedAt)) return null;
   if (schemaVersion !== SCHEMA_VERSION) return null;
+  if (tags !== undefined && (!Array.isArray(tags) || !tags.every((t) => typeof t === 'string')))
+    return null;
   const birth = readBirth(x.birth);
   if (!birth) return null;
+  const cleanTags = normalizeTags((tags as string[] | undefined) ?? []);
   return {
     id,
     name: name.trim(),
     relation,
     birth,
     ...(typeof notes === 'string' && notes.trim() ? { notes } : {}),
+    ...(cleanTags.length > 0 ? { tags: cleanTags } : {}),
     createdAt,
     updatedAt,
     schemaVersion: SCHEMA_VERSION,
+  };
+}
+
+/** Valida una nota del diario sconosciuta e ne restituisce una copia pulita. */
+export function readJournalEntry(x: unknown): JournalEntry | null {
+  if (!isObject(x)) return null;
+  const { id, chartId, date, text, outcome, mood, createdAt, updatedAt } = x;
+  if (typeof id !== 'string' || !id || id.length > 100) return null;
+  if (typeof chartId !== 'string' || !chartId || chartId.length > 100) return null;
+  if (!isRealIsoDate(date)) return null;
+  if (typeof text !== 'string' || !text.trim() || text.length > MAX_JOURNAL_TEXT) return null;
+  if (outcome !== undefined && !(JOURNAL_OUTCOMES as readonly unknown[]).includes(outcome))
+    return null;
+  if (mood !== undefined && !(JOURNAL_MOODS as readonly unknown[]).includes(mood)) return null;
+  if (!isIsoDateTime(createdAt) || !isIsoDateTime(updatedAt)) return null;
+  return {
+    id,
+    chartId,
+    date,
+    text,
+    ...(outcome !== undefined ? { outcome: outcome as JournalOutcome } : {}),
+    ...(mood !== undefined ? { mood: mood as JournalMood } : {}),
+    createdAt,
+    updatedAt,
   };
 }
 
@@ -140,7 +189,7 @@ export function parseBackup(text: string): ParseResult {
   if (!isObject(data) || data.format !== BACKUP_FORMAT || !Array.isArray(data.charts)) {
     return { ok: false, error: { code: 'wrongFormat' } };
   }
-  if (data.version !== BACKUP_VERSION) {
+  if (typeof data.version !== 'number' || !SUPPORTED_BACKUP_VERSIONS.includes(data.version)) {
     return { ok: false, error: { code: 'unsupportedVersion', version: data.version } };
   }
   const charts: SavedChart[] = [];
@@ -151,6 +200,20 @@ export function parseBackup(text: string): ParseResult {
       return { ok: false, error: { code: 'invalidChart', index: i } };
     seen.add(chart.id);
     charts.push(chart);
+  }
+  // Le note esistono dalla v2; in un v1 il campo non c'è (e se c'è si ignora).
+  const notes: JournalEntry[] = [];
+  if (data.version >= 2 && data.notes !== undefined) {
+    if (!Array.isArray(data.notes)) return { ok: false, error: { code: 'invalidNote', index: 0 } };
+    const seenNotes = new Set<string>();
+    for (let i = 0; i < data.notes.length; i++) {
+      const note = readJournalEntry(data.notes[i]);
+      // Una nota deve riferirsi a un chart del file; gli id sono unici.
+      if (!note || seenNotes.has(note.id) || !seen.has(note.chartId))
+        return { ok: false, error: { code: 'invalidNote', index: i } };
+      seenNotes.add(note.id);
+      notes.push(note);
+    }
   }
   const primary =
     typeof data.primaryChartId === 'string' && seen.has(data.primaryChartId)
@@ -164,16 +227,24 @@ export function parseBackup(text: string): ParseResult {
       exportedAt: isIsoDateTime(data.exportedAt) ? data.exportedAt : new Date().toISOString(),
       ...(primary ? { primaryChartId: primary } : {}),
       charts,
+      notes,
     },
   };
 }
 
 /**
  * Unisce un backup valido ai dati locali: id nuovi → aggiunti; id esistenti → sostituiti solo se il
- * backup è più recente (updatedAt), altrimenti saltati. Il "mio chart" viene impostato solo se vuoto.
+ * backup è più recente (updatedAt), altrimenti saltati. Stesso criterio per le note del diario. Il
+ * "mio chart" viene impostato solo se vuoto.
  */
 export async function applyBackup(backup: BackupFile, repos: Repos): Promise<ImportSummary> {
-  const summary: ImportSummary = { added: 0, updated: 0, skipped: 0 };
+  const summary: ImportSummary = {
+    added: 0,
+    updated: 0,
+    skipped: 0,
+    notesAdded: 0,
+    notesUpdated: 0,
+  };
   for (const chart of backup.charts) {
     const existing = await repos.charts.get(chart.id);
     if (!existing) {
@@ -184,6 +255,17 @@ export async function applyBackup(backup: BackupFile, repos: Repos): Promise<Imp
       summary.updated++;
     } else {
       summary.skipped++;
+    }
+  }
+  // Note: stessa regola dei chart (id nuovo → aggiunta; esistente → sostituita se più recente).
+  for (const note of backup.notes) {
+    const existing = await repos.journal.get(note.id);
+    if (!existing) {
+      await repos.journal.save(note);
+      summary.notesAdded++;
+    } else if (note.updatedAt > existing.updatedAt) {
+      await repos.journal.save(note);
+      summary.notesUpdated++;
     }
   }
   const settings = await repos.settings.get();

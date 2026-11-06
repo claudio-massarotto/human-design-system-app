@@ -17,6 +17,7 @@ const base: BirthFormValues = {
   timeAccuracy: 'exact',
   place,
   notes: '',
+  tags: [],
 };
 
 const check = (patch: Partial<BirthFormValues>) => validateBirthForm({ ...base, ...patch }, NOW);

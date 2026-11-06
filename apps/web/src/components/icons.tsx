@@ -66,6 +66,19 @@ export const BookIcon = make(
     <path d="M9 8h7" />
   </>,
 );
+export const NotebookIcon = make(
+  <>
+    <path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z" />
+    <path d="M6 3v18M3 8h3M3 12h3M3 16h3" />
+    <path d="M10 8h5M10 12h5" />
+  </>,
+);
+export const TagIcon = make(
+  <>
+    <path d="M3 12.2V4a1 1 0 0 1 1-1h8.2a1 1 0 0 1 .7.3l7.8 7.8a1 1 0 0 1 0 1.4l-7.2 7.2a1 1 0 0 1-1.4 0L3.3 12.9a1 1 0 0 1-.3-.7z" />
+    <circle cx="8" cy="8" r="1.3" />
+  </>,
+);
 export const SettingsIcon = make(
   <>
     <path d="M4 7h10M18 7h2M4 17h2M10 17h10" />

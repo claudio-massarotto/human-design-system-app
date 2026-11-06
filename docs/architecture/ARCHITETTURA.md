@@ -149,11 +149,11 @@ BirthInput ─► toUtc (Luxon) ─► JD(UT)
 
 | URL | Schermata |
 |---|---|
-| `/` | Home: se non c'è un chart → onboarding; altrimenti il proprio chart |
+| `/` | Home: se non c'è un chart → onboarding; altrimenti il proprio chart, con la card «Prossime 24 ore» (prossimi cambi di porta e canali accesi, link a `/oggi`) |
 | `/nuovo` | Inserimento dati di nascita (nome, data, ora/approssimata/sconosciuta, città con fuso) |
 | `/chart/:id` | Chart: bodygraph o ruota (con legenda cliccabile per un lato solo) + card tipo/strategia/autorità/profilo/definizione/croce; tab Attivazioni, Centri, Canali, Conscio e inconscio, Variabili, Croce |
 | `/chart/:id/stampa` | Versione stampabile (PDF), con la ruota a richiesta |
-| `/oggi` | Transiti di oggi sul chart selezionato; timeline delle 24 ore successive (cambi di porta, canali e centri accesi) |
+| `/oggi` | Transiti di oggi sul chart selezionato; timeline delle 24 ore successive (cambi di porta, canali e centri accesi); sotto la ruota/bodygraph un controllo per scorrere il tempo (passo ora/giorno/settimana/mese, slider con frecce, indietro/avanti, riproduzione disattivata con «riduci animazioni»), sincronizzato con data/ora e «Adesso» |
 | `/connessione` | Connessione tra due chart salvati (bodygraph composito o ruota a due orbite) |
 | `/persone` | Chart salvati: ricerca e filtro per relazione, aggiungi, modifica, elimina, importa/esporta JSON |
 | `/enciclopedia` (+ `/porte/:n`, `/canali/:id`, `/centri/:id`, `/tipi/:id`, `/profili/:id`, `/croci`) | Enciclopedia |

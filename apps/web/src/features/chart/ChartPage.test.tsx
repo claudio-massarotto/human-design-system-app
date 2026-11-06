@@ -97,6 +97,16 @@ describe('ChartPage', () => {
     expect(document.querySelector('svg.hdbg')).not.toBeNull();
   });
 
+  it('card "Prossime 24 ore": cambi in ordine e link a Oggi', async () => {
+    await chartRepository.save(saved('a'));
+    renderAt('/chart/a');
+    const card = (await screen.findByRole('heading', { name: 'Prossime 24 ore' })).closest('section')!;
+    await waitFor(() => expect(within(card).getAllByRole('listitem').length).toBeGreaterThan(0));
+    expect(within(card).getAllByRole('listitem').length).toBeLessThanOrEqual(4);
+    expect(within(card).getAllByText(/entra nella porta|Si forma con te/).length).toBeGreaterThan(0);
+    expect(within(card).getByRole('link', { name: 'Apri Oggi' })).toHaveAttribute('href', '/oggi');
+  });
+
   it('apre il dettaglio di una card di sintesi e di una porta (con la linea attivata)', async () => {
     const user = userEvent.setup();
     await chartRepository.save(saved('a'));

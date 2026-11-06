@@ -2,9 +2,9 @@ import { useMemo } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import type { BirthInput, Chart } from '@hd/core';
 import { useEngine } from '../lib/engine';
-import { chartRepository } from './repositories';
+import { chartRepository, journalRepository } from './repositories';
 import { useSettings } from './SettingsProvider';
-import type { SavedChart } from './types';
+import type { JournalEntry, SavedChart } from './types';
 
 export { useSettings } from './SettingsProvider';
 
@@ -24,6 +24,18 @@ export function useSavedChart(id: string | undefined): {
     [id],
   );
   return { chart: res?.chart, loading: res === undefined };
+}
+
+/** Note del diario di un chart (dalla più recente), aggiornate in tempo reale. */
+export function useJournal(chartId: string | undefined): {
+  entries: JournalEntry[];
+  loading: boolean;
+} {
+  const entries = useLiveQuery(
+    () => (chartId ? journalRepository.listByChart(chartId) : Promise.resolve([])),
+    [chartId],
+  );
+  return { entries: entries ?? [], loading: entries === undefined };
 }
 
 /** Il chart indicato da `settings.primaryChartId` ("il mio chart"). */

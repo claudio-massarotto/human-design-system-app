@@ -21,6 +21,7 @@ const PAGES_WITH_DATA = [
   { path: '/persone/{id}/modifica', ready: { name: /^Modifica Ra Uru Hu$/, level: 1 } },
   { path: '/chart/{id}', ready: { name: 'Ra Uru Hu', level: 1 } },
   { path: '/chart/{id}/stampa', ready: { name: 'Ra Uru Hu', level: 1 } },
+  { path: '/chart/{id}/diario', ready: { name: 'Diario di Ra Uru Hu', level: 1 } },
   { path: '/enciclopedia', ready: { name: 'Enciclopedia', level: 1 } },
   { path: '/enciclopedia/porte', ready: { name: 'Porte', level: 1 } },
   { path: '/enciclopedia/porte/1', ready: { name: 'Espressione di sé', level: 1 } },

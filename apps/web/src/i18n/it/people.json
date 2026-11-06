@@ -12,14 +12,16 @@
   },
   "search": {
     "label": "Cerca tra le persone",
-    "placeholder": "Nome, luogo, tipo, profilo…",
+    "placeholder": "Nome, luogo, etichetta, tipo, profilo…",
     "hint": "Puoi cercare anche una porta (41), una porta con linea (41.3) o un canale (30-41).",
     "relation": "Relazione",
     "allRelations": "Tutte le relazioni",
     "count_one": "{{count}} persona su {{total}}",
     "count_other": "{{count}} persone su {{total}}",
     "empty": "Nessuna persona corrisponde alla ricerca.",
-    "reset": "Azzera la ricerca"
+    "reset": "Azzera la ricerca",
+    "tag": "Etichetta",
+    "allTags": "Tutte le etichette"
   },
   "card": {
     "mine": "Il mio chart",
@@ -28,7 +30,9 @@
     "edit": "Modifica {{name}}",
     "editShort": "Modifica",
     "delete": "Elimina {{name}}",
-    "deleteShort": "Elimina"
+    "deleteShort": "Elimina",
+    "diary": "Diario di {{name}}",
+    "diaryShort": "Diario"
   },
   "delete": {
     "title": "Eliminare {{name}}?",
@@ -45,7 +49,8 @@
   },
   "export": {
     "done_one": "Esportato {{count}} chart.",
-    "done_other": "Esportati {{count}} chart."
+    "done_other": "Esportati {{count}} chart.",
+    "error": "Non è stato possibile esportare il backup."
   },
   "import": {
     "tooLarge": "Il file è troppo grande (massimo 5 MB).",
@@ -55,8 +60,11 @@
       "notJson": "Il file non è un JSON valido.",
       "wrongFormat": "Il file non è un backup di Human Design System.",
       "unsupportedVersion": "Questa versione del backup non è supportata.",
-      "invalidChart": "Il chart numero {{n}} nel file non è valido: nessun dato è stato importato."
-    }
+      "invalidChart": "Il chart numero {{n}} nel file non è valido: nessun dato è stato importato.",
+      "invalidNote": "La nota del diario numero {{n}} nel file non è valida: nessun dato è stato importato."
+    },
+    "doneNotes_one": "Importata anche {{count}} nota del diario.",
+    "doneNotes_other": "Importate anche {{count}} note del diario."
   },
   "relation": {
     "me": "Io",
@@ -165,5 +173,16 @@
     "timeUnknown": "Ora sconosciuta: il chart è calcolato alle 12:00 locali, quindi alcuni elementi possono essere imprecisi.",
     "timeApproximate": "Ora approssimata: se il chart cambia entro pochi minuti, verifica l'ora su un documento ufficiale.",
     "historicalTimezone": "Data anteriore al 1970: i dati storici del fuso orario sono meno affidabili."
+  },
+  "tags": {
+    "label": "Etichette (facoltative)",
+    "hint": "Le tue categorie, ad esempio Preferiti, Clienti, Studio (fino a {{max}}). Premi Invio per aggiungere.",
+    "current": "Etichette",
+    "placeholder": "Nuova etichetta",
+    "full": "Hai raggiunto il massimo",
+    "add": "Aggiungi",
+    "remove": "Rimuovi l'etichetta {{tag}}",
+    "suggestions": "Già in uso:",
+    "useExisting": "Aggiungi l'etichetta {{tag}}"
   }
 }

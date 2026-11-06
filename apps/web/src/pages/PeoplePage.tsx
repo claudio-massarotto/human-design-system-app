@@ -16,15 +16,19 @@ import {
   DownloadIcon,
   EditIcon,
   MapPinIcon,
+  NotebookIcon,
   PeopleIcon,
   PlusIcon,
   SearchIcon,
   StarIcon,
+  TagIcon,
   TrashIcon,
   UploadIcon,
 } from '../components/icons';
 import { deleteChart, setPrimaryChart } from '../data/actions';
 import { createBackup, downloadTextFile, serializeBackup } from '../data/backup';
+import { journalRepository } from '../data/repositories';
+import { collectTags, hasTag } from '../data/tags';
 import { useCharts, useSettings } from '../data/hooks';
 import { groupRepository } from '../data/repositories';
 import { RELATIONS, type Relation, type SavedChart } from '../data/types';
@@ -46,6 +50,7 @@ export function Component() {
   const [deleting, setDeleting] = useState(false);
   const [query, setQuery] = useState('');
   const [relation, setRelation] = useState<Relation | 'all'>('all');
+  const [tagFilter, setTagFilter] = useState<string>('all');
   const engine = useEngine();
   const content = useContent();
 
@@ -63,18 +68,27 @@ export function Component() {
   }, [charts, engine, settings.node]);
 
   const relations = RELATIONS.filter((r) => charts.some((c) => c.relation === r));
+  const allTags = useMemo(() => collectTags(charts), [charts]);
+  // Se l'ultima persona con quell'etichetta la perde, il filtro torna su "tutte".
+  const tag = allTags.includes(tagFilter) ? tagFilter : 'all';
   const visible = charts.filter(
     (c) =>
       (relation === 'all' || c.relation === relation) &&
+      (tag === 'all' || hasTag(c, tag)) &&
       matchesQuery(c, computed.get(c.id) ?? null, query, content, t(`relation.${c.relation}`)),
   );
-  const filtering = query.trim() !== '' || relation !== 'all';
+  const filtering = query.trim() !== '' || relation !== 'all' || tag !== 'all';
 
   async function exportJson() {
-    const backup = createBackup(charts, settings, new Date(), await groupRepository.list());
-    const stamp = new Date().toISOString().slice(0, 10);
-    downloadTextFile(`hd-system-backup-${stamp}.json`, serializeBackup(backup));
-    toast(t('export.done', { count: charts.length }));
+    try {
+      const notes = await journalRepository.listAll();
+      const backup = createBackup(charts, settings, notes, new Date(), await groupRepository.list());
+      const stamp = new Date().toISOString().slice(0, 10);
+      downloadTextFile(`hd-system-backup-${stamp}.json`, serializeBackup(backup));
+      toast(t('export.done', { count: charts.length }));
+    } catch {
+      toast(t('export.error'), 'error');
+    }
   }
 
   async function confirmDelete() {
@@ -155,7 +169,11 @@ export function Component() {
       {charts.length > 1 && (
         <div
           role="search"
-          className="mb-5 grid gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(10rem,14rem)]"
+          className={
+            allTags.length > 0
+              ? 'mb-5 grid gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(9rem,12rem)_minmax(9rem,12rem)]'
+              : 'mb-5 grid gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(10rem,14rem)]'
+          }
         >
           <div className="relative">
             <SearchIcon
@@ -185,7 +203,21 @@ export function Component() {
               </option>
             ))}
           </Select>
-          <p aria-live="polite" className="text-[13px] text-muted sm:col-span-2">
+          {allTags.length > 0 && (
+            <Select
+              aria-label={t('search.tag')}
+              value={tag}
+              onChange={(e) => setTagFilter(e.target.value)}
+            >
+              <option value="all">{t('search.allTags')}</option>
+              {allTags.map((name) => (
+                <option key={name} value={name}>
+                  {name}
+                </option>
+              ))}
+            </Select>
+          )}
+          <p aria-live="polite" className="text-[13px] text-muted sm:col-span-full">
             {filtering
               ? t('search.count', { count: visible.length, total: charts.length })
               : t('search.hint')}
@@ -202,6 +234,7 @@ export function Component() {
             onClick={() => {
               setQuery('');
               setRelation('all');
+              setTagFilter('all');
             }}
           >
             {t('search.reset')}
@@ -268,6 +301,18 @@ function PersonCard({
           )}
           <Badge tone="violet">{t(`relation.${saved.relation}`)}</Badge>
         </div>
+        {saved.tags && saved.tags.length > 0 && (
+          <ul aria-label={t('tags.current')} className="-mt-1 flex flex-wrap gap-1.5">
+            {saved.tags.map((name) => (
+              <li key={name} className="max-w-full">
+                <Badge className="max-w-full">
+                  <TagIcon size={12} className="shrink-0" />
+                  <span className="break-anywhere">{name}</span>
+                </Badge>
+              </li>
+            ))}
+          </ul>
+        )}
         <div className="min-w-0">
           <h2 className="font-display text-2xl font-semibold leading-tight">
             <Link
@@ -309,6 +354,15 @@ function PersonCard({
           </Button>
         )}
         <span className="flex-1" />
+        <LinkButton
+          to={`/chart/${saved.id}/diario`}
+          variant="ghost"
+          size="icon"
+          aria-label={t('card.diary', { name: saved.name })}
+          title={t('card.diaryShort')}
+        >
+          <NotebookIcon size={18} />
+        </LinkButton>
         <LinkButton
           to={`/persone/${saved.id}/modifica`}
           variant="ghost"

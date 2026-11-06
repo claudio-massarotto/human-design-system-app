@@ -10,6 +10,7 @@ import { ContentText } from '../src/components/ContentText';
 import { PlanetGlyph, PLANET_GLYPHS } from '../src/components/PlanetGlyph';
 import { SegmentedControl } from '../src/components/ui/SegmentedControl';
 import { Field, Input } from '../src/components/ui/Field';
+import { TagField } from '../src/components/TagField';
 
 function wrap(ui: React.ReactNode) {
   return render(
@@ -123,5 +124,68 @@ describe('ElementDetail', () => {
   it('mostra un messaggio per contenuti inesistenti', () => {
     wrap(<ElementDetail target={{ kind: 'gate', gate: 99 }} />);
     expect(screen.getByText(/non disponibile/i)).toBeInTheDocument();
+  });
+});
+
+describe('TagField', () => {
+  function Demo({
+    initial = [],
+    suggestions = [],
+  }: {
+    initial?: string[];
+    suggestions?: string[];
+  }) {
+    const [tags, setTags] = useState<string[]>(initial);
+    return (
+      <form onSubmit={(e) => e.preventDefault()}>
+        <TagField value={tags} onChange={setTags} suggestions={suggestions} />
+        <output data-testid="out">{JSON.stringify(tags)}</output>
+      </form>
+    );
+  }
+  const out = () => JSON.parse(screen.getByTestId('out').textContent ?? '[]');
+
+  it('Invio e virgola aggiungono, senza doppioni né maiuscole diverse', async () => {
+    const user = userEvent.setup();
+    wrap(<Demo />);
+    const input = screen.getByRole('textbox', { name: /^Etichette/ });
+    await user.type(input, 'Clienti{Enter}');
+    await user.type(input, 'clienti,');
+    await user.type(input, '  Studio  {Enter}');
+    expect(out()).toEqual(['Clienti', 'Studio']);
+    expect(input).toHaveValue('');
+  });
+
+  it('rimuove con il pulsante e con Backspace a campo vuoto', async () => {
+    const user = userEvent.setup();
+    wrap(<Demo initial={['A', 'B', 'C']} />);
+    await user.click(screen.getByRole('button', { name: "Rimuovi l'etichetta B" }));
+    expect(out()).toEqual(['A', 'C']);
+    await user.click(screen.getByRole('textbox', { name: /^Etichette/ }));
+    await user.keyboard('{Backspace}');
+    expect(out()).toEqual(['A']);
+  });
+
+  it("il testo scritto e lasciato nel campo viene aggiunto all'uscita dal campo", async () => {
+    const user = userEvent.setup();
+    wrap(<Demo />);
+    await user.type(screen.getByRole('textbox', { name: /^Etichette/ }), 'Famiglia');
+    await user.tab();
+    expect(out()).toEqual(['Famiglia']);
+  });
+
+  it('propone le etichette esistenti e ne riusa la grafia', async () => {
+    const user = userEvent.setup();
+    wrap(<Demo suggestions={['Preferiti', 'Clienti']} />);
+    await user.click(screen.getByRole('button', { name: "Aggiungi l'etichetta Preferiti" }));
+    expect(out()).toEqual(['Preferiti']);
+    expect(screen.queryByRole('button', { name: "Aggiungi l'etichetta Preferiti" })).toBeNull();
+    await user.type(screen.getByRole('textbox', { name: /^Etichette/ }), 'clienti{Enter}');
+    expect(out()).toEqual(['Preferiti', 'Clienti']);
+  });
+
+  it('si ferma al massimo di etichette', async () => {
+    wrap(<Demo initial={Array.from({ length: 10 }, (_, i) => `e${i}`)} />);
+    expect(screen.getByRole('textbox', { name: /^Etichette/ })).toBeDisabled();
   });
 });

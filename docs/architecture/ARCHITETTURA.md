@@ -167,9 +167,10 @@ BirthInput ─► toUtc (Luxon) ─► JD(UT)
 | `/chart/:id` | Chart: bodygraph o ruota (con legenda cliccabile per un lato solo) + card tipo/strategia/autorità/profilo/definizione/croce; tab Attivazioni, Centri, Canali, Conscio e inconscio, Variabili, Croce |
 | `/chart/:id/ritorno?at=<UTC>` | Chart calcolato all'istante esatto di un ritorno planetario |
 | `/chart/:id/stampa` | Versione stampabile (PDF), con la ruota a richiesta |
+| `/chart/:id/diario` | Diario di sperimentazione del chart: note datate (testo, giorno, esito facoltativo allineato/così così/non allineato, umore facoltativo) su come si vivono Strategia e Autorità; promemoria di Strategia e Autorità, spunti di scrittura, lista cronologica, aggiunta/modifica/eliminazione |
 | `/oggi` | Transiti di oggi sul chart selezionato; timeline delle 24 ore successive (cambi di porta, canali e centri accesi); sotto la ruota/bodygraph un controllo per scorrere il tempo (passo ora/giorno/settimana/mese, slider con frecce, indietro/avanti, riproduzione disattivata con «riduci animazioni»), sincronizzato con data/ora e «Adesso» |
 | `/connessione` | Connessione tra due chart salvati (bodygraph composito o ruota a due orbite) |
-| `/persone` | Chart salvati: ricerca e filtro per relazione, aggiungi, modifica, elimina, importa/esporta JSON |
+| `/persone` | Chart salvati: ricerca (anche nelle etichette) e filtri per relazione e per etichetta, aggiungi, modifica (anche le etichette libere), elimina, accesso al diario, importa/esporta JSON (chart, etichette e note) |
 | `/gruppi` | Gruppi salvati: membri selezionabili e analisi delle 12 porte e 6 canali |
 | `/enciclopedia` (+ `/porte/:n`, `/canali/:id`, `/centri/:id`, `/tipi/:id`, `/profili/:id`, `/croci`) | Enciclopedia |
 | `/enciclopedia/percorsi` (+ `/:id`, `/:id/:lezione`) | Percorsi di apprendimento: elenco con avanzamento, panoramica del percorso, lezione con testo (semplice/approfondito, come nelle schede), "nel tuo chart", collegamenti alle voci, domanda di verifica, avanti/indietro |
@@ -191,7 +192,32 @@ Navigazione: laterale su desktop con tutte le sezioni (Il mio chart, Oggi, Perso
 Enciclopedia, Impostazioni); barra inferiore su mobile con Il mio chart, Oggi, Persone e Altro, che apre un
 pannello con Gruppi, Connessione, Enciclopedia e Impostazioni.
 
-### 8.1 Notifiche dei transiti (locali)
+### 8.1 Dati locali (Dexie, schema v2)
+
+Database IndexedDB `hd-app`, accesso solo tramite i repository (ADR-003):
+
+| Tabella | Chiave e indici | Contenuto |
+|---|---|---|
+| `charts` | `id`, `name`, `createdAt`, `updatedAt`, `*tags` (multiEntry) | `SavedChart`: dati di nascita, relazione, note, **etichette libere** `tags?: string[]` |
+| `notes` | `id`, `chartId`, `date`, `[chartId+date]` | `JournalEntry` del diario: `chartId`, `date` (`YYYY-MM-DD`), `text`, `outcome?`, `mood?`, `createdAt`, `updatedAt` |
+| `groups` | `id`, `name`, `updatedAt` | `SavedGroup` per Penta e gruppi: `name`, `memberIds`, `createdAt`, `updatedAt` |
+| `settings` | `id` (riga `main`) | Impostazioni |
+
+- **Migrazione v1 → v2** (`version(2)` in `data/db.ts`): aggiunge l'indice `*tags` e le tabelle `notes` e `groups`; non
+  tocca i dati esistenti (i chart v1 restano senza `tags`, `schemaVersion` del chart resta 1 perché il
+  campo è facoltativo). Coperta da `test/migration.test.ts`.
+- **Etichette**: normalizzate da `data/tags.ts` (spazi compattati, max 30 caratteri, max 10 per chart,
+  doppioni eliminati senza badare a maiuscole/accenti, vince la prima grafia). Filtro e ricerca in
+  `pages/PeoplePage.tsx` e `lib/peopleSearch.ts` (le etichette fanno parte del testo cercato).
+- **Integrità**: eliminare un chart elimina le sue note nella stessa transazione
+  (`ChartRepository.remove`); "Cancella tutti i dati" svuota anche `notes` e `groups`. I membri
+  dei gruppi che non esistono più sono ignorati all'analisi e all'import.
+- **Backup JSON**: `version: 2` aggiunge `notes[]`, `groups[]` e `tags` sui chart. I backup `version: 1` si importano
+  ancora (nessuna nota, nessuna etichetta). Le note devono riferirsi a un chart presente nel file,
+  altrimenti il file è rifiutato per intero. All'import le note seguono la regola dei chart: id nuovo →
+  aggiunta; id esistente → sostituita solo se `updatedAt` è più recente.
+
+### 8.2 Notifiche dei transiti (locali)
 
 Senza server e senza Web Push: `features/notifications` pianifica con la timeline di `features/today`
 (48 ore, canali che il transito completa col chart principale e cambi di porta dei pianeti scelti) e mostra
@@ -204,7 +230,7 @@ Impostazioni; permesso negato o API assente sono spiegati in UI. Ad app chiusa n
 Preferenze in `Settings.notifications` (`enabled`, `channels`, `gates`, `bodies`, `lead: start | 10min`):
 nessuna migrazione Dexie, la riga `settings` resta unica e `sanitizeSettings` dà i predefiniti alle righe vecchie.
 
-### 8.2 Condivisione
+### 8.3 Condivisione
 
 Pulsante **Condividi** in Chart e Oggi (`components/ShareButton`, logica pura in `lib/share.ts`): crea al clic
 un PNG di ciò che si vede (bodygraph o ruota, via `exportPng`) e lo passa a `navigator.share` allegandolo

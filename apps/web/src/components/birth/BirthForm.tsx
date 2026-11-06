@@ -12,6 +12,7 @@ import { Button } from '../ui/Button';
 import { Field, Input, Select, Textarea } from '../ui/Field';
 import { SegmentedControl } from '../ui/SegmentedControl';
 import { PlaceField } from './PlaceField';
+import { TagField } from '../TagField';
 import { ChartPreview } from './ChartPreview';
 
 export interface BirthFormProps {
@@ -20,6 +21,8 @@ export interface BirthFormProps {
   /** Chiamata con valori già validati. */
   onSubmit(values: BirthFormValues): void | Promise<void>;
   onCancel?(): void;
+  /** Etichette già in uso sugli altri chart, proposte come scorciatoie. */
+  tagSuggestions?: string[];
 }
 
 export function emptyBirthForm(relation: Relation = 'me'): BirthFormValues {
@@ -31,11 +34,18 @@ export function emptyBirthForm(relation: Relation = 'me'): BirthFormValues {
     timeAccuracy: 'exact',
     place: null,
     notes: '',
+    tags: [],
   };
 }
 
 /** Form di nascita con validazione chiara e anteprima live del chart. */
-export function BirthForm({ initial, submitLabel, onSubmit, onCancel }: BirthFormProps) {
+export function BirthForm({
+  initial,
+  submitLabel,
+  onSubmit,
+  onCancel,
+  tagSuggestions = [],
+}: BirthFormProps) {
   const { t } = useTranslation('people');
   const [values, setValues] = useState<BirthFormValues>(initial);
   const [submitted, setSubmitted] = useState(false);
@@ -157,6 +167,12 @@ export function BirthForm({ initial, submitLabel, onSubmit, onCancel }: BirthFor
           }}
           error={errorFor('place')}
           date={values.date}
+        />
+
+        <TagField
+          value={values.tags}
+          onChange={(tags) => set('tags', tags)}
+          suggestions={tagSuggestions}
         />
 
         <Field label={t('form.notes')} hint={t('form.notesHint')} error={errorFor('notes')}>

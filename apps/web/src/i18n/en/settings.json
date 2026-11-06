@@ -36,10 +36,10 @@
   "data": {
     "title": "Your data",
     "label": "Delete all data",
-    "description": "Removes all saved charts and settings from this device. Before you proceed you can export a backup from the People page.",
+    "description": "Removes all saved charts, labels, journal notes and settings from this device. Before you proceed you can export a backup from the People page.",
     "delete": "Delete everything",
     "confirmTitle": "Delete all data?",
-    "confirmDescription": "All saved charts and settings will be permanently removed. This cannot be undone.",
+    "confirmDescription": "All saved charts, labels, journal notes and settings will be permanently removed. This cannot be undone.",
     "confirm": "Yes, delete everything",
     "wiped": "All data has been deleted.",
     "wipeError": "The data could not be deleted."

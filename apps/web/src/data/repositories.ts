@@ -7,6 +7,8 @@ import {
   RELATIONS,
   type ChartRepository,
   type GroupRepository,
+  type JournalEntry,
+  type JournalRepository,
   type Settings,
   type SettingsRepository,
 } from './types';
@@ -21,8 +23,38 @@ export function createChartRepository(db: HdDatabase = defaultDb): ChartReposito
     async save(chart) {
       await db.charts.put(chart);
     },
+    /** Elimina il chart e, nella stessa transazione, le sue note del diario. */
     async remove(id) {
-      await db.charts.delete(id);
+      await db.transaction('rw', db.charts, db.notes, async () => {
+        await db.charts.delete(id);
+        await db.notes.where('chartId').equals(id).delete();
+      });
+    },
+  };
+}
+
+/** Dal più recente: per giorno, a parità per creazione. */
+function byRecency(a: JournalEntry, b: JournalEntry): number {
+  return b.date.localeCompare(a.date) || b.createdAt.localeCompare(a.createdAt);
+}
+
+export function createJournalRepository(db: HdDatabase = defaultDb): JournalRepository {
+  return {
+    async listByChart(chartId) {
+      return (await db.notes.where('chartId').equals(chartId).toArray()).sort(byRecency);
+    },
+    async listAll() {
+      return (await db.notes.toArray()).sort(byRecency);
+    },
+    get: (id) => db.notes.get(id),
+    async save(entry) {
+      await db.notes.put(entry);
+    },
+    async remove(id) {
+      await db.notes.delete(id);
+    },
+    async removeByChart(chartId) {
+      await db.notes.where('chartId').equals(chartId).delete();
     },
   };
 }
@@ -91,11 +123,13 @@ export function createSettingsRepository(db: HdDatabase = defaultDb): SettingsRe
 export const chartRepository: ChartRepository = createChartRepository();
 export const groupRepository: GroupRepository = createGroupRepository();
 export const settingsRepository: SettingsRepository = createSettingsRepository();
+export const journalRepository: JournalRepository = createJournalRepository();
 
-/** Cancella tutti i dati locali (chart e impostazioni). */
+/** Cancella tutti i dati locali (chart, note del diario e impostazioni). */
 export async function clearAllData(db: HdDatabase = defaultDb): Promise<void> {
-  await db.transaction('rw', db.charts, db.settings, db.groups, async () => {
+  await db.transaction('rw', [db.charts, db.notes, db.settings, db.groups], async () => {
     await db.charts.clear();
+    await db.notes.clear();
     await db.settings.clear();
     await db.groups.clear();
   });

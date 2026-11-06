@@ -64,14 +64,16 @@ import {
 | `useSettings()`            | `{ settings, ready, update(patch) }` — `Settings = { locale, theme, node, contentLevel, primaryChartId? }` |
 | `useCharts()`              | `{ charts: SavedChart[], loading }` (reattivo, ordinati per creazione)                                     |
 | `useSavedChart(id)`        | `{ chart: SavedChart \| undefined, loading }`                                                              |
+| `useJournal(chartId)`      | `{ entries: JournalEntry[], loading }` — note del diario di un chart (dalla più recente)                   |
 | `usePrimaryChart()`        | `{ chart, loading }` — "il mio chart"                                                                      |
 | `useChart(saved)`          | `{ chart: Chart \| null, error }` — calcolato con il motore e `settings.node`, memoizzato per valore       |
 | `useChartFromBirth(birth)` | come sopra, da un `BirthInput`                                                                             |
 | `useEngine()`              | `Engine` → `computeTransit`, `overlay`, `composite`, `timeSensitivity`, …                                  |
 
-`SavedChart = { id, name, relation, birth: BirthInput, notes?, createdAt, updatedAt, schemaVersion: 1 }`.
-Per scrivere usa `src/data/actions.ts` (`saveChartDraft`, `deleteChart`, `setPrimaryChart`) o i repository
-(`chartRepository`, `settingsRepository` in `data/repositories.ts`, interfacce in `data/types.ts`).
+`SavedChart = { id, name, relation, birth: BirthInput, notes?, tags?, createdAt, updatedAt, schemaVersion: 1 }`.
+Per scrivere usa `src/data/actions.ts` (`saveChartDraft`, `deleteChart` — elimina anche le note del diario —,
+`setPrimaryChart`, `saveJournalEntry`, `deleteJournalEntry`) o i repository
+(`chartRepository`, `settingsRepository`, `journalRepository` in `data/repositories.ts`, interfacce in `data/types.ts`).
 Il chart **non** si salva: si ricalcola sempre.
 
 ### i18n e contenuti

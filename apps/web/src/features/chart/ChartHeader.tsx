@@ -5,7 +5,7 @@ import { ShareButton } from '../../components/ShareButton';
 import type { SharePayload } from '../../lib/share';
 import { Badge } from '../../components/ui/Badge';
 import { Button, LinkButton } from '../../components/ui/Button';
-import { EditIcon, MapPinIcon, StarIcon } from '../../components/icons';
+import { EditIcon, MapPinIcon, NotebookIcon, StarIcon } from '../../components/icons';
 import type { SavedChart } from '../../data/types';
 import { useLocale } from '../../i18n/useContent';
 import { formatBirthDate, formatBirthTime } from '../../lib/format';
@@ -50,6 +50,9 @@ export function ChartHeader({
       <div className="min-w-0">
         <div className="mb-2 flex flex-wrap items-center gap-2">
           <Badge tone="violet">{tp(`relation.${saved.relation}`)}</Badge>
+          {saved.tags?.map((tag) => (
+            <Badge key={tag}>{tag}</Badge>
+          ))}
           {isPrimary && (
             <Badge tone="accent">
               <StarIcon size={12} className="fill-current" />
@@ -95,6 +98,14 @@ export function ChartHeader({
           icon={<EditIcon size={16} />}
         >
           {t('actions.edit')}
+        </LinkButton>
+        <LinkButton
+          to={`/chart/${saved.id}/diario`}
+          variant="secondary"
+          size="sm"
+          icon={<NotebookIcon size={16} />}
+        >
+          {t('actions.diary')}
         </LinkButton>
         {!isPrimary && (
           <Button

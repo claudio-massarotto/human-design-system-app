@@ -15,6 +15,8 @@ export interface BirthFormValues {
   timeAccuracy: TimeAccuracy;
   place: Place | null;
   notes: string;
+  /** Etichette libere (già normalizzate dal campo). */
+  tags: string[];
 }
 
 export type FieldErrorCode =
@@ -90,6 +92,7 @@ export function valuesFromSaved(saved: {
   name: string;
   relation: Relation;
   notes?: string;
+  tags?: string[];
   birth: BirthInput;
 }): BirthFormValues {
   return {
@@ -100,6 +103,7 @@ export function valuesFromSaved(saved: {
     timeAccuracy: saved.birth.timeAccuracy,
     place: saved.birth.place,
     notes: saved.notes ?? '',
+    tags: saved.tags ?? [],
   };
 }
 

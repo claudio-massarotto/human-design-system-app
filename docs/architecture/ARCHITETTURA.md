@@ -157,7 +157,7 @@ BirthInput ─► toUtc (Luxon) ─► JD(UT)
 | `/connessione` | Connessione tra due chart salvati (bodygraph composito o ruota a due orbite) |
 | `/persone` | Chart salvati: ricerca e filtro per relazione, aggiungi, modifica, elimina, importa/esporta JSON |
 | `/enciclopedia` (+ `/porte/:n`, `/canali/:id`, `/centri/:id`, `/tipi/:id`, `/profili/:id`, `/croci`) | Enciclopedia |
-| `/impostazioni` | Lingua, tema, nodo vero/medio, cancellazione dati, licenza e sorgente, disclaimer |
+| `/impostazioni` | Lingua, tema, nodo vero/medio, notifiche dei transiti, cancellazione dati, licenza e sorgente, disclaimer |
 
 Gli URL sono relativi al `base` di Vite (`BASE_PATH`): `/` in locale, `/human-design-system-app/` su GitHub Pages,
 dove l'app è pubblicata dalla CI (job `deploy`). Con `apps/server` (fase 2) servirà un hosting con runtime server.
@@ -165,6 +165,19 @@ dove l'app è pubblicata dalla CI (job `deploy`). Con `apps/server` (fase 2) ser
 Navigazione: laterale su desktop con tutte le sezioni (Il mio chart, Oggi, Persone, Connessione,
 Enciclopedia, Impostazioni); barra inferiore su mobile con Il mio chart, Oggi, Persone e Altro, che apre un
 pannello con Connessione, Enciclopedia e Impostazioni.
+
+### 8.1 Notifiche dei transiti (locali)
+
+Senza server e senza Web Push: `features/notifications` pianifica con la timeline di `features/today`
+(48 ore, canali che il transito completa col chart principale e cambi di porta dei pianeti scelti) e mostra
+gli avvisi con `ServiceWorkerRegistration.showNotification` (ripiego `new Notification`) **solo finché l'app
+o la PWA è aperta**, anche in una scheda in background. `TransitNotifier` (montato in `App`) ripianifica al
+cambio di chart principale, nodo e impostazioni, al ritorno in primo piano e ogni 6 ore; gli avvisi già
+consegnati si ricordano in `localStorage` (`hd:notified`). Il permesso si chiede solo dal pannello in
+Impostazioni; permesso negato o API assente sono spiegati in UI. Ad app chiusa non arriva nulla (servirà
+`apps/server`, fase 2); su iOS servono la PWA installata e iOS 16.4+.
+Preferenze in `Settings.notifications` (`enabled`, `channels`, `gates`, `bodies`, `lead: start | 10min`):
+nessuna migrazione Dexie, la riga `settings` resta unica e `sanitizeSettings` dà i predefiniti alle righe vecchie.
 
 ## 9. Design system
 

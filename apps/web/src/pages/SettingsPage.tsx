@@ -15,6 +15,7 @@ import { GithubIcon, MonitorIcon, MoonIcon, SunIcon, TrashIcon } from '../compon
 import { clearAllData } from '../data/repositories';
 import { useSettings } from '../data/hooks';
 import type { ContentLevel, ThemeSetting } from '../data/types';
+import { NotificationSettingsPanel } from '../features/notifications/NotificationSettings';
 import { useContent } from '../i18n/useContent';
 import { usePageTitle } from '../lib/usePageTitle';
 import { THEME_STORAGE_KEY } from '../lib/theme';
@@ -143,6 +144,10 @@ export function Component() {
               ]}
             />
           </Row>
+        </Section>
+
+        <Section title={t('notifications.title')}>
+          <NotificationSettingsPanel />
         </Section>
 
         <Section title={t('data.title')}>

@@ -69,7 +69,7 @@ describe('migrazione Dexie v1 → v2', () => {
       primaryChartId: 'vecchio',
     });
     expect(await createJournalRepository(db).listAll()).toEqual([]);
-    expect(db.tables.map((t) => t.name).sort()).toEqual(['charts', 'notes', 'settings']);
+    expect(db.tables.map((t) => t.name).sort()).toEqual(['charts', 'groups', 'notes', 'settings']);
   });
 
   it("dopo la migrazione l'indice delle etichette funziona e i chart v1 restano senza", async () => {

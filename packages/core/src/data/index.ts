@@ -4,4 +4,5 @@ export * from './centers';
 export * from './channels';
 export * from './quarters';
 export * from './bodies';
+export * from './penta';
 export * from './crosses';

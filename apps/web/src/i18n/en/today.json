@@ -137,5 +137,37 @@
       "centerOn": "The {{name}} center becomes defined",
       "centerOff": "The {{name}} center opens again"
     }
+  },
+  "scrub": {
+    "label": "Move through time",
+    "step": "Scrub step",
+    "slider": "Move through time",
+    "steps": {
+      "hour": "Hour",
+      "day": "Day",
+      "week": "Week",
+      "month": "Month"
+    },
+    "back": {
+      "hour": "Back one hour",
+      "day": "Back one day",
+      "week": "Back one week",
+      "month": "Back one month"
+    },
+    "forward": {
+      "hour": "Forward one hour",
+      "day": "Forward one day",
+      "week": "Forward one week",
+      "month": "Forward one month"
+    },
+    "play": "Start playback",
+    "pause": "Stop playback",
+    "reducedMotion": "Playback unavailable: you asked to reduce motion"
+
+  },
+  "share": {
+    "title": "Transits for {{date}}",
+    "text": "Transits for {{date}}: the Sun lights up “{{sun}}”, the Moon brings “{{moon}}” forward.",
+    "file": "transits"
   }
 }

@@ -16,10 +16,12 @@ const PAGES_WITH_DATA = [
   { path: '/oggi', ready: { name: 'Le 13 attivazioni' } },
   { path: '/connessione', ready: { name: 'Tema di connessione' } },
   { path: '/persone', ready: { name: 'Ra Uru Hu', level: 2 } },
+  { path: '/gruppi', ready: { name: 'Gruppi', level: 1 } },
   { path: '/nuovo', ready: { name: 'Aggiungi una persona', level: 1 } },
   { path: '/persone/{id}/modifica', ready: { name: /^Modifica Ra Uru Hu$/, level: 1 } },
   { path: '/chart/{id}', ready: { name: 'Ra Uru Hu', level: 1 } },
   { path: '/chart/{id}/stampa', ready: { name: 'Ra Uru Hu', level: 1 } },
+  { path: '/chart/{id}/diario', ready: { name: 'Diario di Ra Uru Hu', level: 1 } },
   { path: '/enciclopedia', ready: { name: 'Enciclopedia', level: 1 } },
   { path: '/enciclopedia/porte', ready: { name: 'Porte', level: 1 } },
   { path: '/enciclopedia/porte/1', ready: { name: 'Espressione di sé', level: 1 } },
@@ -29,6 +31,8 @@ const PAGES_WITH_DATA = [
   { path: '/enciclopedia/glossario', ready: { name: 'Glossario', level: 1 } },
   { path: '/enciclopedia/variabili', ready: { name: 'Variabili', level: 1 } },
   { path: '/enciclopedia/tipi', ready: { name: 'Tipi', level: 1 } },
+  { path: '/enciclopedia/percorsi', ready: { name: 'Percorsi di apprendimento', level: 1 } },
+  { path: '/enciclopedia/percorsi/basi/tipi', ready: { name: 'I cinque tipi', level: 1 } },
   { path: '/impostazioni', ready: { name: 'Impostazioni', level: 1 } },
   { path: '/pagina-che-non-esiste', ready: { name: 'Pagina non trovata' } },
 ] as const;
@@ -204,7 +208,7 @@ test.describe('qualità trasversale: accessibilità (axe)', () => {
         .click();
       await expect(page.locator('html')).toHaveAttribute('data-theme', theme);
       const report: Record<string, string[]> = {};
-      for (const p of [PAGES_WITH_DATA[5], PAGES_WITH_DATA[0]]) {
+      for (const p of PAGES_WITH_DATA.filter((x) => x.path === '/chart/{id}' || x.path === '/oggi')) {
         const path = p.path.replace('{id}', id);
         await page.goto(path);
         await page.getByRole('radio', { name: 'Ruota' }).click();

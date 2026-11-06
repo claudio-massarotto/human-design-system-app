@@ -13,15 +13,21 @@ import { toast } from '../../components/ui/Toast';
 import { InfoIcon, PeopleIcon, WarningIcon } from '../../components/icons';
 import { setPrimaryChart } from '../../data/actions';
 import { useSettings } from '../../data/hooks';
+import { useEngine } from '../../lib/engine';
 import type { SavedChart } from '../../data/types';
 import { useContent } from '../../i18n/useContent';
+import { downloadBlob } from '../../lib/download';
+import type { SharePayload } from '../../lib/share';
+import { appUrl } from '../../components/ShareButton';
 import { usePageTitle } from '../../lib/usePageTitle';
 import { BodygraphHero } from './BodygraphHero';
 import type { ChartSide } from './sides';
 import { ChartHeader } from './ChartHeader';
 import { DetailSheet } from './DetailSheet';
+import { NextHoursCard } from './NextHoursCard';
 import { SummaryCards } from './SummaryCards';
 import { TimeAccuracy } from './TimeAccuracy';
+import { PlanetaryReturns } from './PlanetaryReturns';
 import { useLoadedChart } from './hooks';
 import { safeFileName, type DetailTarget } from './lib';
 import { ActivationsTab } from './tabs/ActivationsTab';
@@ -33,17 +39,6 @@ import { VariablesTab } from './tabs/VariablesTab';
 
 const TAB_KEYS = ['activations', 'centers', 'channels', 'sides', 'variables', 'cross'] as const;
 type TabKey = (typeof TAB_KEYS)[number];
-
-function downloadBlob(blob: Blob, filename: string): void {
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
 
 function selectionOf(detail: DetailTarget | null): Selection | null {
   if (!detail) return null;
@@ -57,6 +52,7 @@ function ChartView({ saved, chart }: { saved: SavedChart; chart: Chart }) {
   const { t } = useTranslation('chart');
   const content = useContent();
   const { settings } = useSettings();
+  const engine = useEngine();
   const boxRef = useRef<HTMLDivElement>(null);
   const [detail, setDetail] = useState<DetailTarget | null>(null);
   const [tab, setTab] = useState<TabKey>('activations');
@@ -82,6 +78,20 @@ function ChartView({ saved, chart }: { saved: SavedChart; chart: Chart }) {
     }
   }
 
+  async function buildShare(): Promise<SharePayload | null> {
+    const svg = boxRef.current?.querySelector('svg');
+    if (!svg) return null;
+    const blob = await exportPng(svg as SVGSVGElement, 2);
+    const name = `${safeFileName(saved.name)}-${view}${side === 'both' ? '' : `-${side}`}.png`;
+    const type = content.types[chart.type]?.name ?? '';
+    return {
+      title: saved.name,
+      text: t('share.text', { name: saved.name, type, profile: chart.profile.id }),
+      url: appUrl(),
+      file: new File([blob], name, { type: 'image/png' }),
+    };
+  }
+
   async function onSetPrimary() {
     try {
       await setPrimaryChart(saved.id);
@@ -100,6 +110,7 @@ function ChartView({ saved, chart }: { saved: SavedChart; chart: Chart }) {
         exporting={exporting}
         onSetPrimary={onSetPrimary}
         onExport={onExport}
+        buildShare={buildShare}
       />
 
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-start lg:gap-12">
@@ -116,9 +127,12 @@ function ChartView({ saved, chart }: { saved: SavedChart; chart: Chart }) {
         />
         <div className="flex flex-col gap-5">
           <SummaryCards chart={chart} onOpen={setDetail} />
+          <NextHoursCard chart={chart} />
           <TimeAccuracy chart={chart} birth={saved.birth} />
         </div>
       </div>
+
+      <PlanetaryReturns chart={chart} engine={engine} chartId={saved.id} />
 
       <motion.section
         initial={{ opacity: 0, y: 12 }}

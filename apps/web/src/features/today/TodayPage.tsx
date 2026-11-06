@@ -1,9 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useDeferredValue, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'motion/react';
 import {
   Bodygraph,
   Wheel,
+  exportPng,
   modelFromGates,
   modelFromOverlay,
   wheelFromOverlay,
@@ -11,13 +12,15 @@ import {
 } from '@hd/bodygraph';
 import { ChevronRightIcon, PlusIcon, SparkleIcon } from '../../components/icons';
 import { ChartPicker } from '../../components/ChartPicker';
+import { ShareButton, appUrl } from '../../components/ShareButton';
+import type { SharePayload } from '../../lib/share';
 import { ChartViewToggle, useChartView } from '../../components/ChartViewToggle';
 import { Button, LinkButton } from '../../components/ui/Button';
 import { Field, Input } from '../../components/ui/Field';
 import { PageHeader } from '../../components/ui/PageHeader';
 import { Spinner } from '../../components/ui/Spinner';
 import { useChart, useCharts, useSettings } from '../../data/hooks';
-import { useLocale } from '../../i18n/useContent';
+import { useContent, useLocale } from '../../i18n/useContent';
 import { useEngine } from '../../lib/engine';
 import { usePageTitle } from '../../lib/usePageTitle';
 import { useWheelLabels } from '../../lib/useWheelLabels';
@@ -28,6 +31,7 @@ import { BodygraphLegend, useBodygraphLabels, type LegendItem } from './parts';
 import { SkyHighlights } from './SkyHighlights';
 import { SunCalendarList } from './SunCalendarList';
 import { nextSunIngresses } from './sunCalendar';
+import { TimeScrubber } from './TimeScrubber';
 import { TransitTable } from './TransitTable';
 import { TransitTimeline } from './TransitTimeline';
 import { addDays, fromInputValue, nowRounded, toInputValue } from './transitInsights';
@@ -41,6 +45,7 @@ export function TodayPage() {
   const { settings } = useSettings();
   const { charts, loading } = useCharts();
   const sheet = useDetailSheet();
+  const content = useContent();
 
   const [chosenId, setChosenId] = useState<string | undefined>();
   const [at, setAt] = useState<Date>(() => nowRounded());
@@ -73,9 +78,11 @@ export function TodayPage() {
   );
   const [view, setView] = useChartView();
   const wheelNames = useWheelLabels();
+  // Le parti pesanti (timeline di 24 ore, calendario del Sole) seguono con priorità bassa mentre si scorre.
+  const slowAt = useDeferredValue(at);
   const ingresses = useMemo(
-    () => nextSunIngresses((d) => engine.computeTransit(d, { node }), at, 4),
-    [engine, at, node],
+    () => nextSunIngresses((d) => engine.computeTransit(d, { node }), slowAt, 4),
+    [engine, slowAt, node],
   );
   const timeline = useMemo(() => {
     const analyze: AnalyzeFn = chart
@@ -84,8 +91,8 @@ export function TodayPage() {
           return { channels: o.newChannels, centers: o.centersDefinedByTransit };
         }
       : skyState;
-    return transitTimeline((d) => engine.computeTransit(d, { node }), analyze, at);
-  }, [engine, at, node, chart]);
+    return transitTimeline((d) => engine.computeTransit(d, { node }), analyze, slowAt);
+  }, [engine, slowAt, node, chart]);
 
   const { labels, centerLabels } = useBodygraphLabels();
   const legend: LegendItem[] = chart
@@ -99,6 +106,22 @@ export function TodayPage() {
       ]
     : [{ key: 't', label: t('legend.transit'), swatch: 'transit' }];
 
+  const boxRef = useRef<HTMLDivElement>(null);
+  const buildShare = async (): Promise<SharePayload | null> => {
+    const svg = boxRef.current?.querySelector('svg');
+    if (!svg) return null;
+    const blob = await exportPng(svg as SVGSVGElement, 2);
+    const day = toInputValue(at).slice(0, 10);
+    const sun = content.gates[transit.activations.sun.gate]?.name ?? '';
+    const moon = content.gates[transit.activations.moon.gate]?.name ?? '';
+    return {
+      title: t('share.title', { date: formatDay(at, locale) }),
+      text: t('share.text', { date: formatDay(at, locale), sun, moon }),
+      url: appUrl(),
+      file: new File([blob], `${t('share.file')}-${day}-${view}.png`, { type: 'image/png' }),
+    };
+  };
+
   const isNow = Math.abs(at.getTime() - Date.now()) < 60_000;
 
   return (
@@ -107,6 +130,7 @@ export function TodayPage() {
         eyebrow={formatDay(at, locale)}
         title={t('title')}
         subtitle={chart && saved ? t('subtitle', { name: saved.name }) : t('subtitleWeather')}
+        actions={<ShareButton build={buildShare} />}
       />
 
       {/* Chart e istante */}
@@ -173,7 +197,10 @@ export function TodayPage() {
           transition={{ duration: 0.4, ease: [0.2, 0.8, 0.2, 1] }}
           className="xl:sticky xl:top-8"
         >
-          <div className="mx-auto max-w-[400px] rounded-card border border-border bg-surface p-3 shadow-card sm:p-4">
+          <div
+            ref={boxRef}
+            className="mx-auto max-w-[400px] rounded-card border border-border bg-surface p-3 shadow-card sm:p-4"
+          >
             <div className="mb-3 flex justify-center">
               <ChartViewToggle value={view} onChange={setView} />
             </div>
@@ -196,6 +223,7 @@ export function TodayPage() {
                 onSelect={(s) => s && sheet.show(selectionToTarget(s))}
               />
             )}
+            <TimeScrubber at={at} onChange={setAt} />
             <BodygraphLegend
               items={legend}
               label={t('legend.label')}
@@ -225,7 +253,7 @@ export function TodayPage() {
 
           <TransitTimeline timeline={timeline} withChart={!!chart} onOpen={sheet.show} />
           <TransitTable transit={transit} onOpen={sheet.show} />
-          <SunCalendarList ingresses={ingresses} from={at} onOpen={sheet.show} />
+          <SunCalendarList ingresses={ingresses} from={slowAt} onOpen={sheet.show} />
 
           <p className="text-[12px] leading-snug text-muted">{t('footnote')}</p>
         </div>

@@ -6,6 +6,7 @@ import type { Locale } from '@hd/content';
 import pkg from '../../package.json';
 import { Button } from '../components/ui/Button';
 import { CHART_VIEW_STORAGE_KEY } from '../components/ChartViewToggle';
+import { PATHS_STORAGE_KEY } from '../features/encyclopedia/learning';
 import { Card } from '../components/ui/Card';
 import { ConfirmDialog } from '../components/ui/Dialog';
 import { PageHeader } from '../components/ui/PageHeader';
@@ -15,6 +16,7 @@ import { GithubIcon, MonitorIcon, MoonIcon, SunIcon, TrashIcon } from '../compon
 import { clearAllData } from '../data/repositories';
 import { useSettings } from '../data/hooks';
 import type { ContentLevel, ThemeSetting } from '../data/types';
+import { NotificationSettingsPanel } from '../features/notifications/NotificationSettings';
 import { useContent } from '../i18n/useContent';
 import { usePageTitle } from '../lib/usePageTitle';
 import { THEME_STORAGE_KEY } from '../lib/theme';
@@ -72,6 +74,7 @@ export function Component() {
         localStorage.removeItem(THEME_STORAGE_KEY);
         localStorage.removeItem('hd:locale');
         localStorage.removeItem(CHART_VIEW_STORAGE_KEY);
+        localStorage.removeItem(PATHS_STORAGE_KEY);
       } catch {
         /* ignora */
       }
@@ -143,6 +146,10 @@ export function Component() {
               ]}
             />
           </Row>
+        </Section>
+
+        <Section title={t('notifications.title')}>
+          <NotificationSettingsPanel />
         </Section>
 
         <Section title={t('data.title')}>

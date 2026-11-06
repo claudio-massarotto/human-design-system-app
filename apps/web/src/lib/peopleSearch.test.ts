@@ -5,7 +5,11 @@ import { MILANO, ROMA, getTestEngine, savedChart } from '../features/today/testU
 import { matchesQuery, norm } from './peopleSearch';
 
 const content = getContent('it');
-const anna = { ...savedChart('a', 'Anna Rossi', ROMA, 1), notes: 'collega di studio' };
+const anna = {
+  ...savedChart('a', 'Anna Rossi', ROMA, 1),
+  notes: 'collega di studio',
+  tags: ['Clienti', 'Studio legale'],
+};
 const marco = savedChart('b', 'Marco', MILANO, 2);
 let chartA: Chart;
 let chartB: Chart;
@@ -34,6 +38,14 @@ describe('matchesQuery', () => {
     expect(match('studio')).toBe(true);
     expect(match('anna', 'b')).toBe(false);
     expect(norm('Plèxus Solàre')).toBe('plexus solare');
+  });
+
+  it('trova anche le etichette, senza badare a maiuscole e accenti', () => {
+    expect(match('clienti')).toBe(true);
+    expect(match('CLIÈNTI')).toBe(true);
+    expect(match('legale')).toBe(true);
+    expect(match('clienti studio')).toBe(true);
+    expect(match('clienti', 'b')).toBe(false);
   });
 
   it('tipo e profilo del chart calcolato', () => {

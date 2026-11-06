@@ -1,5 +1,30 @@
 {
   "title": "Chart",
+  "returns": {
+    "title": "Ritorni planetari",
+    "intro": "Qui trovi i passaggi esatti di Saturno e l’opposizione di Urano, calcolati sulla longitudine natale della Personalità. I passaggi retrogradi sono mostrati singolarmente.",
+    "interpretation": "Una soglia ciclica può offrire un momento per osservare come cambiano priorità e prospettiva.",
+    "groupCore": "Saturno e Urano",
+    "past": "già avvenuto",
+    "future": "futuro",
+    "openChart": "Apri il chart",
+    "chironLoad": "Calcola il ritorno di Chirone",
+    "chironHide": "Nascondi Chirone",
+    "chironLoading": "Caricamento delle effemeridi di Chirone…",
+    "chironError": "Non è stato possibile caricare i dati di Chirone. Saturno e Urano restano disponibili; riprova quando sei online.",
+    "eyebrow": "{{planet}}",
+    "chartTitle": "Chart di ritorno · {{name}}",
+    "chartSummary": "Sintesi del momento",
+    "chartNote": "Questo chart descrive le attivazioni calcolate all’istante indicato; il chart natale resta il riferimento personale.",
+    "invalidDate": "Data del ritorno non valida",
+    "invalidDateHelp": "Apri il chart natale e seleziona un ritorno dall’elenco.",
+    "back": "Torna al chart natale",
+    "planets": {
+      "saturn": "Ritorno di Saturno",
+      "uranus": "Opposizione di Urano",
+      "chiron": "Ritorno di Chirone"
+    }
+  },
   "tabs": {
     "label": "Dettagli del chart",
     "activations": "Attivazioni",
@@ -38,7 +63,8 @@
     "edit": "Modifica",
     "setPrimary": "Imposta come il mio chart",
     "exportPng": "Esporta PNG",
-    "print": "Stampa / PDF"
+    "print": "Stampa / PDF",
+    "diary": "Diario"
   },
   "toast": {
     "exported": "Immagine salvata: {{file}}",
@@ -251,5 +277,19 @@
     "noBridges": "Nessuno: ogni canale del chart è già completo dentro uno dei due lati.",
     "gateFrom": "Porta {{gate}} · {{side}}",
     "bridgeCenters": "Centri definiti solo grazie all'unione dei due lati: {{centers}}."
+  },
+  "nextHours": {
+    "title": "Prossime 24 ore",
+    "hint": "Cosa cambia nel cielo da adesso e quali canali il transito accende insieme al tuo chart.",
+    "loading": "Calcolo del transito…",
+    "empty": "Nelle prossime 24 ore nessun cambio di porta né canali nuovi con il tuo chart.",
+    "ingress": "{{planet}} entra nella porta {{gate}} · {{name}}",
+    "channelOn": "Si forma con te il canale {{id}} · {{name}}",
+    "more": "e altri {{count}} cambi",
+    "open": "Apri Oggi"
+
+  },
+  "share": {
+    "text": "{{name}} — {{type}}, profilo {{profile}}. Calcolato con Human Design System."
   }
 }

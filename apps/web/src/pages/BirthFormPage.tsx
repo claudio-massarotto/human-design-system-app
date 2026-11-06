@@ -9,6 +9,7 @@ import { Spinner } from '../components/ui/Spinner';
 import { saveChartDraft } from '../data/actions';
 import { useCharts, useSavedChart } from '../data/hooks';
 import { isRelation } from '../data/repositories';
+import { collectTags } from '../data/tags';
 import { validateBirthForm, valuesFromSaved, type BirthFormValues } from '../lib/birthForm';
 import { usePageTitle } from '../lib/usePageTitle';
 import { WarningIcon } from '../components/icons';
@@ -35,6 +36,7 @@ function NewPerson() {
       initial={emptyBirthForm(relation)}
       submitLabel={t('new.submit')}
       cancelTo={charts.length === 0 ? '/' : '/persone'}
+      tagSuggestions={collectTags(charts)}
     />
   );
 }
@@ -42,6 +44,7 @@ function NewPerson() {
 function EditPerson({ id }: { id: string }) {
   const { t } = useTranslation('people');
   const { chart, loading } = useSavedChart(id);
+  const { charts } = useCharts();
   usePageTitle(t('edit.title'));
   if (loading) return <Spinner className="mx-auto mt-24" />;
   if (!chart) {
@@ -62,6 +65,7 @@ function EditPerson({ id }: { id: string }) {
       submitLabel={t('edit.submit')}
       editId={chart.id}
       cancelTo="/persone"
+      tagSuggestions={collectTags(charts)}
     />
   );
 }
@@ -73,6 +77,7 @@ function FormScreen({
   submitLabel,
   editId,
   cancelTo,
+  tagSuggestions,
 }: {
   title: string;
   subtitle: string;
@@ -80,6 +85,7 @@ function FormScreen({
   submitLabel: string;
   editId?: string;
   cancelTo: string;
+  tagSuggestions: string[];
 }) {
   const { t } = useTranslation('people');
   const navigate = useNavigate();
@@ -94,6 +100,7 @@ function FormScreen({
           relation: values.relation,
           birth: result.birth,
           notes: values.notes,
+          tags: values.tags,
         },
         editId,
       );
@@ -112,6 +119,7 @@ function FormScreen({
         submitLabel={submitLabel}
         onSubmit={onSubmit}
         onCancel={() => navigate(cancelTo)}
+        tagSuggestions={tagSuggestions}
       />
     </div>
   );

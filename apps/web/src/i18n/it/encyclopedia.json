@@ -217,5 +217,38 @@
       "right": "Destra"
     },
     "tones": "I sei toni"
+  },
+  "paths": {
+    "title": "Percorsi di apprendimento",
+    "eyebrow": "Impara passo per passo",
+    "subtitle": "Lezioni brevi e guidate, con collegamenti alle voci dell'enciclopedia e una domanda per verificare. Il progresso resta su questo dispositivo.",
+    "entryBlurb": "Lezioni guidate per imparare un argomento alla volta, dalle basi ai circuiti.",
+    "lessonsCount_one": "{{count}} lezione",
+    "lessonsCount_other": "{{count}} lezioni",
+    "progress": "{{done}} di {{total}} completate",
+    "progressLabel": "Avanzamento: {{title}}",
+    "completed": "Completato",
+    "start": "Inizia",
+    "continue": "Continua",
+    "review": "Rivedi",
+    "reset": "Azzera il progresso",
+    "lessonDone": "Lezione completata",
+    "lessonOf": "Lezione {{n}} di {{total}}",
+    "lessonNav": "Lezioni del percorso",
+    "overview": "Panoramica",
+    "finish": "Concludi il percorso",
+    "explore": "Approfondisci nell'enciclopedia",
+    "backToList": "Torna ai percorsi",
+    "mine": {
+      "title": "Nel tuo chart",
+      "none": "Nessuno nel tuo chart."
+    },
+    "quiz": {
+      "title": "Verifica",
+      "check": "Verifica",
+      "right": "Giusto!",
+      "wrong": "Non proprio.",
+      "tryAgain": "Rileggi la lezione e riprova con un'altra risposta."
+    }
   }
 }

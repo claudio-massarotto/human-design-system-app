@@ -2,6 +2,7 @@ import { test, expect, resetApp, nav } from './helpers';
 
 const MORE = [
   { name: 'Connessione', path: '/connessione' },
+  { name: 'Gruppi', path: '/gruppi' },
   { name: 'Enciclopedia', path: '/enciclopedia' },
   { name: 'Impostazioni', path: '/impostazioni' },
 ] as const;
@@ -22,6 +23,7 @@ test.describe('navigazione principale', () => {
       'Oggi',
       'Persone',
       'Connessione',
+      'Gruppi',
       'Enciclopedia',
       'Impostazioni',
     ]);
@@ -35,7 +37,7 @@ test.describe('navigazione principale', () => {
     await expect(nav(page).getByRole('link', { name: 'Oggi' })).not.toHaveAttribute('aria-current');
   });
 
-  test('mobile: tre sezioni fisse e "Altro" con Connessione, Enciclopedia, Impostazioni', async ({
+  test('mobile: tre sezioni fisse e "Altro" con Connessione, Gruppi, Enciclopedia, Impostazioni', async ({
     page,
   }, info) => {
     test.skip(info.project.name !== 'mobile', 'solo mobile');
@@ -47,7 +49,7 @@ test.describe('navigazione principale', () => {
     for (const item of MORE) {
       await more.click();
       const sheet = page.getByRole('dialog', { name: 'Altre sezioni' });
-      await expect(sheet.getByRole('link')).toHaveCount(3);
+      await expect(sheet.getByRole('link')).toHaveCount(4);
       await sheet.getByRole('link', { name: new RegExp(`^${item.name}`) }).click();
       await expect(page).toHaveURL(new RegExp(`${item.path}$`));
       await expect(sheet).toBeHidden();

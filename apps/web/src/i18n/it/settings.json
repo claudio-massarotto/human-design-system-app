@@ -1,7 +1,9 @@
 {
   "title": "Impostazioni",
   "subtitle": "Personalizza l'app. Le scelte sono salvate sul tuo dispositivo.",
-  "appearance": { "title": "Aspetto" },
+  "appearance": {
+    "title": "Aspetto"
+  },
   "language": {
     "label": "Lingua",
     "description": "Lingua dell'interfaccia e dei testi interpretativi."
@@ -13,7 +15,9 @@
     "light": "Chiaro",
     "dark": "Scuro"
   },
-  "calculation": { "title": "Calcolo e testi" },
+  "calculation": {
+    "title": "Calcolo e testi"
+  },
   "node": {
     "label": "Nodo lunare",
     "description": "Il nodo vero segue la posizione reale dei nodi, il nodo medio ne è la media regolare: differiscono di pochi gradi e possono cambiare una linea. Tutti i chart si ricalcolano subito.",
@@ -32,10 +36,10 @@
   "data": {
     "title": "I tuoi dati",
     "label": "Cancella tutti i dati",
-    "description": "Elimina dal dispositivo tutti i chart salvati e le impostazioni. Prima di procedere puoi esportare un backup dalla pagina Persone.",
+    "description": "Elimina dal dispositivo tutti i chart salvati, le etichette, le note del diario e le impostazioni. Prima di procedere puoi esportare un backup dalla pagina Persone.",
     "delete": "Cancella tutto",
     "confirmTitle": "Cancellare tutti i dati?",
-    "confirmDescription": "Verranno eliminati definitivamente tutti i chart salvati e le impostazioni. L'operazione non si può annullare.",
+    "confirmDescription": "Verranno eliminati definitivamente tutti i chart salvati, le etichette, le note del diario e le impostazioni. L'operazione non si può annullare.",
     "confirm": "Sì, cancella tutto",
     "wiped": "Tutti i dati sono stati cancellati.",
     "wipeError": "Non è stato possibile cancellare i dati."
@@ -49,5 +53,48 @@
     "opensInNewTab": "(si apre in una nuova scheda)",
     "disclaimer": "Avvertenza",
     "privacy": "Privacy: data, ora e chart non lasciano mai il dispositivo. Per cercare una città viene inviato soltanto il nome della città al servizio Open-Meteo, mai la data o l'ora di nascita."
+  },
+  "notifications": {
+    "title": "Notifiche dei transiti",
+    "description": "Un avviso quando il cielo accende qualcosa che ti riguarda. Funziona in locale, senza server.",
+    "enable": {
+      "label": "Notifiche",
+      "description": "Il browser chiederà il permesso solo quando attivi questa opzione.",
+      "on": "Attive",
+      "off": "Disattivate"
+    },
+    "what": {
+      "label": "Di cosa avvisarti",
+      "channels": "Un transito completa un tuo canale",
+      "channelsHint": "Rispetto al chart principale (\"Il mio chart\").",
+      "gates": "Un pianeta cambia porta",
+      "gatesHint": "Scegli quali pianeti seguire."
+    },
+    "bodies": {
+      "label": "Pianeti da seguire",
+      "none": "Scegli almeno un pianeta per ricevere gli avvisi sui cambi di porta."
+    },
+    "lead": {
+      "label": "Quando",
+      "start": "All'inizio",
+      "10min": "10 minuti prima"
+    },
+    "noChart": "Non hai ancora un chart principale: gli avvisi sui canali partiranno quando ne avrai uno.",
+    "status": {
+      "granted": "Permesso concesso.",
+      "denied": "Il permesso è stato negato. Per attivare le notifiche consentile dalle impostazioni del browser o del sistema per questo sito, poi riprova.",
+      "unsupported": "Questo browser non supporta le notifiche web, quindi non è possibile attivarle qui."
+    },
+    "limits": {
+      "title": "Cosa aspettarti",
+      "closed": "Gli avvisi arrivano solo mentre l'app o la PWA è aperta (anche in una scheda in secondo piano). Ad app chiusa non arriva nulla: servirebbe un server, che oggi non c'è.",
+      "ios": "Su iPhone e iPad le notifiche web funzionano solo se aggiungi l'app alla schermata Home e hai iOS 16.4 o successivo.",
+      "iosNow": "Ora stai usando il browser, non la PWA installata: aggiungi l'app alla schermata Home (Condividi → Aggiungi a Home) e aprila da lì per attivare le notifiche."
+    },
+    "toast": {
+      "enabled": "Notifiche attivate.",
+      "disabled": "Notifiche disattivate.",
+      "denied": "Permesso negato: notifiche non attivate."
+    }
   }
 }

@@ -1,9 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { motion } from 'motion/react';
 import type { Chart } from '@hd/core';
+import { ShareButton } from '../../components/ShareButton';
+import type { SharePayload } from '../../lib/share';
 import { Badge } from '../../components/ui/Badge';
 import { Button, LinkButton } from '../../components/ui/Button';
-import { EditIcon, MapPinIcon, StarIcon } from '../../components/icons';
+import { EditIcon, MapPinIcon, NotebookIcon, StarIcon } from '../../components/icons';
 import type { SavedChart } from '../../data/types';
 import { useLocale } from '../../i18n/useContent';
 import { formatBirthDate, formatBirthTime } from '../../lib/format';
@@ -17,10 +19,19 @@ interface Props {
   exporting: boolean;
   onSetPrimary(): void;
   onExport(): void;
+  buildShare(): Promise<SharePayload | null>;
 }
 
 /** Nome, relazione, dati di nascita (con fuso e offset) e azioni del chart. */
-export function ChartHeader({ saved, chart, isPrimary, exporting, onSetPrimary, onExport }: Props) {
+export function ChartHeader({
+  saved,
+  chart,
+  isPrimary,
+  exporting,
+  onSetPrimary,
+  onExport,
+  buildShare,
+}: Props) {
   const { t } = useTranslation('chart');
   const { t: tp } = useTranslation('people');
   const locale = useLocale();
@@ -39,6 +50,9 @@ export function ChartHeader({ saved, chart, isPrimary, exporting, onSetPrimary, 
       <div className="min-w-0">
         <div className="mb-2 flex flex-wrap items-center gap-2">
           <Badge tone="violet">{tp(`relation.${saved.relation}`)}</Badge>
+          {saved.tags?.map((tag) => (
+            <Badge key={tag}>{tag}</Badge>
+          ))}
           {isPrimary && (
             <Badge tone="accent">
               <StarIcon size={12} className="fill-current" />
@@ -85,6 +99,14 @@ export function ChartHeader({ saved, chart, isPrimary, exporting, onSetPrimary, 
         >
           {t('actions.edit')}
         </LinkButton>
+        <LinkButton
+          to={`/chart/${saved.id}/diario`}
+          variant="secondary"
+          size="sm"
+          icon={<NotebookIcon size={16} />}
+        >
+          {t('actions.diary')}
+        </LinkButton>
         {!isPrimary && (
           <Button
             variant="secondary"
@@ -104,6 +126,7 @@ export function ChartHeader({ saved, chart, isPrimary, exporting, onSetPrimary, 
         >
           {t('actions.exportPng')}
         </Button>
+        <ShareButton build={buildShare} />
         <LinkButton
           to={`/chart/${saved.id}/stampa`}
           variant="secondary"

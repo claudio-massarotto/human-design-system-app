@@ -161,6 +161,61 @@ export interface GlossaryEntry {
   definition: string;
 }
 
+/** Sezioni dell'enciclopedia a cui una lezione può rimandare (stessi nomi di SectionKey nell'app). */
+export type LessonLinkSection =
+  | 'types'
+  | 'authorities'
+  | 'profiles'
+  | 'lines'
+  | 'definitions'
+  | 'centers'
+  | 'channels'
+  | 'circuits'
+  | 'gates'
+  | 'quarters';
+
+/** Collegamento a una voce esistente; `id` è l'id della voce (porta '34', canale '20-34', profilo '1/3'…). */
+export interface LessonLink {
+  section: LessonLinkSection;
+  id: string;
+}
+
+/** Domanda di verifica a scelta multipla (una sola risposta giusta). */
+export interface LessonQuiz {
+  question: string;
+  /** 2–4 opzioni. */
+  options: string[];
+  /** Indice (da 0) dell'opzione corretta: uguale in IT ed EN. */
+  correct: number;
+  explanation: string;
+}
+
+/** Dato del chart principale da mostrare come "nel tuo chart". */
+export type LessonMine = 'type' | 'authority' | 'profile' | 'definition' | 'centers' | 'channels';
+
+export interface Lesson {
+  /** Slug nell'URL, unico nel percorso. */
+  id: string;
+  title: string;
+  /** Testo del livello semplice: 2–4 frasi. */
+  text: string;
+  /** Approfondimento (livello approfondito): 1–2 paragrafi separati da '\n\n'. */
+  deep?: string;
+  /** Voci dell'enciclopedia da cui continuare. */
+  links: LessonLink[];
+  quiz?: LessonQuiz;
+  mine?: LessonMine;
+}
+
+export interface LearningPath {
+  /** Slug nell'URL. */
+  id: string;
+  title: string;
+  summary: string;
+  /** 4–8 lezioni. */
+  lessons: Lesson[];
+}
+
 export interface ContentBundle {
   locale: Locale;
   /** Indicizzato per numero di porta 1–64. */
@@ -179,6 +234,8 @@ export interface ContentBundle {
   planets: Record<Body, PlanetContent>;
   variables: VariablesContent;
   glossary: GlossaryEntry[];
+  /** Percorsi di apprendimento guidati, nell'ordine di proposta. */
+  paths: LearningPath[];
   /** Avvertenza mostrata nell'app (natura non scientifica del sistema). */
   disclaimer: string;
 }

@@ -18,6 +18,17 @@ export default defineConfig({
         // Il WASM di Swiss Ephemeris (~1 MB) deve essere disponibile offline.
         globPatterns: ['**/*.{js,css,html,svg,png,woff2,wasm}'],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/cdn\.jsdelivr\.net\/gh\/aloistr\/swisseph\/ephe\/.*\.se1$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'swiss-ephemeris-data',
+              expiration: { maxEntries: 3, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+        ],
       },
       manifest: {
         name: 'Human Design System',

@@ -82,6 +82,7 @@ Dipendenze: `web → bodygraph, content, core`; `bodygraph → core (solo tipi e
 | `transit/` | posizioni a un istante, overlay su un chart |
 | `composite/` | connessione tra due chart |
 | `sensitivity/` | come cambia il chart entro ±N minuti dall'ora di nascita |
+| `returns/` | ricerca deterministica dei contatti esatti di ritorno/opposizione, inclusi i passaggi retrogradi |
 
 ### 5.2 Contratto
 
@@ -94,9 +95,14 @@ engine.computeTransit(at: Date, opts?: ChartOptions): Transit
 engine.overlay(chart: Chart, transit: Transit): Overlay
 engine.composite(a: Chart, b: Chart): Composite
 engine.timeSensitivity(input: BirthInput, rangeMinutes: number): Sensitivity
+findLongitudeReturns(longitudeAt, targetLongitude, from, to): LongitudeReturn[]
 toUtc(input: BirthInput): { utc: Date; offsetMinutes: number; warnings: TimeWarning[] }
 longitudeToActivation(lon: number): ActivationPosition
 ```
+
+`findLongitudeReturns` accetta una funzione longitudine→gradi e un intervallo UTC, restituisce ogni
+passaggio esatto rilevato con bisezione (tolleranza predefinita 500 ms). Il chart dell'istante si
+costruisce con `engine.computeChartFromUtc`. La scansione di un pianeta lento usa passi giornalieri.
 
 ### 5.3 Pipeline
 
@@ -126,7 +132,14 @@ BirthInput ─► toUtc (Luxon) ─► JD(UT)
 - Ogni voce ha `summary` (semplice, 1–2 frasi) e `description` (approfondita); dove pertinente
   `notSelf`, `gifts`, `challenges`, `keywords`.
 - Accesso: `getContent(locale)` → oggetto con `gates`, `lines`, `channels`, `centers`, `types`,
-  `authorities`, `profiles`, `definitions`, `crosses`, `variables`, `circuits`, `glossary`.
+  `authorities`, `profiles`, `definitions`, `crosses`, `variables`, `circuits`, `glossary`, `paths`.
+- **Percorsi di apprendimento** (`paths`, `LearningPath[]`): lezioni guidate (4 percorsi: Le basi, Centri e
+  definizione, Profili e linee, Porte/canali/circuiti; 4–8 lezioni ciascuno). Ogni `Lesson` ha `id` (slug),
+  `title`, `text` (livello semplice), `deep` opzionale (approfondito), `links` a voci esistenti
+  (`{ section, id }`), `quiz` opzionale a scelta multipla (`options`, `correct`, `explanation`) e `mine`
+  opzionale (`type`, `authority`, `profile`, `definition`, `centers`, `channels`) per mostrare "nel tuo chart".
+  Id, collegamenti, indice della risposta giusta e `mine` sono identici in IT ed EN; il test
+  `packages/content/test/paths.test.ts` verifica parità, 4–8 lezioni, link a voci esistenti e quiz validi.
 - Nomi neutri per elementi a marchio ("bodygraph", "ruota").
 
 ## 7. `@hd/bodygraph` — visualizzazione
@@ -149,22 +162,81 @@ BirthInput ─► toUtc (Luxon) ─► JD(UT)
 
 | URL | Schermata |
 |---|---|
-| `/` | Home: se non c'è un chart → onboarding; altrimenti il proprio chart |
+| `/` | Home: se non c'è un chart → onboarding; altrimenti il proprio chart, con la card «Prossime 24 ore» (prossimi cambi di porta e canali accesi, link a `/oggi`) |
 | `/nuovo` | Inserimento dati di nascita (nome, data, ora/approssimata/sconosciuta, città con fuso) |
 | `/chart/:id` | Chart: bodygraph o ruota (con legenda cliccabile per un lato solo) + card tipo/strategia/autorità/profilo/definizione/croce; tab Attivazioni, Centri, Canali, Conscio e inconscio, Variabili, Croce |
+| `/chart/:id/ritorno?at=<UTC>` | Chart calcolato all'istante esatto di un ritorno planetario |
 | `/chart/:id/stampa` | Versione stampabile (PDF), con la ruota a richiesta |
-| `/oggi` | Transiti di oggi sul chart selezionato; timeline delle 24 ore successive (cambi di porta, canali e centri accesi) |
+| `/chart/:id/diario` | Diario di sperimentazione del chart: note datate (testo, giorno, esito facoltativo allineato/così così/non allineato, umore facoltativo) su come si vivono Strategia e Autorità; promemoria di Strategia e Autorità, spunti di scrittura, lista cronologica, aggiunta/modifica/eliminazione |
+| `/oggi` | Transiti di oggi sul chart selezionato; timeline delle 24 ore successive (cambi di porta, canali e centri accesi); sotto la ruota/bodygraph un controllo per scorrere il tempo (passo ora/giorno/settimana/mese, slider con frecce, indietro/avanti, riproduzione disattivata con «riduci animazioni»), sincronizzato con data/ora e «Adesso» |
 | `/connessione` | Connessione tra due chart salvati (bodygraph composito o ruota a due orbite) |
-| `/persone` | Chart salvati: ricerca e filtro per relazione, aggiungi, modifica, elimina, importa/esporta JSON |
+| `/persone` | Chart salvati: ricerca (anche nelle etichette) e filtri per relazione e per etichetta, aggiungi, modifica (anche le etichette libere), elimina, accesso al diario, importa/esporta JSON (chart, etichette e note) |
+| `/gruppi` | Gruppi salvati: membri selezionabili e analisi delle 12 porte e 6 canali |
 | `/enciclopedia` (+ `/porte/:n`, `/canali/:id`, `/centri/:id`, `/tipi/:id`, `/profili/:id`, `/croci`) | Enciclopedia |
-| `/impostazioni` | Lingua, tema, nodo vero/medio, cancellazione dati, licenza e sorgente, disclaimer |
+| `/enciclopedia/percorsi` (+ `/:id`, `/:id/:lezione`) | Percorsi di apprendimento: elenco con avanzamento, panoramica del percorso, lezione con testo (semplice/approfondito, come nelle schede), "nel tuo chart", collegamenti alle voci, domanda di verifica, avanti/indietro |
+| `/impostazioni` | Lingua, tema, nodo vero/medio, notifiche dei transiti, cancellazione dati, licenza e sorgente, disclaimer |
 
 Gli URL sono relativi al `base` di Vite (`BASE_PATH`): `/` in locale, `/human-design-system-app/` su GitHub Pages,
 dove l'app è pubblicata dalla CI (job `deploy`). Con `apps/server` (fase 2) servirà un hosting con runtime server.
 
-Navigazione: laterale su desktop con tutte le sezioni (Il mio chart, Oggi, Persone, Connessione,
+La pagina chart calcola i ritorni di Saturno (cicli successivi) e l'opposizione di Urano; mostra tutti i
+contatti esatti, compresi quelli retrogradi. Chirone è escluso dalle 13 attivazioni standard: il suo pannello
+carica i file Swiss `.se1` solo su richiesta e usa un'istanza effemeride separata con flag Swiss esplicito.
+La cache runtime del service worker mantiene i file per l'uso offline. Il chart del ritorno usa il provider
+standard Moshier e l'URL porta l'istante UTC.
+
+Il progresso dei percorsi (lezioni completate per percorso) è in `localStorage`, chiave `hd:paths`, quindi resta
+sul dispositivo senza toccare lo schema Dexie; viene azzerato con la cancellazione dei dati. Il quiz non viene salvato.
+
+Navigazione: laterale su desktop con tutte le sezioni (Il mio chart, Oggi, Persone, Connessione, Gruppi,
 Enciclopedia, Impostazioni); barra inferiore su mobile con Il mio chart, Oggi, Persone e Altro, che apre un
-pannello con Connessione, Enciclopedia e Impostazioni.
+pannello con Connessione, Gruppi, Enciclopedia e Impostazioni.
+
+### 8.1 Dati locali (Dexie, schema v2)
+
+Database IndexedDB `hd-app`, accesso solo tramite i repository (ADR-003):
+
+| Tabella | Chiave e indici | Contenuto |
+|---|---|---|
+| `charts` | `id`, `name`, `createdAt`, `updatedAt`, `*tags` (multiEntry) | `SavedChart`: dati di nascita, relazione, note, **etichette libere** `tags?: string[]` |
+| `notes` | `id`, `chartId`, `date`, `[chartId+date]` | `JournalEntry` del diario: `chartId`, `date` (`YYYY-MM-DD`), `text`, `outcome?`, `mood?`, `createdAt`, `updatedAt` |
+| `groups` | `id`, `name`, `updatedAt` | `SavedGroup` per Penta e gruppi: `name`, `memberIds`, `createdAt`, `updatedAt` |
+| `settings` | `id` (riga `main`) | Impostazioni |
+
+- **Migrazione v1 → v2** (`version(2)` in `data/db.ts`): aggiunge l'indice `*tags` e le tabelle `notes` e `groups`; non
+  tocca i dati esistenti (i chart v1 restano senza `tags`, `schemaVersion` del chart resta 1 perché il
+  campo è facoltativo). Coperta da `test/migration.test.ts`.
+- **Etichette**: normalizzate da `data/tags.ts` (spazi compattati, max 30 caratteri, max 10 per chart,
+  doppioni eliminati senza badare a maiuscole/accenti, vince la prima grafia). Filtro e ricerca in
+  `pages/PeoplePage.tsx` e `lib/peopleSearch.ts` (le etichette fanno parte del testo cercato).
+- **Integrità**: eliminare un chart elimina le sue note nella stessa transazione
+  (`ChartRepository.remove`); "Cancella tutti i dati" svuota anche `notes` e `groups`. I membri
+  dei gruppi che non esistono più sono ignorati all'analisi e all'import.
+- **Backup JSON**: `version: 2` aggiunge `notes[]`, `groups[]` e `tags` sui chart. I backup `version: 1` si importano
+  ancora (nessuna nota, nessuna etichetta). Le note devono riferirsi a un chart presente nel file,
+  altrimenti il file è rifiutato per intero. All'import le note seguono la regola dei chart: id nuovo →
+  aggiunta; id esistente → sostituita solo se `updatedAt` è più recente.
+
+### 8.2 Notifiche dei transiti (locali)
+
+Senza server e senza Web Push: `features/notifications` pianifica con la timeline di `features/today`
+(48 ore, canali che il transito completa col chart principale e cambi di porta dei pianeti scelti) e mostra
+gli avvisi con `ServiceWorkerRegistration.showNotification` (ripiego `new Notification`) **solo finché l'app
+o la PWA è aperta**, anche in una scheda in background. `TransitNotifier` (montato in `App`) ripianifica al
+cambio di chart principale, nodo e impostazioni, al ritorno in primo piano e ogni 6 ore; gli avvisi già
+consegnati si ricordano in `localStorage` (`hd:notified`). Il permesso si chiede solo dal pannello in
+Impostazioni; permesso negato o API assente sono spiegati in UI. Ad app chiusa non arriva nulla (servirà
+`apps/server`, fase 2); su iOS servono la PWA installata e iOS 16.4+.
+Preferenze in `Settings.notifications` (`enabled`, `channels`, `gates`, `bodies`, `lead: start | 10min`):
+nessuna migrazione Dexie, la riga `settings` resta unica e `sanitizeSettings` dà i predefiniti alle righe vecchie.
+
+### 8.3 Condivisione
+
+Pulsante **Condividi** in Chart e Oggi (`components/ShareButton`, logica pura in `lib/share.ts`): crea al clic
+un PNG di ciò che si vede (bodygraph o ruota, via `exportPng`) e lo passa a `navigator.share` allegandolo
+quando `navigator.canShare({ files })` lo consente. Ripieghi, in ordine: download del PNG, copia del link
+(URL dell'app, senza dati personali) o del testo negli appunti. L'annullamento dell'utente non attiva ripieghi.
+Nessun dato è inviato a servizi esterni: solo l'app di condivisione scelta dall'utente riceve il contenuto.
 
 ## 9. Design system
 
@@ -225,5 +297,5 @@ Comandi radice: `pnpm typecheck`, `pnpm test`, `pnpm build`, `pnpm e2e`.
 | Fase | Contenuto |
 |---|---|
 | **1 — MVP** | Tutto quanto sopra |
-| **2** | `apps/server`: pagine condivisibili SEO, AI con Claude, account e sync; Penta; ritorni planetari (Saturno, Urano, Chirone); ruota interattiva; notifiche |
+| **2** | `apps/server`: pagine condivisibili SEO, AI con Claude, account e sync; Penta; ruota interattiva; notifiche |
 | **3** | App negli store (Capacitor), diario di sperimentazione, percorsi di apprendimento |

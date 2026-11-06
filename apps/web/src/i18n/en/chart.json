@@ -1,5 +1,30 @@
 {
   "title": "Chart",
+  "returns": {
+    "title": "Planetary returns",
+    "intro": "See the exact Saturn contacts and Uranus opposition, calculated against the natal Personality longitude. Retrograde contacts appear separately.",
+    "interpretation": "A cyclical threshold can be a moment to notice how priorities and perspective are changing.",
+    "groupCore": "Saturn and Uranus",
+    "past": "past",
+    "future": "upcoming",
+    "openChart": "Open chart",
+    "chironLoad": "Calculate Chiron return",
+    "chironHide": "Hide Chiron",
+    "chironLoading": "Loading Chiron ephemeris…",
+    "chironError": "Chiron data could not be loaded. Saturn and Uranus are still available; try again while online.",
+    "eyebrow": "{{planet}}",
+    "chartTitle": "Return chart · {{name}}",
+    "chartSummary": "Moment summary",
+    "chartNote": "This chart shows the activations calculated at the selected instant; the natal chart remains the personal reference.",
+    "invalidDate": "Invalid return date",
+    "invalidDateHelp": "Open the natal chart and select a return from the list.",
+    "back": "Back to natal chart",
+    "planets": {
+      "saturn": "Saturn return",
+      "uranus": "Uranus opposition",
+      "chiron": "Chiron return"
+    }
+  },
   "tabs": {
     "label": "Chart details",
     "activations": "Activations",
@@ -38,7 +63,8 @@
     "edit": "Edit",
     "setPrimary": "Set as my chart",
     "exportPng": "Export PNG",
-    "print": "Print / PDF"
+    "print": "Print / PDF",
+    "diary": "Journal"
   },
   "toast": {
     "exported": "Image saved: {{file}}",
@@ -251,5 +277,19 @@
     "noBridges": "None: every channel in the chart is already complete within one of the two sides.",
     "gateFrom": "Gate {{gate}} · {{side}}",
     "bridgeCenters": "Centers defined only by the union of the two sides: {{centers}}."
+  },
+  "nextHours": {
+    "title": "Next 24 hours",
+    "hint": "What changes in the sky from now on, and which channels the transit lights up together with your chart.",
+    "loading": "Computing the transit…",
+    "empty": "In the next 24 hours there are no gate changes or new channels with your chart.",
+    "ingress": "{{planet}} enters gate {{gate}} · {{name}}",
+    "channelOn": "Channel {{id}} · {{name}} forms with you",
+    "more": "and {{count}} more changes",
+    "open": "Open Today"
+
+  },
+  "share": {
+    "text": "{{name}} — {{type}}, profile {{profile}}. Calculated with Human Design System."
   }
 }

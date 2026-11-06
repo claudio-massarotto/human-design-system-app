@@ -66,6 +66,19 @@ export const BookIcon = make(
     <path d="M9 8h7" />
   </>,
 );
+export const NotebookIcon = make(
+  <>
+    <path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z" />
+    <path d="M6 3v18M3 8h3M3 12h3M3 16h3" />
+    <path d="M10 8h5M10 12h5" />
+  </>,
+);
+export const TagIcon = make(
+  <>
+    <path d="M3 12.2V4a1 1 0 0 1 1-1h8.2a1 1 0 0 1 .7.3l7.8 7.8a1 1 0 0 1 0 1.4l-7.2 7.2a1 1 0 0 1-1.4 0L3.3 12.9a1 1 0 0 1-.3-.7z" />
+    <circle cx="8" cy="8" r="1.3" />
+  </>,
+);
 export const SettingsIcon = make(
   <>
     <path d="M4 7h10M18 7h2M4 17h2M10 17h10" />
@@ -151,4 +164,17 @@ export const SparkleIcon = make(
 );
 export const GithubIcon = make(
   <path d="M9 19c-4.300 1.400-4.300-2.500-6-3m12 5v-3.500c0-1 .1-1.400-.5-2 2.800-.3 5.500-1.400 5.500-6a4.600 4.600 0 0 0-1.300-3.200 4.200 4.200 0 0 0-.1-3.200s-1.100-.3-3.500 1.300a12.300 12.300 0 0 0-6.200 0C6.500 2.800 5.400 3.100 5.400 3.100a4.200 4.200 0 0 0-.1 3.200A4.600 4.600 0 0 0 4 9.500c0 4.600 2.700 5.700 5.500 6-.6.600-.6 1.200-.5 2V21" />,
+);
+export const PlayIcon = make(<path d="M8 5.5v13l10-6.5z" />);
+export const PauseIcon = make(
+  <>
+    <path d="M9 6v12" />
+    <path d="M15 6v12" />
+  </>,
+);
+export const ShareIcon = make(
+  <>
+    <path d="M12 15V4m0 0L8 8m4-4 4 4" />
+    <path d="M5 12v6.500A1.500 1.500 0 0 0 6.500 20h11a1.500 1.500 0 0 0 1.500-1.500V12" />
+  </>,
 );

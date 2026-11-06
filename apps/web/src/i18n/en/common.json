@@ -9,12 +9,14 @@
     "chart": "My chart",
     "today": "Today",
     "people": "People",
+    "groups": "Groups",
     "connection": "Connection",
     "encyclopedia": "Encyclopedia",
     "settings": "Settings",
     "more": "More",
     "moreTitle": "More sections",
     "hint": {
+      "groups": "Gates and channels shared by 3–5 charts",
       "connection": "How two charts meet",
       "encyclopedia": "Gates, channels, centers and the rest of the system",
       "settings": "Language, theme, calculation and data"
@@ -97,5 +99,12 @@
     "label": "View",
     "bodygraph": "Bodygraph",
     "wheel": "Wheel"
+  },
+  "share": {
+    "button": "Share",
+    "shared": "Shared.",
+    "downloaded": "Sharing isn't available: image saved ({{file}}).",
+    "copied": "Sharing isn't available: link copied to the clipboard.",
+    "error": "Couldn't share."
   }
 }

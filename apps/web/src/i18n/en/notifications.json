@@ -1,0 +1,10 @@
+{
+  "channel": {
+    "title": "Channel {{id}} forms with you",
+    "body": "{{name}}: the transit completes it at {{time}}."
+  },
+  "gate": {
+    "title": "{{planet}} enters gate {{gate}}",
+    "body": "{{name}}, from {{time}}."
+  }
+}

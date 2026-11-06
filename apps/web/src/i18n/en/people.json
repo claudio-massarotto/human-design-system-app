@@ -12,14 +12,16 @@
   },
   "search": {
     "label": "Search people",
-    "placeholder": "Name, place, type, profile…",
+    "placeholder": "Name, place, label, type, profile…",
     "hint": "You can also search a gate (41), a gate and line (41.3) or a channel (30-41).",
     "relation": "Relationship",
     "allRelations": "All relationships",
     "count_one": "{{count}} person of {{total}}",
     "count_other": "{{count}} people of {{total}}",
     "empty": "No one matches the search.",
-    "reset": "Clear the search"
+    "reset": "Clear the search",
+    "tag": "Label",
+    "allTags": "All labels"
   },
   "card": {
     "mine": "My chart",
@@ -28,7 +30,9 @@
     "edit": "Edit {{name}}",
     "editShort": "Edit",
     "delete": "Delete {{name}}",
-    "deleteShort": "Delete"
+    "deleteShort": "Delete",
+    "diary": "Journal of {{name}}",
+    "diaryShort": "Journal"
   },
   "delete": {
     "title": "Delete {{name}}?",
@@ -45,7 +49,8 @@
   },
   "export": {
     "done_one": "Exported {{count}} chart.",
-    "done_other": "Exported {{count}} charts."
+    "done_other": "Exported {{count}} charts.",
+    "error": "The backup could not be exported."
   },
   "import": {
     "tooLarge": "The file is too large (5 MB maximum).",
@@ -55,8 +60,11 @@
       "notJson": "The file is not valid JSON.",
       "wrongFormat": "The file is not a Human Design System backup.",
       "unsupportedVersion": "This backup version is not supported.",
-      "invalidChart": "Chart number {{n}} in the file is not valid: nothing was imported."
-    }
+      "invalidChart": "Chart number {{n}} in the file is not valid: nothing was imported.",
+      "invalidNote": "Journal note number {{n}} in the file is not valid: no data was imported."
+    },
+    "doneNotes_one": "{{count}} journal note imported too.",
+    "doneNotes_other": "{{count}} journal notes imported too."
   },
   "relation": {
     "me": "Me",
@@ -165,5 +173,16 @@
     "timeUnknown": "Unknown time: the chart is calculated at 12:00 local time, so some elements may be inaccurate.",
     "timeApproximate": "Approximate time: if the chart changes within a few minutes, check the time on an official document.",
     "historicalTimezone": "Date before 1970: historical time zone data is less reliable."
+  },
+  "tags": {
+    "label": "Labels (optional)",
+    "hint": "Your own categories, such as Favourites, Clients, Study (up to {{max}}). Press Enter to add.",
+    "current": "Labels",
+    "placeholder": "New label",
+    "full": "You have reached the maximum",
+    "add": "Add",
+    "remove": "Remove the label {{tag}}",
+    "suggestions": "Already in use:",
+    "useExisting": "Add the label {{tag}}"
   }
 }

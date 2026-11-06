@@ -15,6 +15,7 @@ import {
   type SectionKey,
 } from './model';
 import { Page, SearchField } from './parts';
+import { PATHS_BASE } from './learning';
 
 const PER_GROUP = 6;
 
@@ -114,41 +115,59 @@ export function IndexPage() {
           </div>
         </section>
       ) : (
-        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {SECTION_ORDER.map((s, i) => (
-            <motion.li
-              key={s}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: i * 0.025 }}
-            >
-              <Link
-                to={sectionHref(s)}
-                className="group flex h-full flex-col gap-2 rounded-card border border-border bg-surface p-5 shadow-card transition-[border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-accent/60"
+        <>
+          <Link
+            to={PATHS_BASE}
+            className="group mb-4 flex items-center gap-4 rounded-card border border-accent-2/40 bg-surface p-5 shadow-card transition-[border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-accent-2"
+          >
+            <span className="min-w-0 flex-1">
+              <span className="block font-display text-2xl font-semibold">{t('paths.title')}</span>
+              <span className="mt-1 block text-[14px] leading-snug text-muted">
+                {t('paths.entryBlurb')}
+              </span>
+            </span>
+            <ChevronRightIcon
+              size={18}
+              aria-hidden
+              className="shrink-0 text-accent-2 transition-transform group-hover:translate-x-0.5"
+            />
+          </Link>
+          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {SECTION_ORDER.map((s, i) => (
+              <motion.li
+                key={s}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: i * 0.025 }}
               >
-                <span className="flex items-baseline justify-between gap-3">
-                  <span className="font-display text-2xl font-semibold">
-                    {t(`sections.${s}.title`)}
+                <Link
+                  to={sectionHref(s)}
+                  className="group flex h-full flex-col gap-2 rounded-card border border-border bg-surface p-5 shadow-card transition-[border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-accent/60"
+                >
+                  <span className="flex items-baseline justify-between gap-3">
+                    <span className="font-display text-2xl font-semibold">
+                      {t(`sections.${s}.title`)}
+                    </span>
+                    <span className="text-sm tabular-nums text-(--color-accent-text)">
+                      {counts[s]}
+                    </span>
                   </span>
-                  <span className="text-sm tabular-nums text-(--color-accent-text)">
-                    {counts[s]}
+                  <span className="text-[14px] leading-snug text-muted">
+                    {t(`sections.${s}.blurb`)}
                   </span>
-                </span>
-                <span className="text-[14px] leading-snug text-muted">
-                  {t(`sections.${s}.blurb`)}
-                </span>
-                <span className="mt-auto flex items-center gap-1 pt-2 text-sm font-medium text-accent-2">
-                  {t('explore')}
-                  <ChevronRightIcon
-                    size={14}
-                    aria-hidden
-                    className="transition-transform group-hover:translate-x-0.5"
-                  />
-                </span>
-              </Link>
-            </motion.li>
-          ))}
-        </ul>
+                  <span className="mt-auto flex items-center gap-1 pt-2 text-sm font-medium text-accent-2">
+                    {t('explore')}
+                    <ChevronRightIcon
+                      size={14}
+                      aria-hidden
+                      className="transition-transform group-hover:translate-x-0.5"
+                    />
+                  </span>
+                </Link>
+              </motion.li>
+            ))}
+          </ul>
+        </>
       )}
     </Page>
   );

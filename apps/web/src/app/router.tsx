@@ -1,5 +1,6 @@
 import { createBrowserRouter, createMemoryRouter, type RouteObject } from 'react-router';
 import { routes as chartRoutes } from '../features/chart/routes';
+import { routes as diaryRoutes } from '../features/diary/routes';
 import { routes as todayRoutes } from '../features/today/routes';
 import { routes as encyclopediaRoutes } from '../features/encyclopedia/routes';
 import { AppShell } from './AppShell';
@@ -12,6 +13,7 @@ export const shellRoutes: RouteObject[] = [
   { path: 'nuovo', lazy: () => import('../pages/BirthFormPage') },
   { path: 'persone', lazy: () => import('../pages/PeoplePage') },
   { path: 'persone/:id/modifica', lazy: () => import('../pages/BirthFormPage') },
+  { path: 'gruppi', lazy: () => import('../pages/GroupsPage') },
   { path: 'impostazioni', lazy: () => import('../pages/SettingsPage') },
 ];
 
@@ -28,6 +30,7 @@ export const appRoutes: RouteObject[] = [
         children: [
           ...shellRoutes,
           ...chartRoutes,
+          ...diaryRoutes,
           ...todayRoutes,
           ...encyclopediaRoutes,
           { path: '*', lazy: () => import('../pages/NotFoundPage') },

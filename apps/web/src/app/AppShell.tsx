@@ -26,14 +26,14 @@ export interface RouteHandle {
 }
 
 interface NavItem {
-  key: 'chart' | 'today' | 'people' | 'connection' | 'encyclopedia' | 'settings';
+  key: 'chart' | 'today' | 'people' | 'groups' | 'connection' | 'encyclopedia' | 'settings';
   to: string;
   match(pathname: string): boolean;
   Icon(props: IconProps): ReactNode;
 }
 
 /** Su mobile queste voci stanno nel pannello "Altro"; su desktop sono tutte nella barra laterale. */
-const MORE_KEYS: readonly NavItem['key'][] = ['connection', 'encyclopedia', 'settings'];
+const MORE_KEYS: readonly NavItem['key'][] = ['groups', 'connection', 'encyclopedia', 'settings'];
 
 function useNavItems(): NavItem[] {
   const { settings } = useSettings();
@@ -63,6 +63,12 @@ function useNavItems(): NavItem[] {
         to: '/connessione',
         match: (p) => p.startsWith('/connessione'),
         Icon: ConnectionIcon,
+      },
+      {
+        key: 'groups',
+        to: '/gruppi',
+        match: (p) => p.startsWith('/gruppi'),
+        Icon: PeopleIcon,
       },
       {
         key: 'encyclopedia',

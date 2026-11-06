@@ -17,14 +17,18 @@ export function useBackupImport() {
       if (!result.ok) {
         const e = result.error;
         toast(
-          t(`import.error.${e.code}`, { n: e.code === 'invalidChart' ? e.index + 1 : 0 }),
+          t(`import.error.${e.code}`, {
+            n: e.code === 'invalidChart' || e.code === 'invalidNote' ? e.index + 1 : 0,
+          }),
           'error',
         );
         return;
       }
       try {
         const s = await applyBackup(result.backup, defaultRepos);
-        toast(t('import.done', { added: s.added, updated: s.updated, skipped: s.skipped }));
+        const notes = s.notesAdded + s.notesUpdated;
+        const done = t('import.done', { added: s.added, updated: s.updated, skipped: s.skipped });
+        toast(notes > 0 ? `${done} ${t('import.doneNotes', { count: notes })}` : done);
       } catch {
         toast(t('import.writeError'), 'error');
       }

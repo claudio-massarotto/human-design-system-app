@@ -159,3 +159,9 @@ export const PauseIcon = make(
     <path d="M15 6v12" />
   </>,
 );
+export const ShareIcon = make(
+  <>
+    <path d="M12 15V4m0 0L8 8m4-4 4 4" />
+    <path d="M5 12v6.500A1.500 1.500 0 0 0 6.500 20h11a1.500 1.500 0 0 0 1.500-1.500V12" />
+  </>,
+);

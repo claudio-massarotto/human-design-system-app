@@ -1,4 +1,4 @@
-import type { BirthInput, NodeMode } from '@hd/core';
+import type { BirthInput, Body, NodeMode } from '@hd/core';
 import type { Locale } from '@hd/content';
 
 export const RELATIONS = ['me', 'partner', 'family', 'friend', 'colleague', 'other'] as const;
@@ -38,6 +38,28 @@ export interface GroupRepository {
 export type ThemeSetting = 'system' | 'light' | 'dark';
 export type ContentLevel = 'simple' | 'deep';
 
+/** Quanto prima dell'evento arriva l'avviso. */
+export type NotificationLead = 'start' | '10min';
+
+/** Notifiche dei transiti (locali: funzionano solo con l'app o la PWA aperta). */
+export interface NotificationSettings {
+  enabled: boolean;
+  /** Avvisa quando un transito completa un canale del chart principale. */
+  channels: boolean;
+  /** Avvisa quando i pianeti scelti in `bodies` cambiano porta. */
+  gates: boolean;
+  bodies: Body[];
+  lead: NotificationLead;
+}
+
+export const DEFAULT_NOTIFICATIONS: NotificationSettings = {
+  enabled: false,
+  channels: true,
+  gates: false,
+  bodies: ['sun'],
+  lead: 'start',
+};
+
 export interface Settings {
   locale: Locale;
   theme: ThemeSetting;
@@ -47,6 +69,8 @@ export interface Settings {
   contentLevel: ContentLevel;
   /** Il "mio chart". */
   primaryChartId?: string;
+  /** Notifiche dei transiti; le impostazioni vecchie ricevono i valori predefiniti. */
+  notifications: NotificationSettings;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -54,6 +78,7 @@ export const DEFAULT_SETTINGS: Settings = {
   theme: 'system',
   node: 'true',
   contentLevel: 'simple',
+  notifications: DEFAULT_NOTIFICATIONS,
 };
 
 export interface ChartRepository {

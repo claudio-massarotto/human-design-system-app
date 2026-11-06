@@ -286,5 +286,9 @@
     "channelOn": "Si forma con te il canale {{id}} · {{name}}",
     "more": "e altri {{count}} cambi",
     "open": "Apri Oggi"
+
+  },
+  "share": {
+    "text": "{{name}} — {{type}}, profilo {{profile}}. Calcolato con Human Design System."
   }
 }

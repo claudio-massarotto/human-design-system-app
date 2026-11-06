@@ -2,6 +2,7 @@ import { useState, type ReactNode } from 'react';
 import { RouterProvider } from 'react-router/dom';
 import { MotionConfig } from 'motion/react';
 import { SettingsProvider, useSettings } from '../data/SettingsProvider';
+import { TransitNotifier } from '../features/notifications/TransitNotifier';
 import { I18nProvider } from '../i18n/I18nProvider';
 import { EngineProvider } from '../lib/engine';
 import { ThemeProvider } from '../lib/theme';
@@ -27,6 +28,7 @@ export function App() {
               <MotionConfig reducedMotion="user">
                 <EngineProvider>
                   <RouterProvider router={router} />
+                  <TransitNotifier />
                   <Toaster />
                 </EngineProvider>
               </MotionConfig>

@@ -99,5 +99,12 @@
     "label": "Vista",
     "bodygraph": "Bodygraph",
     "wheel": "Ruota"
+  },
+  "share": {
+    "button": "Condividi",
+    "shared": "Condiviso.",
+    "downloaded": "Condivisione non disponibile: immagine salvata ({{file}}).",
+    "copied": "Condivisione non disponibile: link copiato negli appunti.",
+    "error": "Non è stato possibile condividere."
   }
 }

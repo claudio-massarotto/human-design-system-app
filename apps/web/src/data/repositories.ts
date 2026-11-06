@@ -1,6 +1,9 @@
 import { db as defaultDb, type HdDatabase, type SettingsRow } from './db';
+import { BODIES } from '@hd/core';
 import {
+  DEFAULT_NOTIFICATIONS,
   DEFAULT_SETTINGS,
+  type NotificationSettings,
   RELATIONS,
   type ChartRepository,
   type GroupRepository,
@@ -33,6 +36,21 @@ export function createGroupRepository(db: HdDatabase = defaultDb): GroupReposito
   };
 }
 
+/** Riconduce le notifiche lette dal disco a valori validi (campi mancanti → predefiniti). */
+export function sanitizeNotifications(raw: unknown): NotificationSettings {
+  const r = (raw && typeof raw === 'object' ? raw : {}) as Partial<NotificationSettings>;
+  const d = DEFAULT_NOTIFICATIONS;
+  return {
+    enabled: typeof r.enabled === 'boolean' ? r.enabled : d.enabled,
+    channels: typeof r.channels === 'boolean' ? r.channels : d.channels,
+    gates: typeof r.gates === 'boolean' ? r.gates : d.gates,
+    bodies: Array.isArray(r.bodies)
+      ? BODIES.filter((b) => (r.bodies as unknown[]).includes(b))
+      : [...d.bodies],
+    lead: r.lead === '10min' || r.lead === 'start' ? r.lead : d.lead,
+  };
+}
+
 /** Riconduce una riga letta dal disco a un Settings valido (valori sconosciuti → predefiniti). */
 export function sanitizeSettings(row: Partial<Settings> | undefined): Settings {
   const r = row ?? {};
@@ -47,6 +65,7 @@ export function sanitizeSettings(row: Partial<Settings> | undefined): Settings {
       r.contentLevel === 'deep' || r.contentLevel === 'simple'
         ? r.contentLevel
         : DEFAULT_SETTINGS.contentLevel,
+    notifications: sanitizeNotifications(r.notifications),
     ...(typeof r.primaryChartId === 'string' && r.primaryChartId
       ? { primaryChartId: r.primaryChartId }
       : {}),

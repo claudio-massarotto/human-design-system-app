@@ -286,5 +286,9 @@
     "channelOn": "Channel {{id}} · {{name}} forms with you",
     "more": "and {{count}} more changes",
     "open": "Open Today"
+
+  },
+  "share": {
+    "text": "{{name}} — {{type}}, profile {{profile}}. Calculated with Human Design System."
   }
 }

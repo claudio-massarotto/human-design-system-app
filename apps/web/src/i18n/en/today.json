@@ -163,5 +163,11 @@
     "play": "Start playback",
     "pause": "Stop playback",
     "reducedMotion": "Playback unavailable: you asked to reduce motion"
+
+  },
+  "share": {
+    "title": "Transits for {{date}}",
+    "text": "Transits for {{date}}: the Sun lights up “{{sun}}”, the Moon brings “{{moon}}” forward.",
+    "file": "transits"
   }
 }
